@@ -2037,6 +2037,14 @@ body {
 }
 /* ▲▲▲ 新CSS粘贴结束 ▲▲▲ */
 
+		<!-- 在chat-input-area内部，chat-input-main-row之前添加 -->
+<div id="reference-preview" style="display: none; padding: 8px; background: rgba(0,0,0,0.05); border-radius: 8px; margin-bottom: 8px; border-left: 3px solid #4CAF50;">
+  <div style="display: flex; justify-content: space-between;">
+    <div style="font-size: 13px; color: #666;" id="reference-preview-content"></div>
+    <button id="cancel-reference-btn" style="background: none; border: none; color: #999; cursor: pointer;">×</button>
+  </div>
+</div>
+		
 /* ▼▼▼ 【全新】群成员管理界面样式 ▼▼▼ */
 #member-management-list {
     padding: 0; /* 移除默认padding，让列表项撑满 */
