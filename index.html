@@ -612,6 +612,40 @@ body {
     font-weight: 600;
 }
 
+		/* ▼▼▼ 消息引用样式 ▼▼▼ */
+.message-bubble .quoted-message {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    padding: 6px 10px;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    border-left: 3px solid var(--accent-color);
+    font-size: 13px;
+    color: var(--text-secondary);
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.message-bubble.user .quoted-message {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-left-color: white;
+}
+
+.quoted-message .quoted-sender {
+    font-weight: 500;
+    margin-right: 5px;
+}
+
+.quoted-message .quoted-content {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/* ▲▲▲ 消息引用样式结束 ▲▲▲ */
+		
 /* === 动态界面 (QZone) 样式 (这是新添加的) === */
 #qzone-screen {
     background-color: #f0f2f5;
@@ -2036,14 +2070,6 @@ body {
     font-weight: 500;
 }
 /* ▲▲▲ 新CSS粘贴结束 ▲▲▲ */
-
-		<!-- 在chat-input-area内部，chat-input-main-row之前添加 -->
-<div id="reference-preview" style="display: none; padding: 8px; background: rgba(0,0,0,0.05); border-radius: 8px; margin-bottom: 8px; border-left: 3px solid #4CAF50;">
-  <div style="display: flex; justify-content: space-between;">
-    <div style="font-size: 13px; color: #666;" id="reference-preview-content"></div>
-    <button id="cancel-reference-btn" style="background: none; border: none; color: #999; cursor: pointer;">×</button>
-  </div>
-</div>
 		
 /* ▼▼▼ 【全新】群成员管理界面样式 ▼▼▼ */
 #member-management-list {
@@ -3983,6 +4009,10 @@ body {
             <!-- 添加新消息的按钮 -->
             <button id="add-message-editor-block-btn" class="form-button form-button-secondary" style="margin-top: 15px;">
                 [+] 添加下一条消息
+            </button>
+			<!-- 添加引用按钮 -->
+            <button id="quote-message-btn" class="form-button form-button-secondary" style="margin-top: 15px;">
+                ↖ 引用选中消息
             </button>
         </div>
         <div class="modal-footer">
