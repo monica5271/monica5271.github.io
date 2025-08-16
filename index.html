@@ -2251,6 +2251,52 @@ body {
 }
 /* ▲▲▲ 新CSS粘贴结束 ▲▲▲ */
 
+<script>
+// 存储引用的消息
+let quotedMessage = null;
+
+// 初始化函数
+document.addEventListener('DOMContentLoaded', function() {
+    // 为引用按钮添加点击事件
+    document.getElementById('quote-message-btn').addEventListener('click', function() {
+        const selectedMessages = document.querySelectorAll('.message.selected');
+        if (selectedMessages.length === 1) {
+            quotedMessage = {
+                content: selectedMessages[0].textContent.trim().substring(0, 100) // 截取前100个字符
+            };
+            alert('已选择引用消息，下次发送时将包含引用');
+        } else {
+            alert(selectedMessages.length > 1 ? '只能选择一条消息进行引用' : '请先选择一条消息');
+        }
+    });
+
+    // 模拟发送消息函数（你需要替换成实际的发送函数）
+    window.sendMessage = function(content) {
+        const chatContainer = document.getElementById('chat-messages'); // 确保有这个元素
+        const messageElement = document.createElement('div');
+        messageElement.className = 'message user-message';
+        messageElement.innerHTML = content;
+        
+        // 如果有引用消息
+        if (quotedMessage) {
+            const quoteElement = document.createElement('div');
+            quoteElement.className = 'quoted-message';
+            quoteElement.textContent = quotedMessage.content;
+            messageElement.insertBefore(quoteElement, messageElement.firstChild);
+            quotedMessage = null; // 清空引用
+        }
+        
+        chatContainer.appendChild(messageElement);
+    };
+});
+// 添加消息选择功能（如果还没有）
+document.addEventListener('click', function(e) {
+    if (e.target.closest('.message')) {
+        e.target.closest('.message').classList.toggle('selected');
+    }
+});
+</script>
+		
 /* ▼▼▼ 【全新】外卖响应状态样式 ▼▼▼ */
 
 /* === 同意支付后的样式 === */
