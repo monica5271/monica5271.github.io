@@ -352,68 +352,72 @@ body {
 }
 /* ▲▲▲ 替换结束 ▲▲▲ */
 
-          /* === 气泡优化版（保持配色+结构）=== */
-.message-bubble.user .content, 
+       /* === 现代化气泡（平滑渐变+自然透亮） === */
+.message-bubble.user .content,
 .message-bubble.ai .content {
-  /* 保持原有背景色和文字色（由主题控制） */
   position: relative;
-  overflow: hidden;
-  /* 更圆润的边角 */
-  border-radius: 12px !important; 
-  /* 缩小上下间距 */
-  margin: 4px 0 !important;
-  /* 添加内阴影提升质感 */
-  box-shadow: 
-    inset 0 1px 3px rgba(255,255,255,0.3),
-    inset 0 -1px 2px rgba(0,0,0,0.05) !important;
+  border-radius: 16px; /* 更柔和的圆角 */
+  margin: 6px 0; /* 更舒适的间距 */
+  overflow: hidden; /* 确保光泽效果不溢出 */
+  transition: all 0.2s ease; /* 添加微交互 */
 }
 
-/* 泡泡光泽效果（不改变底色） */
+/* 用户气泡（浅色系） */
+.message-bubble.user .content {
+  background: linear-gradient(135deg, #f0f7ff 0%, #e0f0ff 100%); /* 柔和渐变 */
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1),
+              0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* AI气泡（深色系） */
+.message-bubble.ai .content {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); /* 中性灰渐变 */
+  box-shadow: -2px 2px 8px rgba(0, 0, 0, 0.1),
+               0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* === 高级光泽效果（自然透亮） === */
 .message-bubble .content::before {
   content: "";
   position: absolute;
-  top: -15px;
-  left: -15px;
-  right: -15px;
-  height: 30px;
-  background: radial-gradient(
-    circle at 70% 20%,
-    rgba(255,255,255,0.5) 0%,
-    rgba(255,255,255,0) 70%
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60%;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 100%
   );
-  z-index: 1;
+  border-radius: 16px 16px 0 0; /* 匹配主圆角 */
   pointer-events: none;
+  z-index: 1;
 }
 
-/* 外部投影（增强立体感） */
-.message-bubble.user .content {
-  box-shadow: 
-    2px 2px 6px rgba(0,0,0,0.08),
-    0 1px 2px rgba(0,0,0,0.05),
-    /* 原有内阴影 */
-    inset 0 1px 3px rgba(255,255,255,0.3),
-    inset 0 -1px 2px rgba(0,0,0,0.05) !important;
-}
-
-.message-bubble.ai .content {
-  box-shadow: 
-    -2px 2px 6px rgba(0,0,0,0.08),
-    0 1px 2px rgba(0,0,0,0.05),
-    /* 原有内阴影 */
-    inset 0 1px 3px rgba(255,255,255,0.3),
-    inset 0 -1px 2px rgba(0,0,0,0.05) !important;
-}
-
-/* 保持原有小尾巴样式 */
+/* 气泡小尾巴优化 */
 .message-bubble::after {
   content: "";
   position: absolute;
-  width: 20px;  
-  height: 20px; 
-  background-size: contain;
-  background-repeat: no-repeat;
-  opacity: 1; 
-  z-index: 1;
+  width: 16px;
+  height: 16px;
+  background: inherit; /* 继承气泡背景色 */
+  clip-path: polygon(0 0, 100% 0, 100% 100%); /* 现代裁剪方案 */
+  z-index: 0;
+}
+
+/* 用户气泡小尾巴（右侧） */
+.message-bubble.user::after {
+  right: -8px;
+  top: 12px;
+  transform: rotate(-15deg);
+}
+
+/* AI气泡小尾巴（左侧） */
+.message-bubble.ai::after {
+  left: -8px;
+  top: 12px;
+  transform: rotate(15deg);
 }
 /* ▼▼▼ 引用消息样式 ▼▼▼ */
 .quoted-message {
@@ -3248,7 +3252,7 @@ body {
     text-align: center;
     flex-shrink: 0;
 }
-/* ▼▼▼ 屏幕button; 相关样式 ▼▼▼ */
+/* ▼▼▼ 屏幕button相关样式 ▼▼▼ */
 .app-option {
     display: flex;
     align-items: center;
@@ -3628,11 +3632,33 @@ body {
             <button id="voice-message-btn" class="chat-action-icon-btn action-button" title="发送语音"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v4"/><path d="M8 23h8"/></svg></button>
 <!-- ▼▼▼ 将这行新代码粘贴到“发送语音”按钮的后面 ▼▼▼ -->
 <button id="send-waimai-request-btn" class="chat-action-icon-btn action-button" title="发起外卖请求"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></button>
-<button  id="send-waimai-request-btn" class="chat-action-icon-btn action-button; " title="发起外卖请求"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></button; >
-<!-- ▼▼▼ 屏幕button; 按钮 ▼▼▼ -->
-<button  id="screen-share-btn" class="chat-action-icon-btn action-button; " 
-        style="font-size:20px;padding:0 10px">
-    👁️ button; 
+<!-- 纯CSS灰色眼睛按钮 -->
+<button id="screen-share-btn" class="chat-action-icon-btn action-button" 
+        style="padding: 0 10px; width: 36px; height: 36px;">
+    <span class="eye-icon"></span>
+</button>
+<style>
+/* 眼睛图标CSS */
+.eye-icon {
+    display: inline-block;
+    width: 20px;
+    height: 12px;
+    border: 2px solid #888; /* 灰色边框 */
+    border-radius: 50% 50% 50% 50%/60% 60% 40% 40%; /* 眼睛形状 */
+    position: relative;
+}
+
+.eye-icon::before {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 4px;
+    width: 6px;
+    height: 6px;
+    background: #555; /* 瞳孔颜色 */
+    border-radius: 50%;
+}
+</style>
 </button >
  <button  id="mood-diary-btn" class="chat-action-icon-btn action-button; " title="AI心情日记">
     <!-- 灰色爱心SVG -->
