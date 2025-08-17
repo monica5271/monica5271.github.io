@@ -352,20 +352,112 @@ body {
 }
 /* ▲▲▲ 替换结束 ▲▲▲ */
 
-        /* === 气泡主题样式 === */
-        .message-bubble.user .content { background-color: rgba(255, 255, 255, 0.75); color: #585858; border-radius: 8px 2px 8px 8px; }
-        .message-bubble.ai .content { background-color: rgba(255, 255, 255, 0.7); color: #585858; border-radius: 2px 8px 8px 8px; }
-      
-.message-bubble::after {
-    content: "";
-    position: absolute;
-    width: 20px;  
-    height: 20px; 
-    background-size: contain;
-    background-repeat: no-repeat;
-    opacity: 1; 
-    z-index: 1;
+       /* === 气泡优化版（保持配色+结构）=== */
+.message-bubble.user .content, 
+.message-bubble.ai .content {
+  /* 保持原有背景色和文字色（由主题控制） */
+  position: relative;
+  overflow: hidden;
+  /* 更圆润的边角 */
+  border-radius: 12px !important; 
+  /* 缩小上下间距 */
+  margin: 4px 0 !important;
+  /* 添加内阴影提升质感 */
+  box-shadow: 
+    inset 0 1px 3px rgba(255,255,255,0.3),
+    inset 0 -1px 2px rgba(0,0,0,0.05) !important;
 }
+
+/* 泡泡光泽效果（不改变底色） */
+.message-bubble .content::before {
+  content: "";
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  right: -15px;
+  height: 30px;
+  background: radial-gradient(
+    circle at 70% 20%,
+    rgba(255,255,255,0.5) 0%,
+    rgba(255,255,255,0) 70%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* 外部投影（增强立体感） */
+.message-bubble.user .content {
+  box-shadow: 
+    2px 2px 6px rgba(0,0,0,0.08),
+    0 1px 2px rgba(0,0,0,0.05),
+    /* 原有内阴影 */
+    inset 0 1px 3px rgba(255,255,255,0.3),
+    inset 0 -1px 2px rgba(0,0,0,0.05) !important;
+}
+
+.message-bubble.ai .content {
+  box-shadow: 
+    -2px 2px 6px rgba(0,0,0,0.08),
+    0 1px 2px rgba(0,0,0,0.05),
+    /* 原有内阴影 */
+    inset 0 1px 3px rgba(255,255,255,0.3),
+    inset 0 -1px 2px rgba(0,0,0,0.05) !important;
+}
+
+/* 保持原有小尾巴样式 */
+.message-bubble::after {
+  content: "";
+  position: absolute;
+  width: 20px;  
+  height: 20px; 
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 1; 
+  z-index: 1;
+}
+/* ▼▼▼ 引用消息样式 ▼▼▼ */
+.quoted-message {
+    display: flex;
+    max-width: 80%;
+    margin: 4px 0 2px 12px;
+    padding: 6px 10px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    font-size: 0.85em;
+    color: var(--text-secondary);
+    border-left: 2px solid rgba(0, 122, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+/* 用户消息的引用样式 */
+.message.user .quoted-message {
+    margin-left: auto;
+    margin-right: 12px;
+    background: rgba(0, 122, 255, 0.08);
+    border-left-color: rgba(0, 122, 255, 0.5);
+}
+
+/* 被引用的消息标识 */
+.quoted-message::before {
+    content: "↩︎ 引用";
+    display: inline-block;
+    margin-right: 6px;
+    font-size: 0.75em;
+    color: rgba(0, 0, 0, 0.4);
+}
+
+/* 被引用时的消息高亮 */
+.message.quoted {
+    animation: quoted-highlight 1.5s ease-out;
+}
+
+@keyframes quoted-highlight {
+    0% { background-color: rgba(0, 122, 255, 0.15); }
+    100% { background-color: transparent; }
+}
+/* ▲▲▲ 样式结束 ▲▲▲ */
+/* ▲▲▲ 新增结束 ▲▲▲ */
       
         #chat-messages[data-theme="pink_blue"] .message-bubble.user .content { background-color: #fff0f6; color: #432531; }
         #chat-messages[data-theme="pink_blue"] .message-bubble.ai .content { background-color: #eff7ff; color: #263a4e; }
@@ -612,40 +704,6 @@ body {
     font-weight: 600;
 }
 
-		/* ▼▼▼ 消息引用样式 ▼▼▼ */
-.message-bubble .quoted-message {
-    display: flex;
-    align-items: center;
-    margin-bottom: 8px;
-    padding: 6px 10px;
-    background-color: rgba(0, 0, 0, 0.05);
-    border-radius: 8px;
-    border-left: 3px solid var(--accent-color);
-    font-size: 13px;
-    color: var(--text-secondary);
-    max-width: 100%;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-.message-bubble.user .quoted-message {
-    background-color: rgba(255, 255, 255, 0.2);
-    border-left-color: white;
-}
-
-.quoted-message .quoted-sender {
-    font-weight: 500;
-    margin-right: 5px;
-}
-
-.quoted-message .quoted-content {
-    flex: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-/* ▲▲▲ 消息引用样式结束 ▲▲▲ */
-		
 /* === 动态界面 (QZone) 样式 (这是新添加的) === */
 #qzone-screen {
     background-color: #f0f2f5;
@@ -2070,7 +2128,7 @@ body {
     font-weight: 500;
 }
 /* ▲▲▲ 新CSS粘贴结束 ▲▲▲ */
-		
+
 /* ▼▼▼ 【全新】群成员管理界面样式 ▼▼▼ */
 #member-management-list {
     padding: 0; /* 移除默认padding，让列表项撑满 */
@@ -2250,7 +2308,7 @@ body {
     cursor: pointer;
 }
 /* ▲▲▲ 新CSS粘贴结束 ▲▲▲ */
-		
+
 /* ▼▼▼ 【全新】外卖响应状态样式 ▼▼▼ */
 
 /* === 同意支付后的样式 === */
@@ -3192,6 +3250,64 @@ body {
     flex-shrink: 0;
 }
 
+/* ▼▼▼ 屏幕共享相关样式 ▼▼▼ */
+.app-option {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+}
+
+.app-option:hover {
+    background-color: #f5f5f5;
+}
+
+.app-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    margin-right: 12px;
+}
+
+#app-simulator {
+    display: none;
+    background-color: rgba(0,0,0,0.7);
+}
+
+#app-simulator .modal-content {
+    border-radius: 12px;
+    overflow: hidden;
+    height: 80%;
+}
+
+.app-header {
+    padding: 12px 15px;
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+}
+
+.app-back-btn {
+    background: none;
+    border: none;
+    font-size: 18px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+#app-content {
+    height: calc(100% - 45px);
+    overflow-y: auto;
+    background-color: white;
+}
+/* ▲▲▲ 新增样式结束 ▲▲▲ */
 /* ▲▲▲ 新CSS粘贴结束 ▲▲▲ */
 
     </style>
@@ -3514,6 +3630,14 @@ body {
             <button id="voice-message-btn" class="chat-action-icon-btn action-button" title="发送语音"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v4"/><path d="M8 23h8"/></svg></button>
 <!-- ▼▼▼ 将这行新代码粘贴到“发送语音”按钮的后面 ▼▼▼ -->
 <button id="send-waimai-request-btn" class="chat-action-icon-btn action-button" title="发起外卖请求"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></button>
+<!-- ▼▼▼ 屏幕共享按钮 ▼▼▼ -->
+<button id="screen-share-btn" class="chat-action-icon-btn action-button" title="屏幕共享">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+        <circle cx="12" cy="12" r="3"></circle>
+    </svg>
+</button>
+<!-- ▲▲▲ 新增结束 ▲▲▲ -->
 <!-- ▲▲▲ 新代码粘贴结束 ▲▲▲ -->
 <!-- ▼▼▼ 【新增】视频通话按钮 ▼▼▼ -->
 <button id="video-call-btn" class="chat-action-icon-btn action-button" title="视频通话"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg></button>
@@ -3537,6 +3661,43 @@ body {
 <!-- ▼▼▼ 在这里新增 ▼▼▼ -->
 <div id="chat-lock-overlay">
     <div id="chat-lock-content"></div>
+</div>
+
+<!-- ▼▼▼ 屏幕共享模态框 ▼▼▼ -->
+<div id="screen-share-modal" class="modal">
+    <div class="modal-content" style="width: 90%; max-width: 400px;">
+        <div class="modal-header">
+            <span>查看AI的屏幕</span>
+            <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <div class="app-option" data-app="meituan">
+                <div class="app-icon" style="background-color: #FFD700;">美</div>
+                <span>美团外卖</span>
+            </div>
+            <div class="app-option" data-app="baidu">
+                <div class="app-icon" style="background-color: #3385FF;">百</div>
+                <span>百度搜索</span>
+            </div>
+            <div class="app-option" data-app="netease">
+                <div class="app-icon" style="background-color: #E60026;">云</div>
+                <span>网易云音乐</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ▼▼▼ 应用模拟器容器 ▼▼▼ -->
+<div id="app-simulator" class="modal">
+    <div class="modal-content" style="width: 95%; max-width: 414px; padding: 0;">
+        <div class="app-header">
+            <button id="back-to-apps-btn" class="app-back-btn">←</button>
+            <span id="app-title">应用</span>
+        </div>
+        <div id="app-content">
+            <!-- 这里会动态加载不同应用的内容 -->
+        </div>
+    </div>
 </div>
 <!-- ▲▲▲ 新增结束 ▲▲▲ -->
 
@@ -4010,10 +4171,6 @@ body {
             <button id="add-message-editor-block-btn" class="form-button form-button-secondary" style="margin-top: 15px;">
                 [+] 添加下一条消息
             </button>
-			<!-- 添加引用按钮 -->
-            <button id="quote-message-btn" class="form-button form-button-secondary" style="margin-top: 15px;">
-                ↖ 引用选中消息
-            </button>
         </div>
         <div class="modal-footer">
             <button class="cancel" id="cancel-advanced-editor-btn">取消</button>
@@ -4069,6 +4226,32 @@ body {
     </div>
 </div>
 <!-- ▲▲▲ 新HTML粘贴结束 ▲▲▲ -->
+
+<!-- ▼▼▼ 【全新】消息引用 ▼▼▼ -->
+<div id="message-editor-modal" class="modal">
+    <div class="modal-content" style="height: 75%;">
+        <div class="modal-header">
+            <span>编辑与拆分消息</span>
+        </div>
+        <div class="modal-body" id="message-editor-body">
+            <!-- 新增引用显示区域 -->
+            <div id="quote-preview" class="quoted-message" style="display: none; margin-bottom: 10px;"></div>
+            
+            <div id="message-editor-container"></div>
+            <button id="add-message-editor-block-btn" class="form-button form-button-secondary" style="margin-top: 15px;">
+                [+] 添加下一条消息
+            </button>
+            <!-- 新增引用按钮 -->
+            <button id="quote-message-btn" class="form-button form-button-secondary" style="margin-top: 10px;">
+                ↖ 引用选中消息
+            </button>
+        </div>
+        <div class="modal-footer">
+            <button class="cancel" id="cancel-advanced-editor-btn">取消</button>
+            <button class="save" id="save-advanced-editor-btn">保存更改</button>
+        </div>
+    </div>
+</div>
 
 <!-- ▼▼▼ 【全新】发红包模态框 ▼▼▼ -->
 <div id="red-packet-modal" class="modal">
@@ -11359,7 +11542,217 @@ document.getElementById('chat-messages').addEventListener('click', (e) => {
     }
 });
 // ▲▲▲ 新事件监听器粘贴结束 ▲▲▲
+// ▼▼▼ 屏幕共享功能 ▼▼▼
+document.getElementById('screen-share-btn').addEventListener('click', function() {
+    document.getElementById('screen-share-modal').style.display = 'block';
+});
 
+// 关闭模态框
+document.querySelector('#screen-share-modal .close').addEventListener('click', function() {
+    document.getElementById('screen-share-modal').style.display = 'none';
+});
+
+// 应用选择
+document.querySelectorAll('.app-option').forEach(option => {
+    option.addEventListener('click', function() {
+        const app = this.getAttribute('data-app');
+        showAppSimulator(app);
+    });
+});
+
+// 返回应用列表
+document.getElementById('back-to-apps-btn').addEventListener('click', function() {
+    document.getElementById('screen-share-modal').style.display = 'block';
+    document.getElementById('app-simulator').style.display = 'none';
+});
+
+// 显示应用模拟器
+function showAppSimulator(app) {
+    document.getElementById('screen-share-modal').style.display = 'none';
+    document.getElementById('app-simulator').style.display = 'block';
+    document.getElementById('app-title').textContent = 
+        app === 'meituan' ? '美团外卖' : 
+        app === 'baidu' ? '百度搜索' : '网易云音乐';
+    
+    const appContent = document.getElementById('app-content');
+    appContent.innerHTML = '';
+    
+    if (app === 'meituan') {
+        showMeituan(appContent);
+    } else if (app === 'baidu') {
+        showBaidu(appContent);
+    } else {
+        showNetease(appContent);
+    }
+}
+
+// 美团外卖模拟
+function showMeituan(container) {
+    const foods = ['黄焖鸡米饭', '麻辣香锅', '牛肉面', '披萨', '寿司', '沙拉'];
+    const shops = ['美食坊', '快乐餐厅', '香满楼', '快捷美食', '美味佳肴'];
+    const prices = [25, 30, 35, 40, 45, 50, 55];
+    
+    container.innerHTML = `
+        <div style="background-color: #FFD700; padding: 15px; color: white;">
+            <h3 style="margin: 0;">美团外卖</h3>
+        </div>
+        <div style="padding: 15px;">
+            <div style="display: flex; margin-bottom: 20px;">
+                <input type="text" placeholder="搜索商家或商品" style="flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+            </div>
+            <h4 style="margin-top: 0;">AI最近点过的外卖</h4>
+            ${Array.from({length: 3}).map(() => `
+                <div style="border: 1px solid #eee; border-radius: 8px; padding: 10px; margin-bottom: 10px;">
+                    <div style="font-weight: bold;">${shops[Math.floor(Math.random() * shops.length)]}</div>
+                    <div>${foods[Math.floor(Math.random() * foods.length)]} · ¥${prices[Math.floor(Math.random() * prices.length)]}</div>
+                    <div style="color: #888; font-size: 12px;">${Math.floor(Math.random() * 5) + 1}天前</div>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
+// 百度搜索模拟
+function showBaidu(container) {
+    const searches = [
+        '如何学习编程', 
+        '最新科技新闻', 
+        '健康饮食建议', 
+        '旅游景点推荐', 
+        '电影推荐'
+    ];
+    
+    container.innerHTML = `
+        <div style="background-color: #3385FF; padding: 15px; color: white;">
+            <h3 style="margin: 0;">百度搜索</h3>
+        </div>
+        <div style="padding: 15px; text-align: center;">
+            <img src="https://www.baidu.com/img/flexible/logo/pc/result.png" style="width: 150px; margin: 20px 0;">
+            <div style="display: flex; margin-bottom: 30px;">
+                <input type="text" value="${searches[Math.floor(Math.random() * searches.length)]}" style="flex: 1; padding: 8px; border: 1px solid #3385FF; border-radius: 4px 0 0 4px;">
+                <button style="background-color: #3385FF; color: white; border: none; padding: 0 15px; border-radius: 0 4px 4px 0;">搜索</button>
+            </div>
+            <div style="text-align: left;">
+                <h4 style="margin-top: 0;">AI的搜索历史</h4>
+                ${searches.map(search => `
+                    <div style="padding: 8px 0; border-bottom: 1px solid #eee; display: flex; justify-content: space-between;">
+                        <span>${search}</span>
+                        <span style="color: #888;">${Math.floor(Math.random() * 5) + 1}天前</span>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+}
+
+// 网易云音乐模拟
+function showNetease(container) {
+    const songs = [
+        {name: '晴天', artist: '周杰伦'},
+        {name: '平凡之路', artist: '朴树'},
+        {name: '起风了', artist: '买辣椒也用券'},
+        {name: '夜曲', artist: '周杰伦'},
+        {name: '理想三旬', artist: '陈鸿宇'}
+    ];
+    
+    container.innerHTML = `
+        <div style="background-color: #E60026; padding: 15px; color: white;">
+            <h3 style="margin: 0;">网易云音乐</h3>
+        </div>
+        <div style="padding: 15px;">
+            <div style="display: flex; margin-bottom: 20px;">
+                <input type="text" placeholder="搜索音乐、歌手" style="flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+            </div>
+            <h4 style="margin-top: 0;">AI最近听的歌</h4>
+            ${songs.map(song => `
+                <div style="display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee;">
+                    <div style="width: 40px; height: 40px; background-color: #f0f0f0; margin-right: 10px;"></div>
+                    <div>
+                        <div style="font-weight: bold;">${song.name}</div>
+                        <div style="color: #888; font-size: 12px;">${song.artist}</div>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+// ▲▲▲ 屏幕共享功能结束 ▲▲▲
+
+// ▼▼▼ 引用功能 ▼▼▼
+let quotedMessage = null;
+
+// 1. 长按菜单添加引用选项
+document.addEventListener('contextmenu', function(e) {
+    const msgElement = e.target.closest('.message');
+    if (msgElement) {
+        e.preventDefault();
+        showContextMenu(msgElement, e.clientX, e.clientY, [
+            {text: '引用回复', action: () => prepareQuote(msgElement)},
+            // 其他已有菜单项...
+        ]);
+    }
+});
+
+// 2. 准备引用
+function prepareQuote(messageElement) {
+    quotedMessage = {
+        id: messageElement.dataset.messageId || Date.now(),
+        text: messageElement.textContent.trim().substring(0, 100),
+        isAI: messageElement.classList.contains('ai-message')
+    };
+    
+    // 高亮被引用的消息
+    messageElement.classList.add('quoted');
+    setTimeout(() => messageElement.classList.remove('quoted'), 1500);
+    
+    // 自动聚焦输入框
+    document.getElementById('chat-input').focus();
+}
+
+// 3. 发送带引用的消息
+function sendMessageWithQuote() {
+    const messageText = document.getElementById('chat-input').value;
+    if (!messageText.trim()) return;
+
+    const messageElement = document.createElement('div');
+    messageElement.className = 'message user-message';
+    
+    // 添加引用内容
+    if (quotedMessage) {
+        const quoteElement = document.createElement('div');
+        quoteElement.className = 'quoted-message';
+        quoteElement.textContent = quotedMessage.text;
+        messageElement.appendChild(quoteElement);
+        quotedMessage = null; // 清除引用
+    }
+    
+    // 添加消息内容
+    const contentElement = document.createElement('div');
+    contentElement.textContent = messageText;
+    messageElement.appendChild(contentElement);
+    
+    // 添加到聊天区域
+    document.getElementById('chat-messages').appendChild(messageElement);
+    
+    // 清空输入框
+    document.getElementById('chat-input').value = '';
+}
+
+// 4. AI回复引用（在AI回复时调用）
+function aiReplyWithQuote(quoteText) {
+    const messageElement = document.createElement('div');
+    messageElement.className = 'message ai-message';
+    
+    if (quoteText) {
+        const quoteElement = document.createElement('div');
+        quoteElement.className = 'quoted-message';
+        quoteElement.textContent = quoteText;
+        messageElement.appendChild(quoteElement);
+    }
+    
+    // ...添加AI回复内容...
+}
+// ▲▲▲ 引用功能结束 ▲▲▲
         // ===================================================================
         // 5. 启动！
             
