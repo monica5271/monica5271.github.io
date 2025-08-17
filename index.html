@@ -349,113 +349,52 @@ body {
     padding: 8px 12px;
     line-height: 1.5;
     word-break: break-word;
-    border-radius: 16px;
-    margin: 6px 0;
-    overflow: hidden;
-    transition: all 0.2s ease;
-}
-/* ▲▲▲ 通用样式结束 ▲▲▲ */
-
-/* ▼▼▼ 现代化气泡基础样式 ▼▼▼ */
-.message-bubble .content {
-    position: relative;
-    font-size: var(--chat-font-size, 16px);
-    padding: 8px 12px;
-    line-height: 1.5;
-    word-break: break-word;
-    border-radius: 16px;
-    margin: 6px 0;
-    overflow: hidden;
-    transition: all 0.2s ease;
-    
-    /* 微妙的渐变透亮效果 */
-    &::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 60%;
-        background: linear-gradient(
-            120deg,
-            rgba(255, 255, 255, 0.4) 0%,
-            rgba(255, 255, 255, 0.1) 50%,
-            rgba(255, 255, 255, 0) 100%
-        );
-        border-radius: 16px 16px 0 0;
-        pointer-events: none;
-        z-index: 1;
-    }
+    /* 新增：透亮渐变 + 阴影 */
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.85) 0%,
+        rgba(255, 255, 255, 0.7) 100%
+    );
+    box-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.05), /* 柔和外阴影 */
+        inset 0 0 10px rgba(255, 255, 255, 0.4); /* 内发光效果 */
+    backdrop-filter: blur(2px); /* 毛玻璃效果，可选 */
 }
 
-/* 用户气泡默认样式 */
+/* 用户气泡（右侧） */
 .message-bubble.user .content {
-    background: linear-gradient(
-        135deg, 
-        var(--user-bubble-bg, #f0f7ff) 0%, 
-        color-mix(in srgb, var(--user-bubble-bg, #f0f7ff), white 30%) 100%
-    );
-    color: var(--user-bubble-text, #585858);
+    color: #585858;
     border-radius: 8px 2px 8px 8px;
-    box-shadow: 
-        2px 2px 8px rgba(0, 0, 0, 0.1),
-        0 1px 2px rgba(0, 0, 0, 0.05);
+    /* 保留原背景色，但通过渐变增强透亮感 */
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.85) 0%,
+        rgba(255, 255, 255, 0.75) 100%
+    );
 }
 
-/* AI气泡默认样式 */
+/* AI气泡（左侧） */
 .message-bubble.ai .content {
-    background: linear-gradient(
-        135deg, 
-        var(--ai-bubble-bg, #f8f9fa) 0%, 
-        color-mix(in srgb, var(--ai-bubble-bg, #f8f9fa), white 30%) 100%
-    );
-    color: var(--ai-bubble-text, #585858);
+    color: #585858;
     border-radius: 2px 8px 8px 8px;
-    box-shadow: 
-        -2px 2px 8px rgba(0, 0, 0, 0.1),
-        0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-/* ▼▼▼ 主题颜色定义 ▼▼▼ */
-/* 粉蓝主题示例 - 其他主题保持相同模式 */
-#chat-messages[data-theme="pink_blue"] {
-    --user-bubble-bg: #fff0f6;
-    --user-bubble-text: #432531;
-    --ai-bubble-bg: #eff7ff;
-    --ai-bubble-text: #263a4e;
-    
-    /* 增强主题覆盖力 */
-    & .message-bubble.user .content {
-        background: linear-gradient(
-            135deg, 
-            #fff0f6 0%,
-            color-mix(in srgb, #fff0f6, white 30%) 100%
-        );
-    }
-    & .message-bubble.ai .content {
-        background: linear-gradient(
-            135deg, 
-            #eff7ff 0%,
-            color-mix(in srgb, #eff7ff, white 30%) 100%
-        );
-    }
-}
-
-/* 小尾巴样式修复 */
-.message-bubble.user::after {
+    /* 保留原背景色，但通过渐变增强透亮感 */
     background: linear-gradient(
-        135deg, 
-        var(--user-bubble-bg, #f0f7ff) 0%, 
-        color-mix(in srgb, var(--user-bubble-bg, #f0f7ff), white 30%) 100%
+        135deg,
+        rgba(255, 255, 255, 0.8) 0%,
+        rgba(255, 255, 255, 0.7) 100%
     );
 }
 
-.message-bubble.ai::after {
-    background: linear-gradient(
-        135deg, 
-        var(--ai-bubble-bg, #f8f9fa) 0%, 
-        color-mix(in srgb, var(--ai-bubble-bg, #f8f9fa), white 30%) 100%
-    );
+/* 气泡小箭头（如果需要） */
+.message-bubble::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 1;
+    z-index: 1;
 }
 
 /* ▼▼▼ 引用消息样式 ▼▼▼ */
@@ -6364,6 +6303,7 @@ ${chat.settings.aiPersona}
 - **【新】发起视频通话**: \`{"type": "video_call_request"}\`
 - **【新】回应视频通话-接受**: \`{"type": "video_call_response", "decision": "accept"}\`
 - **【新】回应视频通话-拒绝**: \`{"type": "video_call_response", "decision": "reject"}\`
+**【新】记录心情**: \`{"type": "video_call_request"}\`
 - **发布说说**: \`{"type": "qzone_post", "postType": "shuoshuo", "content": "动态的文字内容..."}\`
 - **发布文字图**: \`{"type": "qzone_post", "postType": "text_image", "publicText": "(可选)动态的公开文字", "hiddenContent": "对于图片的具体描述..."}\`
 - **评论动态**: \`{"type": "qzone_comment", "postId": 123, "commentText": "@作者名 这太有趣了！"}\`
@@ -11712,6 +11652,7 @@ document.getElementById('chat-messages').addEventListener('click', (e) => {
     }
 });
 // ▲▲▲ 新事件监听器粘贴结束 ▲▲▲
+
 // ▼▼▼ 屏幕button功能 ▼▼▼
 document.getElementById('screen-share-btn').addEventListener('click', function() {
     document.getElementById('screen-share-modal').style.display = 'block';
