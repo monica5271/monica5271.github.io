@@ -11764,7 +11764,7 @@ function generateOrder(mealType, weather, aiName) {
     reason = `${aiName}健身后需要高蛋白 · ${weather.name}${weather.icon}`;
   } else if (aiPersonality.isVegetarian) {
     reason = `${aiName}坚持素食 · ${weather.name}${weather.icon}`;
-  } else if (food.match(|甜|奶茶|布朗尼|冰激凌/)) {
+  } else if (food.match(甜|奶茶|布朗尼|冰激凌)) {
     reason = `${aiName}想犒劳自己 · ${weather.name}${weather.icon}`;
   }
 
