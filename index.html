@@ -99,8 +99,8 @@ body {
         .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 16px; box-sizing: border-box; }
         .form-group textarea { min-height: 80px; resize: vertical; }
         #world-book-content-input { height: calc(100% - 120px); }
-        .form-window.getComputedStyle(btn).visibility);  { width: 100%; padding: 15px; background-color: var(--accent-color); color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 10px; }
-        .form-window.getComputedStyle(btn).visibility); -secondary { background-color: #f0f0f0; color: var(--text-primary); border: 1px solid var(--border-color); }
+        .form-button;  { width: 100%; padding: 15px; background-color: var(--accent-color); color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 10px; }
+        .form-button; -secondary { background-color: #f0f0f0; color: var(--text-primary); border: 1px solid var(--border-color); }
         #wallpaper-screen .form-container { align-items: center; }
         #wallpaper-preview { width: 180px; height: 320px; border: 2px dashed var(--border-color); background-color: #f0f2f5; margin-bottom: 20px; background-size: cover; background-position: center; border-radius: 10px; display: flex; justify-content: center; align-items: center; color: var(--text-secondary); }
         #wallpaper-upload-input { display: none; }
@@ -214,7 +214,7 @@ body {
         #chat-input-area { flex-shrink: 0; padding: 8px; background-color: rgba(247, 247, 247, 0.8); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-top: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 5px; }
         #chat-input-main-row { display: flex; align-items: flex-end; gap: 8px; width: 100%; }
         #chat-input { flex-grow: 1; border: none; padding: 10px 15px; border-radius: 20px; background-color: var(--secondary-bg); font-size: 16px; max-height: 100px; resize: none; }
-        .action-window.getComputedStyle(btn).visibility);  { border: none; color: white; border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 14px; flex-shrink: 0; }
+        .action-button;  { border: none; color: white; border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 14px; flex-shrink: 0; }
         #send-btn { background-color: var(--accent-color); height: 40px; padding: 0 15px;}
         .modal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.4); display: none; justify-content: center; align-items: center; z-index: 100; }
         .modal.visible { display: flex; }
@@ -222,12 +222,12 @@ body {
         .modal-header { padding: 15px; font-weight: 600; border-bottom: 1px solid var(--border-color); text-align: center; display: flex; justify-content: space-between; align-items: center; }
         .modal-body { padding: 15px; overflow-y: auto; }
         .modal-footer { padding: 15px; border-top: 1px solid var(--border-color); display: flex; justify-content: space-around; }
-        .modal-footer window.getComputedStyle(btn).visibility);  { width: 45%; padding: 12px; border-radius: 8px; border: 1px solid var(--accent-color); cursor: pointer; font-size: 16px; }
+        .modal-footer button;  { width: 45%; padding: 12px; border-radius: 8px; border: 1px solid var(--accent-color); cursor: pointer; font-size: 16px; }
         .modal-footer .save { background-color: var(--accent-color); color: white; }
         .modal-footer .cancel { background-color: white; color: var(--accent-color); }
         .avatar-upload { display: flex; align-items: center; gap: 15px; }
         .avatar-upload img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; background-color: #eee; }
-        .avatar-upload window.getComputedStyle(btn).visibility);  { padding: 8px 12px; border: 1px solid #ccc; background-color: #f0f0f0; border-radius: 5px; cursor: pointer; }
+        .avatar-upload button;  { padding: 8px 12px; border: 1px solid #ccc; background-color: #f0f0f0; border-radius: 5px; cursor: pointer; }
         #open-persona-library-btn { font-size: 14px; padding: 6px 10px; margin-left: auto; }
         .avatar-upload input[type="file"] { display: none; }
         .theme-selector label { display: inline-flex; align-items: center; margin-right: 15px; margin-bottom: 5px; cursor: pointer; }
@@ -276,13 +276,13 @@ body {
         .custom-modal-body p { margin: 0; margin-bottom: 12px; }
         .custom-modal-body input { width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc; font-size: 14px; box-sizing: border-box; }
         .custom-modal-footer { border-top: 1px solid #dbdbdb; display: flex; }
-        .custom-modal-footer window.getComputedStyle(btn).visibility);  { flex: 1; background: none; border: none; padding: 12px; font-size: 17px; cursor: pointer; color: var(--accent-color); }
-        .custom-modal-footer window.getComputedStyle(btn).visibility); :first-child { border-right: 1px solid #dbdbdb; }
+        .custom-modal-footer button;  { flex: 1; background: none; border: none; padding: 12px; font-size: 17px; cursor: pointer; color: var(--accent-color); }
+        .custom-modal-footer button; :first-child { border-right: 1px solid #dbdbdb; }
         .custom-modal-footer .confirm-btn { font-weight: 600; }
         .custom-modal-footer .confirm-btn.btn-danger { color: #ff3b30; }
         #preset-actions-modal .custom-modal-footer { flex-direction: column; }
-        #preset-actions-modal .custom-modal-footer window.getComputedStyle(btn).visibility);  { width: 100%; border: none; border-bottom: 1px solid #dbdbdb; padding: 14px; font-size: 18px; }
-        #preset-actions-modal .custom-modal-footer window.getComputedStyle(btn).visibility); :last-child { border-bottom: none; }
+        #preset-actions-modal .custom-modal-footer button;  { width: 100%; border: none; border-bottom: 1px solid #dbdbdb; padding: 14px; font-size: 18px; }
+        #preset-actions-modal .custom-modal-footer button; :last-child { border-bottom: none; }
         .custom-multiselect { position: relative; user-select: none; }
         .select-box { display: flex; align-items: center; width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 16px; box-sizing: border-box; background-color: #fff; cursor: pointer; }
         .select-box .selected-options-text { flex-grow: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text-primary); }
@@ -500,8 +500,8 @@ body {
         .transfer-input-group input { width: 100%; padding: 12px; border-radius: 10px; border: 2px solid #ffcce0; background-color: #fff; font-size: 16px; box-sizing: border-box; }
         .transfer-input-group input:focus { border-color: #ff85b3; outline: none; }
         .transfer-actions { display: flex; justify-content: space-between; gap: 10px; }
-        .transfer-actions window.getComputedStyle(btn).visibility);  { flex: 1; padding: 12px; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: transform 0.2s; }
-        .transfer-actions window.getComputedStyle(btn).visibility); :active { transform: scale(0.95); }
+        .transfer-actions button;  { flex: 1; padding: 12px; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: transform 0.2s; }
+        .transfer-actions button; :active { transform: scale(0.95); }
         #transfer-cancel-btn { background-color: #ffdde9; color: #a35c7b; }
         #transfer-confirm-btn { background-color: #ff85b3; color: white; }
         .message-bubble.is-transfer .content { padding: 0; background: transparent; box-shadow: none; border: none; backdrop-filter: none; -webkit-backdrop-filter: none; cursor: pointer; }
@@ -524,11 +524,11 @@ body {
         #music-player-song-title { font-size: 20px; font-weight: 600; margin-bottom: 5px; text-align: center; }
         #music-player-artist { font-size: 14px; color: #666; margin-bottom: 25px; }
         .music-controls { display: flex; align-items: center; justify-content: center; gap: 20px; width: 100%; margin-bottom: 30px; }
-        .music-controls window.getComputedStyle(btn).visibility);  { background: none; border: none; font-size: 16px; font-weight: bold; cursor: pointer; color: #333; width: 44px; height: 44px; display: flex; justify-content: center; align-items: center; transition: transform 0.2s; }
-        .music-controls window.getComputedStyle(btn).visibility); :active { transform: scale(0.9); }
+        .music-controls button;  { background: none; border: none; font-size: 16px; font-weight: bold; cursor: pointer; color: #333; width: 44px; height: 44px; display: flex; justify-content: center; align-items: center; transition: transform 0.2s; }
+        .music-controls button; :active { transform: scale(0.9); }
         .music-controls .play-pause-btn { font-size: 24px; width: 60px; height: 60px; border-radius: 50%; background-color: rgba(0,0,0,0.05); }
         .music-bottom-actions { display: flex; justify-content: space-between; width: 100%; }
-        .music-bottom-actions window.getComputedStyle(btn).visibility);  { flex: 1; padding: 12px 0; border: none; border-radius: 10px; font-size: 15px; font-weight: 500; cursor: pointer; }
+        .music-bottom-actions button;  { flex: 1; padding: 12px 0; border: none; border-radius: 10px; font-size: 15px; font-weight: 500; cursor: pointer; }
         #music-exit-btn { background-color: rgba(255, 100, 100, 0.7); color: white; margin-right: 5px; }
         #music-return-btn { background-color: rgba(0, 123, 255, 0.7); color: white; margin-left: 5px; }
         
@@ -547,7 +547,7 @@ body {
         #persona-library-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; padding: 10px; }
         .persona-preset-item { aspect-ratio: 1 / 1; border-radius: 12px; background-size: cover; background-position: center; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; border: 1px solid rgba(0,0,0,0.1); }
         .persona-preset-item:hover { transform: scale(1.08); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-        .modal-header .action-window.getComputedStyle(btn).visibility);  { font-size: 16px; color: var(--accent-color); font-weight: 600; cursor: pointer; background: none; border: none; padding: 5px; }
+        .modal-header .action-button;  { font-size: 16px; color: var(--accent-color); font-weight: 600; cursor: pointer; background: none; border: none; padding: 5px; }
         
         /* Battery Alert Modal Styles */
         #battery-alert-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.4); display: none; justify-content: center; align-items: center; z-index: 2000; opacity: 0; transition: opacity 0.3s ease; }
@@ -1012,7 +1012,7 @@ body {
     gap: 10px;
 }
 
-.post-image-upload-options window.getComputedStyle(btn).visibility);  {
+.post-image-upload-options button;  {
     flex: 1;
     margin-top: 0;
 }
@@ -1932,14 +1932,14 @@ body {
 }
 
 /* 动态编辑模态框的样式 (它将复用现有的操作菜单样式) */
-#post-actions-modal .custom-modal-footer window.getComputedStyle(btn).visibility);  {
+#post-actions-modal .custom-modal-footer button;  {
     width: 100%;
     border: none;
     border-bottom: 1px solid #dbdbdb;
     padding: 14px;
     font-size: 18px;
 }
-#post-actions-modal .custom-modal-footer window.getComputedStyle(btn).visibility); :last-child {
+#post-actions-modal .custom-modal-footer button; :last-child {
     border-bottom: none;
 }
 #post-actions-modal #cancel-post-action-btn {
@@ -2177,7 +2177,7 @@ body {
     gap: 10px;
 }
 
-#member-management-actions window.getComputedStyle(btn).visibility);  {
+#member-management-actions button;  {
     width: 100%;
     padding: 15px;
     background-color: var(--accent-color);
@@ -2385,7 +2385,7 @@ body {
     background-color: #fff;
 }
 
-.waimai-user-actions window.getComputedStyle(btn).visibility);  {
+.waimai-user-actions button;  {
     flex: 1;
     padding: 10px;
     border-radius: 8px;
@@ -2481,7 +2481,7 @@ body {
     align-items: center;
 }
 
-.action-window.getComputedStyle(btn).visibility); -wrapper {
+.action-button; -wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -3250,7 +3250,7 @@ body {
     flex-shrink: 0;
 }
 
-/* ▼▼▼ 屏幕window.getComputedStyle(btn).visibility); 相关样式 ▼▼▼ */
+/* ▼▼▼ 屏幕button; 相关样式 ▼▼▼ */
 .app-option {
     display: flex;
     align-items: center;
@@ -3365,7 +3365,7 @@ body {
                 </div>
             </div>
 
-            <div id="api-settings-screen" class="screen"><div class="header"><span class="back-btn" onclick="showScreen('home-screen')">‹</span><span>API 设置</span><span style="width: 30px;"></span></div><div class="form-container"><p style="font-size: 14px; color: #666; background-color: #f0f0f0; padding: 10px; border-radius: 8px;">提示: 若要使用“发送图片”功能, 请务必选择支持Vision(视觉)的模型, 如<code style="background-color: #e0e0e0; padding: 2px 4px; border-radius: 4px;">gpt-4o</code>或<code style="background-color: #e0e0e0; padding: 2px 4px; border-radius: 4px;">gpt-4-vision-preview</code>。</p><div class="form-group"><label for="proxy-url">反代地址 (不需要添加/v1噢~)</label><input type="text" id="proxy-url" placeholder="例如: https://api.openai.com"></div><div class="form-group"><label for="api-key">密钥 (API Key)</label><input type="password" id="api-key" placeholder="sk-..."></div><div class="form-group"><label for="model-select">模型</label><select id="model-select"></select></div><window.getComputedStyle(btn).visibility);  class="form-window.getComputedStyle(btn).visibility); " id="fetch-models-btn">拉取模型</window.getComputedStyle(btn).visibility); >
+            <div id="api-settings-screen" class="screen"><div class="header"><span class="back-btn" onclick="showScreen('home-screen')">‹</span><span>API 设置</span><span style="width: 30px;"></span></div><div class="form-container"><p style="font-size: 14px; color: #666; background-color: #f0f0f0; padding: 10px; border-radius: 8px;">提示: 若要使用“发送图片”功能, 请务必选择支持Vision(视觉)的模型, 如<code style="background-color: #e0e0e0; padding: 2px 4px; border-radius: 4px;">gpt-4o</code>或<code style="background-color: #e0e0e0; padding: 2px 4px; border-radius: 4px;">gpt-4-vision-preview</code>。</p><div class="form-group"><label for="proxy-url">反代地址 (不需要添加/v1噢~)</label><input type="text" id="proxy-url" placeholder="例如: https://api.openai.com"></div><div class="form-group"><label for="api-key">密钥 (API Key)</label><input type="password" id="api-key" placeholder="sk-..."></div><div class="form-group"><label for="model-select">模型</label><select id="model-select"></select></div><button;  class="form-button; " id="fetch-models-btn">拉取模型</button; >
 
 <!-- ▼▼▼ 将这段代码粘贴到 API 设置页面的“保存设置”按钮上方 ▼▼▼ -->
 <hr style="margin:20px 0; opacity:.3">
@@ -3404,13 +3404,13 @@ body {
 </div>
 <!-- ▲▲▲ 新增结束 ▲▲▲ -->
 
-<window.getComputedStyle(btn).visibility);  class="form-window.getComputedStyle(btn).visibility); " id="save-api-settings-btn">保存设置</window.getComputedStyle(btn).visibility); >
+<button;  class="form-button; " id="save-api-settings-btn">保存设置</button; >
 			<hr style="margin:20px 0; opacity:.3">
 
-			<window.getComputedStyle(btn).visibility);  class="form-window.getComputedStyle(btn).visibility); " id="export-data-btn">导出数据</window.getComputedStyle(btn).visibility); >
+			<button;  class="form-button; " id="export-data-btn">导出数据</button; >
 
 <!-- ① 普通按钮，和“导出”一个 class -->
-<window.getComputedStyle(btn).visibility);  class="form-window.getComputedStyle(btn).visibility); " id="import-btn">导入备份文件</window.getComputedStyle(btn).visibility); >
+<button;  class="form-button; " id="import-btn">导入备份文件</button; >
 
 <!-- ② 真正的文件选择器，完全隐藏 -->
 <input id="import-data-input" type="file" accept="application/json" hidden>
@@ -3476,7 +3476,7 @@ body {
         <!-- 【新增】搜索栏容器 -->
         <div class="search-bar-container">
             <input type="search" id="favorites-search-input" placeholder="搜索收藏的标题、内容或作者...">
-            <window.getComputedStyle(btn).visibility);  id="favorites-search-clear-btn" class="search-clear-btn" style="display: none;">×</window.getComputedStyle(btn).visibility); >
+            <button;  id="favorites-search-clear-btn" class="search-clear-btn" style="display: none;">×</button; >
         </div>
 
         <div id="favorites-list" class="list-container">
@@ -3485,7 +3485,7 @@ body {
 
 <!-- 新增：收藏页底部操作栏 -->
 <div id="favorites-action-bar" style="display: none;">
-    <window.getComputedStyle(btn).visibility);  id="favorites-delete-selected-btn" class="action-bar-btn">删除 (0)</window.getComputedStyle(btn).visibility); >
+    <button;  id="favorites-delete-selected-btn" class="action-bar-btn">删除 (0)</button; >
 </div>
 
     </div>
@@ -3559,10 +3559,10 @@ body {
 <!-- ▼▼▼ 请将这段新的 HTML 粘贴到所有模态框的末尾 ▼▼▼ -->
 <div id="photo-viewer-modal" class="modal">
     <!-- 1. 关闭按钮 -->
-    <window.getComputedStyle(btn).visibility);  id="photo-viewer-close-btn">×</window.getComputedStyle(btn).visibility); >
+    <button;  id="photo-viewer-close-btn">×</button; >
     
     <!-- 2. 上一张照片按钮 -->
-    <window.getComputedStyle(btn).visibility);  id="photo-viewer-prev-btn" class="nav-arrow">‹</window.getComputedStyle(btn).visibility); >
+    <button;  id="photo-viewer-prev-btn" class="nav-arrow">‹</button; >
     
     <!-- 3. 图片容器 -->
     <div class="photo-viewer-content">
@@ -3570,7 +3570,7 @@ body {
     </div>
     
     <!-- 4. 下一张照片按钮 -->
-    <window.getComputedStyle(btn).visibility);  id="photo-viewer-next-btn" class="nav-arrow">›</window.getComputedStyle(btn).visibility); >
+    <button;  id="photo-viewer-next-btn" class="nav-arrow">›</button; >
 </div>
 <!-- ▲▲▲ 新的 HTML 粘贴结束 ▲▲▲ -->
 
@@ -3623,41 +3623,41 @@ body {
     <!-- 输入区域 (保持不变) -->
     <div id="chat-input-area">
         <div id="chat-input-actions-top">
-            <window.getComputedStyle(btn).visibility);  id="open-sticker-panel-btn" class="chat-action-icon-btn action-window.getComputedStyle(btn).visibility); " title="表情面板">+</window.getComputedStyle(btn).visibility); >
-            <window.getComputedStyle(btn).visibility);  id="send-photo-btn" class="chat-action-icon-btn action-window.getComputedStyle(btn).visibility); " title="发送照片"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></window.getComputedStyle(btn).visibility); >
-            <window.getComputedStyle(btn).visibility);  id="upload-image-btn" class="chat-action-icon-btn action-window.getComputedStyle(btn).visibility); " title="上传图片"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--text-primary);"><path d="M21 3.5H3C2.44772 3.5 2 3.94772 2 4.5V19.5C2 20.0523 2.44772 20.5 3 20.5H21C21.5523 20.5 22 20.0523 22 19.5V4.5C22 3.94772 21.5523 3.5 21 3.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M16.5 13.5C17.6046 13.5 18.5 12.6046 18.5 11.5C18.5 10.3954 17.6046 9.5 16.5 9.5C15.3954 9.5 14.5 10.3954 14.5 11.5C14.5 12.6046 15.3954 13.5 16.5 13.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 14.5L18 10.5L10.3333 18.5M12.5 16L9 12.5L2 19.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></window.getComputedStyle(btn).visibility); >
-            <window.getComputedStyle(btn).visibility);  id="transfer-btn" class="chat-action-icon-btn action-window.getComputedStyle(btn).visibility); " title="转账">￥</window.getComputedStyle(btn).visibility); >
-            <window.getComputedStyle(btn).visibility);  id="voice-message-btn" class="chat-action-icon-btn action-window.getComputedStyle(btn).visibility); " title="发送语音"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v4"/><path d="M8 23h8"/></svg></window.getComputedStyle(btn).visibility); >
+            <button;  id="open-sticker-panel-btn" class="chat-action-icon-btn action-button; " title="表情面板">+</button; >
+            <button;  id="send-photo-btn" class="chat-action-icon-btn action-button; " title="发送照片"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></button; >
+            <button;  id="upload-image-btn" class="chat-action-icon-btn action-button; " title="上传图片"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--text-primary);"><path d="M21 3.5H3C2.44772 3.5 2 3.94772 2 4.5V19.5C2 20.0523 2.44772 20.5 3 20.5H21C21.5523 20.5 22 20.0523 22 19.5V4.5C22 3.94772 21.5523 3.5 21 3.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M16.5 13.5C17.6046 13.5 18.5 12.6046 18.5 11.5C18.5 10.3954 17.6046 9.5 16.5 9.5C15.3954 9.5 14.5 10.3954 14.5 11.5C14.5 12.6046 15.3954 13.5 16.5 13.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 14.5L18 10.5L10.3333 18.5M12.5 16L9 12.5L2 19.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button; >
+            <button;  id="transfer-btn" class="chat-action-icon-btn action-button; " title="转账">￥</button; >
+            <button;  id="voice-message-btn" class="chat-action-icon-btn action-button; " title="发送语音"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v4"/><path d="M8 23h8"/></svg></button; >
 <!-- ▼▼▼ 将这行新代码粘贴到“发送语音”按钮的后面 ▼▼▼ -->
-<window.getComputedStyle(btn).visibility);  id="send-waimai-request-btn" class="chat-action-icon-btn action-window.getComputedStyle(btn).visibility); " title="发起外卖请求"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></window.getComputedStyle(btn).visibility); >
-<!-- ▼▼▼ 屏幕window.getComputedStyle(btn).visibility); 按钮 ▼▼▼ -->
-<window.getComputedStyle(btn).visibility);  id="screen-share-btn" class="chat-action-icon-btn action-window.getComputedStyle(btn).visibility); " 
+<button;  id="send-waimai-request-btn" class="chat-action-icon-btn action-button; " title="发起外卖请求"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></button; >
+<!-- ▼▼▼ 屏幕button; 按钮 ▼▼▼ -->
+<button;  id="screen-share-btn" class="chat-action-icon-btn action-button; " 
         style="font-size:20px;padding:0 10px">
-    👁️ window.getComputedStyle(btn).visibility); 
-</window.getComputedStyle(btn).visibility); >
- <window.getComputedStyle(btn).visibility);  id="mood-diary-btn" class="chat-action-icon-btn action-window.getComputedStyle(btn).visibility); " title="AI心情日记">
+    👁️ button; 
+</button; >
+ <button;  id="mood-diary-btn" class="chat-action-icon-btn action-button; " title="AI心情日记">
     <!-- 灰色爱心SVG -->
     <svg width="24" height="24" viewBox="0 0 24 24" fill="#888888" xmlns="http://www.w3.org/2000/svg">
         <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
     </svg>
-</window.getComputedStyle(btn).visibility); >
+</button; >
 <!-- ▲▲▲ 新增结束 ▲▲▲ -->
 <!-- ▲▲▲ 新代码粘贴结束 ▲▲▲ -->
 <!-- ▼▼▼ 【新增】视频通话按钮 ▼▼▼ -->
-<window.getComputedStyle(btn).visibility);  id="video-call-btn" class="chat-action-icon-btn action-window.getComputedStyle(btn).visibility); " title="视频通话"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg></window.getComputedStyle(btn).visibility); >
+<button;  id="video-call-btn" class="chat-action-icon-btn action-button; " title="视频通话"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg></button; >
 <!-- ▲▲▲ 新增结束 ▲▲▲
 <!-- ▼▼▼群视频通话按钮 ▼▼▼ -->
-<window.getComputedStyle(btn).visibility);  id="group-video-call-btn" class="chat-action-icon-btn action-window.getComputedStyle(btn).visibility); " title="群视频通话"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></window.getComputedStyle(btn).visibility); >
+<button;  id="group-video-call-btn" class="chat-action-icon-btn action-button; " title="群视频通话"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></button; >
 <!-- ▲▲▲ 全新添加结束 ▲▲▲ -->
 <!-- ▼▼▼发起投票按钮▼▼▼ -->
-<window.getComputedStyle(btn).visibility);  id="send-poll-btn" class="chat-action-icon-btn action-window.getComputedStyle(btn).visibility); " title="发起投票"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h10"/><path d="M6 6h.01"/><path d="M8 12h10"/><path d="M6 12h.01"/><path d="M8 18h10"/><path d="M6 18h.01"/></svg></window.getComputedStyle(btn).visibility); >
+<button;  id="send-poll-btn" class="chat-action-icon-btn action-button; " title="发起投票"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h10"/><path d="M6 6h.01"/><path d="M8 12h10"/><path d="M6 12h.01"/><path d="M8 18h10"/><path d="M6 18h.01"/></svg></button; >
 <!-- ▲▲▲ 替换结束 ▲▲▲ -->
         </div>
         <div id="chat-input-main-row">
             <textarea id="chat-input" rows="1" placeholder="输入消息..."></textarea>
             <div id="input-actions-wrapper">
-                <window.getComputedStyle(btn).visibility);  id="wait-reply-btn" title="等待回复"><img src="https://i.postimg.cc/2SwjsfZQ/IMG-6913.gif" alt="等待回复"></window.getComputedStyle(btn).visibility); >
-                <window.getComputedStyle(btn).visibility);  id="send-btn" class="action-window.getComputedStyle(btn).visibility); ">发送</window.getComputedStyle(btn).visibility); >
+                <button;  id="wait-reply-btn" title="等待回复"><img src="https://i.postimg.cc/2SwjsfZQ/IMG-6913.gif" alt="等待回复"></button; >
+                <button;  id="send-btn" class="action-button; ">发送</button; >
             </div>
         </div>
     </div>
@@ -3667,7 +3667,7 @@ body {
     <div id="chat-lock-content"></div>
 </div>
 
-<!-- ▼▼▼ 屏幕window.getComputedStyle(btn).visibility); 模态框 ▼▼▼ -->
+<!-- ▼▼▼ 屏幕button; 模态框 ▼▼▼ -->
 <div id="screen-share-modal" class="modal">
     <div class="modal-content" style="width: 90%; max-width: 400px;">
         <div class="modal-header">
@@ -3694,7 +3694,7 @@ body {
 <div id="app-simulator" class="modal">
     <div class="modal-content" style="width: 95%; max-width: 414px; padding: 0;">
         <div class="app-header">
-            <window.getComputedStyle(btn).visibility);  id="back-to-apps-btn" class="app-back-btn">←</window.getComputedStyle(btn).visibility); >
+            <button;  id="back-to-apps-btn" class="app-back-btn">←</button; >
             <span id="app-title">应用</span>
         </div>
         <div id="app-content">
@@ -3773,14 +3773,14 @@ body {
             <div id="music-player-song-title">请添加歌曲</div>
             <div id="music-player-artist">...</div>
             <div class="music-controls">
-                <window.getComputedStyle(btn).visibility);  id="music-prev-btn">◀</window.getComputedStyle(btn).visibility); >
-                <window.getComputedStyle(btn).visibility);  id="music-play-pause-btn" class="play-pause-btn">▶</window.getComputedStyle(btn).visibility); >
-                <window.getComputedStyle(btn).visibility);  id="music-next-btn">▶</window.getComputedStyle(btn).visibility); >
-                <window.getComputedStyle(btn).visibility);  id="music-mode-btn">顺序</window.getComputedStyle(btn).visibility); >
+                <button;  id="music-prev-btn">◀</button; >
+                <button;  id="music-play-pause-btn" class="play-pause-btn">▶</button; >
+                <button;  id="music-next-btn">▶</button; >
+                <button;  id="music-mode-btn">顺序</button; >
             </div>
             <div class="music-bottom-actions">
-                <window.getComputedStyle(btn).visibility);  id="music-exit-btn">退出一起听</window.getComputedStyle(btn).visibility); >
-                <window.getComputedStyle(btn).visibility);  id="music-return-btn">返回聊天</window.getComputedStyle(btn).visibility); >
+                <button;  id="music-exit-btn">退出一起听</button; >
+                <button;  id="music-return-btn">返回聊天</button; >
             </div>
         </div>
     </div>
@@ -3800,7 +3800,7 @@ body {
 </div>
 <!-- ▲▲▲ 替换结束 ▲▲▲ -->
 
-            <div id="wallpaper-screen" class="screen"><div class="header"><span class="back-btn" onclick="showScreen('home-screen')">‹</span><span>壁纸设置</span><span style="width: 30px;"></span></div><div class="form-container"><div id="wallpaper-preview">点击下方上传</div><window.getComputedStyle(btn).visibility);  class="form-window.getComputedStyle(btn).visibility); " onclick="document.getElementById('wallpaper-upload-input').click();">上传壁纸</window.getComputedStyle(btn).visibility); ><input type="file" id="wallpaper-upload-input" accept="image/*"><window.getComputedStyle(btn).visibility);  class="form-window.getComputedStyle(btn).visibility); " id="save-wallpaper-btn">保存并应用</window.getComputedStyle(btn).visibility); ></div></div>
+            <div id="wallpaper-screen" class="screen"><div class="header"><span class="back-btn" onclick="showScreen('home-screen')">‹</span><span>壁纸设置</span><span style="width: 30px;"></span></div><div class="form-container"><div id="wallpaper-preview">点击下方上传</div><button;  class="form-button; " onclick="document.getElementById('wallpaper-upload-input').click();">上传壁纸</button; ><input type="file" id="wallpaper-upload-input" accept="image/*"><button;  class="form-button; " id="save-wallpaper-btn">保存并应用</button; ></div></div>
 
 <div id="font-settings-screen" class="screen">
     <div class="header">
@@ -3822,8 +3822,8 @@ body {
             </div>
         </div>
 
-        <window.getComputedStyle(btn).visibility);  class="form-window.getComputedStyle(btn).visibility); " id="save-font-btn">保存并应用</window.getComputedStyle(btn).visibility); >
-        <window.getComputedStyle(btn).visibility);  class="form-window.getComputedStyle(btn).visibility);  form-window.getComputedStyle(btn).visibility); -secondary" id="reset-font-btn">恢复默认字体</window.getComputedStyle(btn).visibility); >
+        <button;  class="form-button; " id="save-font-btn">保存并应用</button; >
+        <button;  class="form-button;  form-button; -secondary" id="reset-font-btn">恢复默认字体</button; >
     </div>
 </div>
 
@@ -3851,8 +3851,8 @@ body {
         <!-- 现有成员列表会在这里动态生成 -->
     </div>
     <div id="member-management-actions">
-        <window.getComputedStyle(btn).visibility);  id="add-existing-contact-btn">从好友列表添加</window.getComputedStyle(btn).visibility); >
-        <window.getComputedStyle(btn).visibility);  id="create-new-member-btn">创建群内新成员</window.getComputedStyle(btn).visibility); >
+        <button;  id="add-existing-contact-btn">从好友列表添加</button; >
+        <button;  id="create-new-member-btn">创建群内新成员</button; >
     </div>
 </div>
 <!-- ▲▲▲ 新HTML粘贴结束 ▲▲▲ -->
@@ -3864,12 +3864,12 @@ body {
         <div id="caller-name" class="caller-name"></div>
         <div class="caller-text">邀请你视频通话</div>
         <div class="incoming-call-actions">
-            <div class="action-window.getComputedStyle(btn).visibility); -wrapper">
-                <window.getComputedStyle(btn).visibility);  id="decline-call-btn" class="call-action-btn decline"></window.getComputedStyle(btn).visibility); >
+            <div class="action-button; -wrapper">
+                <button;  id="decline-call-btn" class="call-action-btn decline"></button; >
                 <span>拒绝</span>
             </div>
-            <div class="action-window.getComputedStyle(btn).visibility); -wrapper">
-                <window.getComputedStyle(btn).visibility);  id="accept-call-btn" class="call-action-btn accept"></window.getComputedStyle(btn).visibility); >
+            <div class="action-button; -wrapper">
+                <button;  id="accept-call-btn" class="call-action-btn accept"></button; >
                 <span>接听</span>
             </div>
         </div>
@@ -3898,10 +3898,10 @@ body {
     
     <!-- 4. 【升级】底部控制栏，现在包含一个“加入”按钮 -->
     <div class="video-call-controls">
-        <window.getComputedStyle(btn).visibility);  id="user-speak-btn" class="control-btn speak-btn"></window.getComputedStyle(btn).visibility); >
-        <window.getComputedStyle(btn).visibility);  id="hang-up-btn" class="control-btn hangup-btn"></window.getComputedStyle(btn).visibility); >
+        <button;  id="user-speak-btn" class="control-btn speak-btn"></button; >
+        <button;  id="hang-up-btn" class="control-btn hangup-btn"></button; >
         <!-- 这个按钮默认隐藏，只在用户“旁观”时显示 -->
-        <window.getComputedStyle(btn).visibility);  id="join-call-btn" class="control-btn join-btn" style="display: none;"></window.getComputedStyle(btn).visibility); >
+        <button;  id="join-call-btn" class="control-btn join-btn" style="display: none;"></button; >
     </div>
 </div>
 <!-- ▲▲▲ 替换结束 ▲▲▲ -->
@@ -3913,7 +3913,7 @@ body {
         <div id="outgoing-call-name" class="caller-name"></div>
         <div class="caller-text">正在呼叫...</div>
         <div class="outgoing-call-actions">
-            <window.getComputedStyle(btn).visibility);  id="cancel-call-btn" class="call-action-btn decline"></window.getComputedStyle(btn).visibility); >
+            <button;  id="cancel-call-btn" class="call-action-btn decline"></button; >
             <span>取消</span>
         </div>
     </div>
@@ -3932,12 +3932,12 @@ body {
             <select id="assign-group-select" style="flex-grow: 1;">
                 <!-- 分组选项将由JS动态生成 -->
             </select>
-            <window.getComputedStyle(btn).visibility);  id="manage-groups-btn" class="form-window.getComputedStyle(btn).visibility); -secondary" style="margin-top: 0; padding: 12px;">管理分组</window.getComputedStyle(btn).visibility); >
+            <button;  id="manage-groups-btn" class="form-button; -secondary" style="margin-top: 0; padding: 12px;">管理分组</button; >
         </div>
     </div>
     <!-- ▲▲▲ 新代码粘贴结束 ▲▲▲ -->
 
-<div class="form-group" id="my-group-nickname-group"><label for="my-group-nickname-input">我的群昵称</label><input type="text" id="my-group-nickname-input"></div><div class="form-group" id="group-avatar-group"><label>群头像</label><div class="avatar-upload"><img id="group-avatar-preview"><window.getComputedStyle(btn).visibility);  onclick="document.getElementById('group-avatar-input').click()">上传群头像</window.getComputedStyle(btn).visibility); ><input type="file" id="group-avatar-input" accept="image/*"></div></div>
+<div class="form-group" id="my-group-nickname-group"><label for="my-group-nickname-input">我的群昵称</label><input type="text" id="my-group-nickname-input"></div><div class="form-group" id="group-avatar-group"><label>群头像</label><div class="avatar-upload"><img id="group-avatar-preview"><button;  onclick="document.getElementById('group-avatar-input').click()">上传群头像</button; ><input type="file" id="group-avatar-input" accept="image/*"></div></div>
             <div class="form-group" id="world-book-link-group">
                 <label>关联世界书 (可多选)</label>
                 <div class="custom-multiselect">
@@ -3949,11 +3949,11 @@ body {
                     </div>
                 </div>
             </div>
-            <div class="form-group" id="ai-persona-group"><label for="ai-persona">对方人设 (AI Persona)</label><textarea id="ai-persona" rows="3"></textarea></div><div class="form-group" id="ai-avatar-group"><label>对方头像</label><div class="avatar-upload"><img id="ai-avatar-preview"><window.getComputedStyle(btn).visibility);  onclick="document.getElementById('ai-avatar-input').click()">上传对方头像</window.getComputedStyle(btn).visibility); ><window.getComputedStyle(btn).visibility);  class="change-frame-btn" data-type="ai">更换头像框</window.getComputedStyle(btn).visibility); ><input type="file" id="ai-avatar-input" accept="image/*"></div></div><div class="form-group" id="my-persona-group"><label for="my-persona">我的人设 (My Persona)</label><textarea id="my-persona" rows="3"></textarea></div><div class="form-group" id="my-avatar-group"><label>我的头像</label><div class="avatar-upload"><img id="my-avatar-preview"><window.getComputedStyle(btn).visibility);  onclick="document.getElementById('my-avatar-input').click()">上传我的头像</window.getComputedStyle(btn).visibility); ><window.getComputedStyle(btn).visibility);  class="change-frame-btn" data-type="my">更换头像框</window.getComputedStyle(btn).visibility); ><window.getComputedStyle(btn).visibility);  id="open-persona-library-btn">预设</window.getComputedStyle(btn).visibility); ><input type="file" id="my-avatar-input" accept="image/*"></div></div><div class="form-group" id="group-members-group"><label>群成员人设</label><div id="group-members-settings"></div>
+            <div class="form-group" id="ai-persona-group"><label for="ai-persona">对方人设 (AI Persona)</label><textarea id="ai-persona" rows="3"></textarea></div><div class="form-group" id="ai-avatar-group"><label>对方头像</label><div class="avatar-upload"><img id="ai-avatar-preview"><button;  onclick="document.getElementById('ai-avatar-input').click()">上传对方头像</button; ><button;  class="change-frame-btn" data-type="ai">更换头像框</button; ><input type="file" id="ai-avatar-input" accept="image/*"></div></div><div class="form-group" id="my-persona-group"><label for="my-persona">我的人设 (My Persona)</label><textarea id="my-persona" rows="3"></textarea></div><div class="form-group" id="my-avatar-group"><label>我的头像</label><div class="avatar-upload"><img id="my-avatar-preview"><button;  onclick="document.getElementById('my-avatar-input').click()">上传我的头像</button; ><button;  class="change-frame-btn" data-type="my">更换头像框</button; ><button;  id="open-persona-library-btn">预设</button; ><input type="file" id="my-avatar-input" accept="image/*"></div></div><div class="form-group" id="group-members-group"><label>群成员人设</label><div id="group-members-settings"></div>
 
     <!-- 【新增】管理成员按钮 -->
-    <window.getComputedStyle(btn).visibility);  id="manage-members-btn" class="form-window.getComputedStyle(btn).visibility);  form-window.getComputedStyle(btn).visibility); -secondary" style="margin-top: 15px;">管理群成员</window.getComputedStyle(btn).visibility); ></div>
-<div class="form-group"><label for="max-memory">上下文记忆条数</label><input type="number" id="max-memory" value="10"></div><div class="form-group"><label>聊天气泡主题 <window.getComputedStyle(btn).visibility);  id="reset-theme-btn" type="window.getComputedStyle(btn).visibility); ">重置</window.getComputedStyle(btn).visibility); ></label><div class="theme-selector"><label><input type="radio" name="theme-select" value="default" id="theme-default"> 默认</label><label><input type="radio" name="theme-select" value="pink_blue"> 粉蓝</label><label><input type="radio" name="theme-select" value="blue_white"> 蓝白</label><label><input type="radio" name="theme-select" value="purple_yellow"> 紫黄</label><label><input type="radio" name="theme-select" value="black_white"> 黑白</label><label><input type="radio" name="theme-select" value="yellow_white"> 黄白</label><label><input type="radio" name="theme-select" value="red_black"> 红黑</label><label><input type="radio" name="theme-select" value="blue_yellow"> 蓝黄</label><label><input type="radio" name="theme-select" value="pink_yellow"> 粉黄</label><label><input type="radio" name="theme-select" value="pink_purple"> 粉紫</label><label><input type="radio" name="theme-select" value="gray_white"> 灰白</label><label><input type="radio" name="theme-select" value="blue_green"> 蓝绿</label><label><input type="radio" name="theme-select" value="pink_white"> 粉白</label><label><input type="radio" name="theme-select" value="pink_black"> 粉黑</label><label><input type="radio" name="theme-select" value="pink_green"> 粉绿</label><label><input type="radio" name="theme-select" value="green_black"> 绿黑</label></div></div>
+    <button;  id="manage-members-btn" class="form-button;  form-button; -secondary" style="margin-top: 15px;">管理群成员</button; ></div>
+<div class="form-group"><label for="max-memory">上下文记忆条数</label><input type="number" id="max-memory" value="10"></div><div class="form-group"><label>聊天气泡主题 <button;  id="reset-theme-btn" type="button; ">重置</button; ></label><div class="theme-selector"><label><input type="radio" name="theme-select" value="default" id="theme-default"> 默认</label><label><input type="radio" name="theme-select" value="pink_blue"> 粉蓝</label><label><input type="radio" name="theme-select" value="blue_white"> 蓝白</label><label><input type="radio" name="theme-select" value="purple_yellow"> 紫黄</label><label><input type="radio" name="theme-select" value="black_white"> 黑白</label><label><input type="radio" name="theme-select" value="yellow_white"> 黄白</label><label><input type="radio" name="theme-select" value="red_black"> 红黑</label><label><input type="radio" name="theme-select" value="blue_yellow"> 蓝黄</label><label><input type="radio" name="theme-select" value="pink_yellow"> 粉黄</label><label><input type="radio" name="theme-select" value="pink_purple"> 粉紫</label><label><input type="radio" name="theme-select" value="gray_white"> 灰白</label><label><input type="radio" name="theme-select" value="blue_green"> 蓝绿</label><label><input type="radio" name="theme-select" value="pink_white"> 粉白</label><label><input type="radio" name="theme-select" value="pink_black"> 粉黑</label><label><input type="radio" name="theme-select" value="pink_green"> 粉绿</label><label><input type="radio" name="theme-select" value="green_black"> 绿黑</label></div></div>
 
 <!-- ▼▼▼ 请将这段新代码粘贴到“聊天气泡主题”的 form-group 之后 ▼▼▼ -->
 <div class="form-group">
@@ -3966,7 +3966,7 @@ body {
 <div class="form-group">
     <label for="custom-css-input">
         自定义气泡样式 (CSS)
-        <window.getComputedStyle(btn).visibility);  id="reset-custom-css-btn" type="window.getComputedStyle(btn).visibility); " style="background: none; border: 1px solid #ccc; color: #555; font-size: 12px; padding: 2px 8px; border-radius: 5px; cursor: pointer; margin-left: 10px;">重置</window.getComputedStyle(btn).visibility); >
+        <button;  id="reset-custom-css-btn" type="button; " style="background: none; border: 1px solid #ccc; color: #555; font-size: 12px; padding: 2px 8px; border-radius: 5px; cursor: pointer; margin-left: 10px;">重置</button; >
     </label>
     <textarea id="custom-css-input" rows="5" style="width: 100%; margin-top: 8px; font-family: monospace; font-size: 12px; resize: vertical;" placeholder="/* 示例：为“我”的气泡添加渐变背景和阴影 */
 .message-bubble.user .content {
@@ -3989,33 +3989,33 @@ body {
             <div class="form-group">
                 <label>聊天背景</label>
                 <div class="bg-upload-container">
-                    <window.getComputedStyle(btn).visibility);  type="window.getComputedStyle(btn).visibility); " class="form-window.getComputedStyle(btn).visibility); -secondary" style="width: auto; padding: 8px 12px; margin-top: 0;" onclick="document.getElementById('bg-input').click()">上传背景图</window.getComputedStyle(btn).visibility); >
-                    <window.getComputedStyle(btn).visibility);  type="window.getComputedStyle(btn).visibility); " id="remove-bg-btn">移除背景</window.getComputedStyle(btn).visibility); >
+                    <button;  type="button; " class="form-button; -secondary" style="width: auto; padding: 8px 12px; margin-top: 0;" onclick="document.getElementById('bg-input').click()">上传背景图</button; >
+                    <button;  type="button; " id="remove-bg-btn">移除背景</button; >
                 </div>
                 <img id="bg-preview" class="bg-preview-img">
                 <input type="file" id="bg-input" accept="image/*" style="display: none;">
             </div>
 <hr style="margin: 25px 0; border: none; border-top: 1px solid #eee;">
-<window.getComputedStyle(btn).visibility);  class="form-window.getComputedStyle(btn).visibility);  form-window.getComputedStyle(btn).visibility); -secondary" id="block-chat-btn" style="background-color: #ff3b30; color: white; border-color: #ff3b30;">拉黑对方</window.getComputedStyle(btn).visibility); >
-<window.getComputedStyle(btn).visibility);  class="form-window.getComputedStyle(btn).visibility);  form-window.getComputedStyle(btn).visibility); -secondary" id="clear-chat-btn">清空聊天记录</window.getComputedStyle(btn).visibility); ></div><div class="modal-footer"><window.getComputedStyle(btn).visibility);  class="cancel" id="cancel-chat-settings-btn">取消</window.getComputedStyle(btn).visibility); ><window.getComputedStyle(btn).visibility);  class="save" id="save-chat-settings-btn">保存</window.getComputedStyle(btn).visibility); ></div></div></div>
+<button;  class="form-button;  form-button; -secondary" id="block-chat-btn" style="background-color: #ff3b30; color: white; border-color: #ff3b30;">拉黑对方</button; >
+<button;  class="form-button;  form-button; -secondary" id="clear-chat-btn">清空聊天记录</button; ></div><div class="modal-footer"><button;  class="cancel" id="cancel-chat-settings-btn">取消</button; ><button;  class="save" id="save-chat-settings-btn">保存</button; ></div></div></div>
     
-    <div id="persona-library-modal" class="modal"><div class="modal-content"><div class="modal-header"><span>我的人设库</span><window.getComputedStyle(btn).visibility);  id="add-persona-preset-btn" class="action-window.getComputedStyle(btn).visibility); ">添加</window.getComputedStyle(btn).visibility); ></div><div class="modal-body"><div id="persona-library-grid"></div></div><div class="modal-footer"><window.getComputedStyle(btn).visibility);  class="cancel" id="close-persona-library-btn">关闭</window.getComputedStyle(btn).visibility); ></div></div></div>
+    <div id="persona-library-modal" class="modal"><div class="modal-content"><div class="modal-header"><span>我的人设库</span><button;  id="add-persona-preset-btn" class="action-button; ">添加</button; ></div><div class="modal-body"><div id="persona-library-grid"></div></div><div class="modal-footer"><button;  class="cancel" id="close-persona-library-btn">关闭</button; ></div></div></div>
     
-    <div id="persona-editor-modal" class="modal"><div class="modal-content"><div class="modal-header"><span id="persona-editor-title">添加人设预设</span></div><div class="modal-body"><div class="form-group"><label>预设头像</label><div class="avatar-upload"><img id="preset-avatar-preview"><window.getComputedStyle(btn).visibility);  onclick="document.getElementById('preset-avatar-input').click()">上传头像</window.getComputedStyle(btn).visibility); ><input type="file" id="preset-avatar-input" accept="image/*"></div></div><div class="form-group"><label for="preset-persona-input">预设人设</label><textarea id="preset-persona-input" rows="4" placeholder="在此输入这个人设的详细设定..."></textarea></div></div><div class="modal-footer"><window.getComputedStyle(btn).visibility);  class="cancel" id="cancel-persona-editor-btn">取消</window.getComputedStyle(btn).visibility); ><window.getComputedStyle(btn).visibility);  class="save" id="save-persona-preset-btn">保存</window.getComputedStyle(btn).visibility); ></div></div></div>
+    <div id="persona-editor-modal" class="modal"><div class="modal-content"><div class="modal-header"><span id="persona-editor-title">添加人设预设</span></div><div class="modal-body"><div class="form-group"><label>预设头像</label><div class="avatar-upload"><img id="preset-avatar-preview"><button;  onclick="document.getElementById('preset-avatar-input').click()">上传头像</button; ><input type="file" id="preset-avatar-input" accept="image/*"></div></div><div class="form-group"><label for="preset-persona-input">预设人设</label><textarea id="preset-persona-input" rows="4" placeholder="在此输入这个人设的详细设定..."></textarea></div></div><div class="modal-footer"><button;  class="cancel" id="cancel-persona-editor-btn">取消</button; ><button;  class="save" id="save-persona-preset-btn">保存</button; ></div></div></div>
 
     <div id="member-settings-modal" class="modal"><div class="modal-content"><div class="modal-header"><span>编辑群成员</span></div><div class="modal-body">
     <div class="form-group"><label for="member-name-input">名字</label><input type="text" id="member-name-input"></div>
     <div class="form-group"><label for="member-persona-input">人设</label><textarea id="member-persona-input" rows="4"></textarea></div>
-    <div class="form-group"><label>头像</label><div class="avatar-upload"><img id="member-avatar-preview"><window.getComputedStyle(btn).visibility);  onclick="document.getElementById('member-avatar-input').click()">上传头像</window.getComputedStyle(btn).visibility); ><window.getComputedStyle(btn).visibility);  class="change-frame-btn" data-type="member">更换头像框</window.getComputedStyle(btn).visibility); ><input type="file" id="member-avatar-input" accept="image/*"></div></div>
-    </div><div class="modal-footer"><window.getComputedStyle(btn).visibility);  class="cancel" id="cancel-member-settings-btn">取消</window.getComputedStyle(btn).visibility); ><window.getComputedStyle(btn).visibility);  class="save" id="save-member-settings-btn">保存</window.getComputedStyle(btn).visibility); ></div></div></div>
+    <div class="form-group"><label>头像</label><div class="avatar-upload"><img id="member-avatar-preview"><button;  onclick="document.getElementById('member-avatar-input').click()">上传头像</button; ><button;  class="change-frame-btn" data-type="member">更换头像框</button; ><input type="file" id="member-avatar-input" accept="image/*"></div></div>
+    </div><div class="modal-footer"><button;  class="cancel" id="cancel-member-settings-btn">取消</button; ><button;  class="save" id="save-member-settings-btn">保存</button; ></div></div></div>
     
     <div id="custom-modal-overlay">
         <div id="custom-modal">
             <div class="custom-modal-header" id="custom-modal-title"></div>
             <div class="custom-modal-body" id="custom-modal-body"></div>
             <div class="custom-modal-footer">
-                <window.getComputedStyle(btn).visibility);  id="custom-modal-cancel">取消</window.getComputedStyle(btn).visibility); >
-                <window.getComputedStyle(btn).visibility);  id="custom-modal-confirm" class="confirm-btn">确定</window.getComputedStyle(btn).visibility); >
+                <button;  id="custom-modal-cancel">取消</button; >
+                <button;  id="custom-modal-confirm" class="confirm-btn">确定</button; >
             </div>
         </div>
     </div>
@@ -4023,9 +4023,9 @@ body {
     <div id="preset-actions-modal" class="modal">
         <div id="custom-modal" style="width: 250px;">
             <div class="custom-modal-footer">
-                <window.getComputedStyle(btn).visibility);  id="preset-action-edit">编辑预设</window.getComputedStyle(btn).visibility); >
-                <window.getComputedStyle(btn).visibility);  id="preset-action-delete" class="btn-danger">删除预设</window.getComputedStyle(btn).visibility); >
-                <window.getComputedStyle(btn).visibility);  id="preset-action-cancel" style="margin-top: 8px; border-radius: 8px; background-color: #f0f0f0;">取消</window.getComputedStyle(btn).visibility); >
+                <button;  id="preset-action-edit">编辑预设</button; >
+                <button;  id="preset-action-delete" class="btn-danger">删除预设</button; >
+                <button;  id="preset-action-cancel" style="margin-top: 8px; border-radius: 8px; background-color: #f0f0f0;">取消</button; >
             </div>
         </div>
     </div>
@@ -4042,8 +4042,8 @@ body {
                 <input type="text" id="transfer-note" placeholder="留下你的小心思~" maxlength="20">
             </div>
             <div class="transfer-actions">
-                <window.getComputedStyle(btn).visibility);  id="transfer-cancel-btn">取消</window.getComputedStyle(btn).visibility); >
-                <window.getComputedStyle(btn).visibility);  id="transfer-confirm-btn">确认转账</window.getComputedStyle(btn).visibility); >
+                <button;  id="transfer-cancel-btn">取消</button; >
+                <button;  id="transfer-confirm-btn">确认转账</button; >
             </div>
         </div>
     </div>
@@ -4078,8 +4078,8 @@ body {
                 </div>
             </div>
             <div class="modal-footer">
-                <window.getComputedStyle(btn).visibility);  class="cancel" id="cancel-frame-settings-btn">取消</window.getComputedStyle(btn).visibility); >
-                <window.getComputedStyle(btn).visibility);  class="save" id="save-frame-settings-btn">保存</window.getComputedStyle(btn).visibility); >
+                <button;  class="cancel" id="cancel-frame-settings-btn">取消</button; >
+                <button;  class="save" id="save-frame-settings-btn">保存</button; >
             </div>
         </div>
     </div>
@@ -4100,8 +4100,8 @@ body {
 
             <!-- === 模式切换开关 (新增) === -->
             <div class="post-mode-switcher">
-                <window.getComputedStyle(btn).visibility);  id="switch-to-image-mode" class="mode-btn active">上传图片</window.getComputedStyle(btn).visibility); >
-                <window.getComputedStyle(btn).visibility);  id="switch-to-text-image-mode" class="mode-btn">使用文字图</window.getComputedStyle(btn).visibility); >
+                <button;  id="switch-to-image-mode" class="mode-btn active">上传图片</button; >
+                <button;  id="switch-to-text-image-mode" class="mode-btn">使用文字图</button; >
             </div>
 
 <!-- ▼▼▼ 【修正后】的可见范围设置 ▼▼▼ -->
@@ -4123,11 +4123,11 @@ body {
                 <div class="form-group">
 <div id="post-image-preview-container" class="post-image-preview-container">
                         <img id="post-image-preview" src="" alt="图片预览">
-                        <window.getComputedStyle(btn).visibility);  id="post-remove-image-btn">×</window.getComputedStyle(btn).visibility); >
+                        <button;  id="post-remove-image-btn">×</button; >
                     </div>
                     <div class="post-image-upload-options">
-                        <window.getComputedStyle(btn).visibility);  id="post-upload-local-btn" class="form-window.getComputedStyle(btn).visibility); -secondary">本地上传</window.getComputedStyle(btn).visibility); >
-                        <window.getComputedStyle(btn).visibility);  id="post-use-url-btn" class="form-window.getComputedStyle(btn).visibility); -secondary">网络URL</window.getComputedStyle(btn).visibility); >
+                        <button;  id="post-upload-local-btn" class="form-button; -secondary">本地上传</button; >
+                        <button;  id="post-use-url-btn" class="form-button; -secondary">网络URL</button; >
                         <input type="file" id="post-local-image-input" accept="image/*" hidden>
                     </div>
                 </div>
@@ -4147,8 +4147,8 @@ body {
 
         </div>
         <div class="modal-footer">
-            <window.getComputedStyle(btn).visibility);  class="cancel" id="cancel-create-post-btn">取消</window.getComputedStyle(btn).visibility); >
-            <window.getComputedStyle(btn).visibility);  class="save" id="confirm-create-post-btn">发布</window.getComputedStyle(btn).visibility); >
+            <button;  class="cancel" id="cancel-create-post-btn">取消</button; >
+            <button;  class="save" id="confirm-create-post-btn">发布</button; >
         </div>
     </div>
 </div>
@@ -4165,7 +4165,7 @@ body {
                 <label>新建分组</label>
                 <div style="display: flex; gap: 10px;">
                     <input type="text" id="new-group-name-input" placeholder="输入分组名..." style="flex-grow: 1;">
-                    <window.getComputedStyle(btn).visibility);  id="add-new-group-btn" class="form-window.getComputedStyle(btn).visibility); " style="width: auto; margin-top: 0; padding: 0 15px;">添加</window.getComputedStyle(btn).visibility); >
+                    <button;  id="add-new-group-btn" class="form-button; " style="width: auto; margin-top: 0; padding: 0 15px;">添加</button; >
                 </div>
             </div>
             <hr style="opacity: 0.2;">
@@ -4174,7 +4174,7 @@ body {
             </div>
         </div>
         <div class="modal-footer">
-            <window.getComputedStyle(btn).visibility);  class="save" id="close-group-manager-btn" style="width: 100%;">完成</window.getComputedStyle(btn).visibility); >
+            <button;  class="save" id="close-group-manager-btn" style="width: 100%;">完成</button; >
         </div>
     </div>
 </div>
@@ -4185,11 +4185,11 @@ body {
     <div id="custom-modal" style="width: 250px;">
         <div class="custom-modal-footer">
             <!-- 新的操作按钮 -->
-            <window.getComputedStyle(btn).visibility);  id="edit-message-btn">编辑消息</window.getComputedStyle(btn).visibility); >
-            <window.getComputedStyle(btn).visibility);  id="copy-message-btn">复制文本</window.getComputedStyle(btn).visibility); >
-            <window.getComputedStyle(btn).visibility);  id="select-message-btn">进入多选</window.getComputedStyle(btn).visibility); >
+            <button;  id="edit-message-btn">编辑消息</button; >
+            <button;  id="copy-message-btn">复制文本</button; >
+            <button;  id="select-message-btn">进入多选</button; >
             <!-- 取消按钮 -->
-            <window.getComputedStyle(btn).visibility);  id="cancel-message-action-btn" style="margin-top: 8px; border-radius: 8px; background-color: #f0f0f0;">取消</window.getComputedStyle(btn).visibility); >
+            <button;  id="cancel-message-action-btn" style="margin-top: 8px; border-radius: 8px; background-color: #f0f0f0;">取消</button; >
         </div>
     </div>
 </div>
@@ -4199,9 +4199,9 @@ body {
 <div id="post-actions-modal" class="modal">
     <div id="custom-modal" style="width: 250px;">
         <div class="custom-modal-footer">
-            <window.getComputedStyle(btn).visibility);  id="edit-post-btn">编辑动态</window.getComputedStyle(btn).visibility); >
-            <window.getComputedStyle(btn).visibility);  id="copy-post-btn">复制内容</window.getComputedStyle(btn).visibility); >           
-            <window.getComputedStyle(btn).visibility);  id="cancel-post-action-btn">取消</window.getComputedStyle(btn).visibility); >
+            <button;  id="edit-post-btn">编辑动态</button; >
+            <button;  id="copy-post-btn">复制内容</button; >           
+            <button;  id="cancel-post-action-btn">取消</button; >
         </div>
     </div>
 </div>
@@ -4217,13 +4217,13 @@ body {
             <!-- 编辑器容器，JS会在这里动态生成文本框 -->
             <div id="message-editor-container"></div>
             <!-- 添加新消息的按钮 -->
-            <window.getComputedStyle(btn).visibility);  id="add-message-editor-block-btn" class="form-window.getComputedStyle(btn).visibility);  form-window.getComputedStyle(btn).visibility); -secondary" style="margin-top: 15px;">
+            <button;  id="add-message-editor-block-btn" class="form-button;  form-button; -secondary" style="margin-top: 15px;">
                 [+] 添加下一条消息
-            </window.getComputedStyle(btn).visibility); >
+            </button; >
         </div>
         <div class="modal-footer">
-            <window.getComputedStyle(btn).visibility);  class="cancel" id="cancel-advanced-editor-btn">取消</window.getComputedStyle(btn).visibility); >
-            <window.getComputedStyle(btn).visibility);  class="save" id="save-advanced-editor-btn">保存更改</window.getComputedStyle(btn).visibility); >
+            <button;  class="cancel" id="cancel-advanced-editor-btn">取消</button; >
+            <button;  class="save" id="save-advanced-editor-btn">保存更改</button; >
         </div>
     </div>
 </div>
@@ -4246,8 +4246,8 @@ body {
             </div>
         </div>
         <div class="modal-footer">
-            <window.getComputedStyle(btn).visibility);  class="cancel" id="waimai-cancel-btn">取消</window.getComputedStyle(btn).visibility); >
-            <window.getComputedStyle(btn).visibility);  class="save" id="waimai-confirm-btn">发起请求</window.getComputedStyle(btn).visibility); >
+            <button;  class="cancel" id="waimai-cancel-btn">取消</button; >
+            <button;  class="save" id="waimai-confirm-btn">发起请求</button; >
         </div>
     </div>
 </div>
@@ -4269,8 +4269,8 @@ body {
             </div>
         </div>
         <div class="modal-footer">
-            <window.getComputedStyle(btn).visibility);  class="cancel" id="cancel-create-countdown-btn">取消</window.getComputedStyle(btn).visibility); >
-            <window.getComputedStyle(btn).visibility);  class="save" id="confirm-create-countdown-btn">保存约定</window.getComputedStyle(btn).visibility); >
+            <button;  class="cancel" id="cancel-create-countdown-btn">取消</button; >
+            <button;  class="save" id="confirm-create-countdown-btn">保存约定</button; >
         </div>
     </div>
 </div>
@@ -4287,17 +4287,17 @@ body {
             <div id="quote-preview" class="quoted-message" style="display: none; margin-bottom: 10px;"></div>
             
             <div id="message-editor-container"></div>
-            <window.getComputedStyle(btn).visibility);  id="add-message-editor-block-btn" class="form-window.getComputedStyle(btn).visibility);  form-window.getComputedStyle(btn).visibility); -secondary" style="margin-top: 15px;">
+            <button;  id="add-message-editor-block-btn" class="form-button;  form-button; -secondary" style="margin-top: 15px;">
                 [+] 添加下一条消息
-            </window.getComputedStyle(btn).visibility); >
+            </button; >
             <!-- 新增引用按钮 -->
-            <window.getComputedStyle(btn).visibility);  id="quote-message-btn" class="form-window.getComputedStyle(btn).visibility);  form-window.getComputedStyle(btn).visibility); -secondary" style="margin-top: 10px;">
+            <button;  id="quote-message-btn" class="form-button;  form-button; -secondary" style="margin-top: 10px;">
                 ↖ 引用选中消息
-            </window.getComputedStyle(btn).visibility); >
+            </button; >
         </div>
         <div class="modal-footer">
-            <window.getComputedStyle(btn).visibility);  class="cancel" id="cancel-advanced-editor-btn">取消</window.getComputedStyle(btn).visibility); >
-            <window.getComputedStyle(btn).visibility);  class="save" id="save-advanced-editor-btn">保存更改</window.getComputedStyle(btn).visibility); >
+            <button;  class="cancel" id="cancel-advanced-editor-btn">取消</button; >
+            <button;  class="save" id="save-advanced-editor-btn">保存更改</button; >
         </div>
     </div>
 </div>
@@ -4330,7 +4330,7 @@ body {
                     <input type="text" id="rp-group-greeting" placeholder="恭喜发财，大吉大利！">
                 </div>
                 <p id="rp-group-total" style="text-align: center; font-size: 24px; font-weight: bold; margin: 10px 0;">¥ 0.00</p>
-                <window.getComputedStyle(btn).visibility);  id="send-group-packet-btn" class="form-window.getComputedStyle(btn).visibility); ">塞钱进红包</window.getComputedStyle(btn).visibility); >
+                <button;  id="send-group-packet-btn" class="form-button; ">塞钱进红包</button; >
             </div>
 
             <!-- 3. 专属红包内容区 -->
@@ -4348,11 +4348,11 @@ body {
                     <input type="text" id="rp-direct-greeting" placeholder="恭喜发财，大吉大利！">
                 </div>
                  <p id="rp-direct-total" style="text-align: center; font-size: 24px; font-weight: bold; margin: 10px 0;">¥ 0.00</p>
-                <window.getComputedStyle(btn).visibility);  id="send-direct-packet-btn" class="form-window.getComputedStyle(btn).visibility); ">塞钱进红包</window.getComputedStyle(btn).visibility); >
+                <button;  id="send-direct-packet-btn" class="form-button; ">塞钱进红包</button; >
             </div>
         </div>
         <div class="modal-footer" style="justify-content: center;">
-             <window.getComputedStyle(btn).visibility);  class="cancel" id="cancel-red-packet-btn" style="width: 100%;">取消</window.getComputedStyle(btn).visibility); >
+             <button;  class="cancel" id="cancel-red-packet-btn" style="width: 100%;">取消</button; >
         </div>
     </div>
 </div>
@@ -4379,7 +4379,7 @@ body {
             </div>
         </div>
         <div class="modal-footer">
-            <window.getComputedStyle(btn).visibility);  class="save" id="close-rp-details-btn" style="width: 100%;">关闭</window.getComputedStyle(btn).visibility); >
+            <button;  class="save" id="close-rp-details-btn" style="width: 100%;">关闭</button; >
         </div>
     </div>
 </div>
@@ -4400,12 +4400,12 @@ body {
                 <div id="poll-options-container" style="display: flex; flex-direction: column; gap: 8px;">
                     <!-- 投票选项将由JS动态生成在这里 -->
                 </div>
-                <window.getComputedStyle(btn).visibility);  id="add-poll-option-btn" class="form-window.getComputedStyle(btn).visibility);  form-window.getComputedStyle(btn).visibility); -secondary" style="margin-top: 12px;">+ 添加选项</window.getComputedStyle(btn).visibility); >
+                <button;  id="add-poll-option-btn" class="form-button;  form-button; -secondary" style="margin-top: 12px;">+ 添加选项</button; >
             </div>
         </div>
         <div class="modal-footer">
-            <window.getComputedStyle(btn).visibility);  class="cancel" id="cancel-create-poll-btn">取消</window.getComputedStyle(btn).visibility); >
-            <window.getComputedStyle(btn).visibility);  class="save" id="confirm-create-poll-btn">发起投票</window.getComputedStyle(btn).visibility); >
+            <button;  class="cancel" id="cancel-create-poll-btn">取消</button; >
+            <button;  class="save" id="confirm-create-poll-btn">发起投票</button; >
         </div>
     </div>
 </div>
@@ -4607,7 +4607,7 @@ const npcAvatarPool = {
                 modalBody.innerHTML = `<p>${message}</p>`;
                 modalCancelBtn.style.display = 'block';
                 modalConfirmBtn.textContent = '确定';
-                if (options.confirmwindow.getComputedStyle(btn).visibility); Class) modalConfirmBtn.classList.add(options.confirmwindow.getComputedStyle(btn).visibility); Class);
+                if (options.confirmbutton; Class) modalConfirmBtn.classList.add(options.confirmbutton; Class);
                 modalConfirmBtn.onclick = () => { resolve(true); hideCustomModal(); };
                 modalCancelBtn.onclick = () => { resolve(false); hideCustomModal(); };
                 showCustomModal();
@@ -4902,7 +4902,7 @@ db.version(20).stores({
                     </div>
                     ${likesHtml}
                     ${commentsHtml}
-                    <div class="post-footer"><div class="comment-section"><img src="${commentAvatar}" class="comment-avatar"><input type="text" class="comment-input" placeholder="友善的评论是交流的起点"><div class="at-mention-popup"></div></div><window.getComputedStyle(btn).visibility);  class="comment-send-btn">发送</window.getComputedStyle(btn).visibility); ></div>
+                    <div class="post-footer"><div class="comment-section"><img src="${commentAvatar}" class="comment-avatar"><input type="text" class="comment-input" placeholder="友善的评论是交流的起点"><div class="at-mention-popup"></div></div><button;  class="comment-send-btn">发送</button; ></div>
                 `;
                 
                 const deleteAction = document.createElement('div');
@@ -5178,7 +5178,7 @@ async function importBackup(file) {
     const confirmed = await showCustomConfirm(
         '严重警告！',
         '导入备份将完全覆盖您当前的所有数据，包括聊天、动态、设置等。此操作不可撤销！您确定要继续吗？',
-        { confirmwindow.getComputedStyle(btn).visibility); Class: 'btn-danger' }
+        { confirmbutton; Class: 'btn-danger' }
     );
 
     if (!confirmed) return;
@@ -5538,7 +5538,7 @@ else if (!chat.isGroup && chat.relationship?.status === 'blocked_by_ai') {
     }
 
     addLongPressListener(item, async (e) => {
-        const confirmed = await showCustomConfirm('删除对话', `确定要删除与 "${chat.name}" 的整个对话吗？此操作不可撤销。`, { confirmwindow.getComputedStyle(btn).visibility); Class: 'btn-danger' });
+        const confirmed = await showCustomConfirm('删除对话', `确定要删除与 "${chat.name}" 的整个对话吗？此操作不可撤销。`, { confirmbutton; Class: 'btn-danger' });
         if (confirmed) {
             if (musicState.isActive && musicState.activeChatId === chat.id) await endListenTogetherSession(false);
             delete state.chats[chat.id];
@@ -5603,7 +5603,7 @@ function renderChatInterface(chatId) {
 
                 lockHtml = `
                     <span class="lock-text">你已将“${chat.name}”拉黑。</span>
-                    <window.getComputedStyle(btn).visibility);  id="unblock-btn" class="lock-action-btn">解除拉黑</window.getComputedStyle(btn).visibility); >
+                    <button;  id="unblock-btn" class="lock-action-btn">解除拉黑</button; >
                     <div style="margin-top: 20px; padding: 10px; border: 1px dashed #ccc; border-radius: 8px; font-size: 11px; text-align: left; color: #666; background: rgba(0,0,0,0.02);">
                         <strong style="color: #333;">【开发者诊断面板】</strong><br>
                         - 后台活动总开关: ${state.globalSettings.enableBackgroundActivity ? '<span style="color: green;">已开启</span>' : '<span style="color: red;">已关闭</span>'}<br>
@@ -5613,22 +5613,22 @@ function renderChatInterface(chatId) {
                         - 冷静期是否结束: ${isCooldownOver ? '<span style="color: green;">是</span>' : `<span style="color: orange;">否 (还剩约 ${timeRemainingMinutes} 分钟)</span>`}<br>
                         - 触发条件: ${isCooldownOver && state.globalSettings.enableBackgroundActivity ? '<span style="color: green;">已满足，等待下次系统心跳</span>' : '<span style="color: red;">未满足</span>'}
                     </div>
-                    <window.getComputedStyle(btn).visibility);  id="force-apply-check-btn" class="lock-action-btn secondary" style="margin-top: 10px;">强制触发一次好友申请检测</window.getComputedStyle(btn).visibility); >
+                    <button;  id="force-apply-check-btn" class="lock-action-btn secondary" style="margin-top: 10px;">强制触发一次好友申请检测</button; >
                 `;
                 // --- 【修改结束】 ---
                 break;
             case 'blocked_by_ai':
                 lockHtml = `
                     <span class="lock-text">你被对方拉黑了。</span>
-                    <window.getComputedStyle(btn).visibility);  id="apply-friend-btn" class="lock-action-btn">重新申请加为好友</window.getComputedStyle(btn).visibility); >
+                    <button;  id="apply-friend-btn" class="lock-action-btn">重新申请加为好友</button; >
                 `;
                 break;
             
             case 'pending_user_approval':
                 lockHtml = `
                     <span class="lock-text">“${chat.name}”请求添加你为好友：<br><i>“${chat.relationship.applicationReason}”</i></span>
-                    <window.getComputedStyle(btn).visibility);  id="accept-friend-btn" class="lock-action-btn">接受</window.getComputedStyle(btn).visibility); >
-                    <window.getComputedStyle(btn).visibility);  id="reject-friend-btn" class="lock-action-btn secondary">拒绝</window.getComputedStyle(btn).visibility); >
+                    <button;  id="accept-friend-btn" class="lock-action-btn">接受</button; >
+                    <button;  id="reject-friend-btn" class="lock-action-btn secondary">拒绝</button; >
                 `;
                 break;
 
@@ -5651,7 +5651,7 @@ function renderChatInterface(chatId) {
     initialMessages.forEach(msg => appendMessage(msg, chat, true));
     currentRenderedCount = initialMessages.length;
     if (totalMessages > currentRenderedCount) {
-        prependLoadMorewindow.getComputedStyle(btn).visibility); (messagesContainer);
+        prependLoadMorebutton; (messagesContainer);
     }
     const typingIndicator = document.createElement('div');
     typingIndicator.id = 'typing-indicator';
@@ -5662,21 +5662,21 @@ function renderChatInterface(chatId) {
 }
 // ▲▲▲ 替换结束 ▲▲▲
 
-        function prependLoadMorewindow.getComputedStyle(btn).visibility); (container) { const window.getComputedStyle(btn).visibility);  = document.createElement('window.getComputedStyle(btn).visibility); '); window.getComputedStyle(btn).visibility); .id = 'load-more-btn'; window.getComputedStyle(btn).visibility); .textContent = '加载更早的记录'; window.getComputedStyle(btn).visibility); .addEventListener('click', loadMoreMessages); container.prepend(window.getComputedStyle(btn).visibility); ); }
+        function prependLoadMorebutton; (container) { const button;  = document.createElement('button; '); button; .id = 'load-more-btn'; button; .textContent = '加载更早的记录'; button; .addEventListener('click', loadMoreMessages); container.prepend(button; ); }
 
-        function loadMoreMessages() { const messagesContainer = document.getElementById('chat-messages'); const chat = state.chats[state.activeChatId]; if (!chat) return; const loadMoreBtn = document.getElementById('load-more-btn'); if (loadMoreBtn) loadMoreBtn.remove(); const totalMessages = chat.history.length; const nextSliceStart = totalMessages - currentRenderedCount - MESSAGE_RENDER_WINDOW; const nextSliceEnd = totalMessages - currentRenderedCount; const messagesToPrepend = chat.history.slice(Math.max(0, nextSliceStart), nextSliceEnd); const oldScrollHeight = messagesContainer.scrollHeight; messagesToPrepend.reverse().forEach(msg => prependMessage(msg, chat)); currentRenderedCount += messagesToPrepend.length; const newScrollHeight = messagesContainer.scrollHeight; messagesContainer.scrollTop += (newScrollHeight - oldScrollHeight); if (totalMessages > currentRenderedCount) { prependLoadMorewindow.getComputedStyle(btn).visibility); (messagesContainer); } }
+        function loadMoreMessages() { const messagesContainer = document.getElementById('chat-messages'); const chat = state.chats[state.activeChatId]; if (!chat) return; const loadMoreBtn = document.getElementById('load-more-btn'); if (loadMoreBtn) loadMoreBtn.remove(); const totalMessages = chat.history.length; const nextSliceStart = totalMessages - currentRenderedCount - MESSAGE_RENDER_WINDOW; const nextSliceEnd = totalMessages - currentRenderedCount; const messagesToPrepend = chat.history.slice(Math.max(0, nextSliceStart), nextSliceEnd); const oldScrollHeight = messagesContainer.scrollHeight; messagesToPrepend.reverse().forEach(msg => prependMessage(msg, chat)); currentRenderedCount += messagesToPrepend.length; const newScrollHeight = messagesContainer.scrollHeight; messagesContainer.scrollTop += (newScrollHeight - oldScrollHeight); if (totalMessages > currentRenderedCount) { prependLoadMorebutton; (messagesContainer); } }
 
         function renderWallpaperScreen() { const preview = document.getElementById('wallpaper-preview'); const bg = newWallpaperBase64 || state.globalSettings.wallpaper; if (bg && bg.startsWith('data:image')) { preview.style.backgroundImage = `url(${bg})`; preview.textContent = ''; } else if(bg) { preview.style.backgroundImage = bg; preview.textContent = '当前为渐变色'; } }
         window.renderWallpaperScreenProxy = renderWallpaperScreen;
 
         function applyGlobalWallpaper() { const homeScreen = document.getElementById('home-screen'); const wallpaper = state.globalSettings.wallpaper; if (wallpaper && wallpaper.startsWith('data:image')) homeScreen.style.backgroundImage = `url(${wallpaper})`; else if (wallpaper) homeScreen.style.backgroundImage = wallpaper; }
 
-        function renderWorldBookScreen() { const listEl = document.getElementById('world-book-list'); listEl.innerHTML = ''; if (state.worldBooks.length === 0) { listEl.innerHTML = '<p style="text-align:center; color: #8a8a8a; margin-top: 50px;">点击右上角 "+" 创建你的第一本世界书</p>'; return; } state.worldBooks.forEach(book => { const item = document.createElement('div'); item.className = 'list-item'; item.dataset.bookId = book.id; item.innerHTML = `<div class="item-title">${book.name}</div><div class="item-content">${(book.content || '暂无内容...').substring(0, 50)}</div>`; item.addEventListener('click', () => openWorldBookEditor(book.id)); addLongPressListener(item, async () => { const confirmed = await showCustomConfirm('删除世界书', `确定要删除《${book.name}》吗？此操作不可撤销。`, { confirmwindow.getComputedStyle(btn).visibility); Class: 'btn-danger' }); if (confirmed) { await db.worldBooks.delete(book.id); state.worldBooks = state.worldBooks.filter(wb => wb.id !== book.id); renderWorldBookScreen(); } }); listEl.appendChild(item); }); }
+        function renderWorldBookScreen() { const listEl = document.getElementById('world-book-list'); listEl.innerHTML = ''; if (state.worldBooks.length === 0) { listEl.innerHTML = '<p style="text-align:center; color: #8a8a8a; margin-top: 50px;">点击右上角 "+" 创建你的第一本世界书</p>'; return; } state.worldBooks.forEach(book => { const item = document.createElement('div'); item.className = 'list-item'; item.dataset.bookId = book.id; item.innerHTML = `<div class="item-title">${book.name}</div><div class="item-content">${(book.content || '暂无内容...').substring(0, 50)}</div>`; item.addEventListener('click', () => openWorldBookEditor(book.id)); addLongPressListener(item, async () => { const confirmed = await showCustomConfirm('删除世界书', `确定要删除《${book.name}》吗？此操作不可撤销。`, { confirmbutton; Class: 'btn-danger' }); if (confirmed) { await db.worldBooks.delete(book.id); state.worldBooks = state.worldBooks.filter(wb => wb.id !== book.id); renderWorldBookScreen(); } }); listEl.appendChild(item); }); }
         window.renderWorldBookScreenProxy = renderWorldBookScreen;
 
         function openWorldBookEditor(bookId) { editingWorldBookId = bookId; const book = state.worldBooks.find(wb => wb.id === bookId); if (!book) return; document.getElementById('world-book-editor-title').textContent = book.name; document.getElementById('world-book-name-input').value = book.name; document.getElementById('world-book-content-input').value = book.content; showScreen('world-book-editor-screen'); }
 
-        function renderStickerPanel() { const grid = document.getElementById('sticker-grid'); grid.innerHTML = ''; if (state.userStickers.length === 0) { grid.innerHTML = '<p style="text-align:center; color: var(--text-secondary); grid-column: 1 / -1;">大人请点击右上角“添加”或“上传”来添加你的第一个表情吧！</p>'; return; } state.userStickers.forEach(sticker => { const item = document.createElement('div'); item.className = 'sticker-item'; item.style.backgroundImage = `url(${sticker.url})`; item.title = sticker.name; item.addEventListener('click', () => sendSticker(sticker)); addLongPressListener(item, () => { if (isSelectionMode) return; const existingDeleteBtn = item.querySelector('.delete-btn'); if (existingDeleteBtn) return; const deleteBtn = document.createElement('div'); deleteBtn.className = 'delete-btn'; deleteBtn.innerHTML = '&times;'; deleteBtn.onclick = async (e) => { e.stopPropagation(); const confirmed = await showCustomConfirm('删除表情', `确定要删除表情 "${sticker.name}" 吗？`, { confirmwindow.getComputedStyle(btn).visibility); Class: 'btn-danger' }); if (confirmed) { await db.userStickers.delete(sticker.id); state.userStickers = state.userStickers.filter(s => s.id !== sticker.id); renderStickerPanel(); } }; item.appendChild(deleteBtn); deleteBtn.style.display = 'block'; setTimeout(() => item.addEventListener('mouseleave', () => deleteBtn.remove(), { once: true }), 3000); }); grid.appendChild(item); }); }
+        function renderStickerPanel() { const grid = document.getElementById('sticker-grid'); grid.innerHTML = ''; if (state.userStickers.length === 0) { grid.innerHTML = '<p style="text-align:center; color: var(--text-secondary); grid-column: 1 / -1;">大人请点击右上角“添加”或“上传”来添加你的第一个表情吧！</p>'; return; } state.userStickers.forEach(sticker => { const item = document.createElement('div'); item.className = 'sticker-item'; item.style.backgroundImage = `url(${sticker.url})`; item.title = sticker.name; item.addEventListener('click', () => sendSticker(sticker)); addLongPressListener(item, () => { if (isSelectionMode) return; const existingDeleteBtn = item.querySelector('.delete-btn'); if (existingDeleteBtn) return; const deleteBtn = document.createElement('div'); deleteBtn.className = 'delete-btn'; deleteBtn.innerHTML = '&times;'; deleteBtn.onclick = async (e) => { e.stopPropagation(); const confirmed = await showCustomConfirm('删除表情', `确定要删除表情 "${sticker.name}" 吗？`, { confirmbutton; Class: 'btn-danger' }); if (confirmed) { await db.userStickers.delete(sticker.id); state.userStickers = state.userStickers.filter(s => s.id !== sticker.id); renderStickerPanel(); } }; item.appendChild(deleteBtn); deleteBtn.style.display = 'block'; setTimeout(() => item.addEventListener('mouseleave', () => deleteBtn.remove(), { once: true }), 3000); }); grid.appendChild(item); }); }
 
 function createMessageElement(msg, chat) {
     if (msg.isHidden) {
@@ -5770,12 +5770,12 @@ function createMessageElement(msg, chat) {
             bubble.classList.add(`status-${msg.status}`);
         }
         const requestTitle = `来自 ${msg.senderName} 的代付请求`;
-        let actionwindow.getComputedStyle(btn).visibility); sHtml = '';
+        let actionbutton; sHtml = '';
         if (msg.status === 'pending' && !isUser) {
-            actionwindow.getComputedStyle(btn).visibility); sHtml = `
+            actionbutton; sHtml = `
                 <div class="waimai-user-actions">
-                    <window.getComputedStyle(btn).visibility);  class="waimai-decline-btn" data-choice="rejected">残忍拒绝</window.getComputedStyle(btn).visibility); >
-                    <window.getComputedStyle(btn).visibility);  class="waimai-pay-btn" data-choice="paid">为Ta买单</window.getComputedStyle(btn).visibility); >
+                    <button;  class="waimai-decline-btn" data-choice="rejected">残忍拒绝</button; >
+                    <button;  class="waimai-pay-btn" data-choice="paid">为Ta买单</button; >
                 </div>`;
         }
         contentHtml = `
@@ -5796,9 +5796,9 @@ function createMessageElement(msg, chat) {
                             <div class="countdown-timer" id="waimai-timer-${msg.timestamp}"></div>
                         </div>
                     </div>
-                    <window.getComputedStyle(btn).visibility);  class="waimai-details-btn">查看详情</window.getComputedStyle(btn).visibility); >
+                    <button;  class="waimai-details-btn">查看详情</button; >
                 </div>
-                ${actionwindow.getComputedStyle(btn).visibility); sHtml}
+                ${actionbutton; sHtml}
             </div>`;
         
         setTimeout(() => {
@@ -5819,8 +5819,8 @@ function createMessageElement(msg, chat) {
                     showCustomAlert('订单详情', `<b>商品：</b>${msg.productInfo}<br><b>金额：</b>¥${Number(msg.amount).toFixed(2)}${paidByText}`);
                 });
             }
-            const actionwindow.getComputedStyle(btn).visibility); s = document.querySelectorAll(`.message-bubble[data-timestamp="${msg.timestamp}"] .waimai-user-actions window.getComputedStyle(btn).visibility); `);
-            actionwindow.getComputedStyle(btn).visibility); s.forEach(btn => {
+            const actionbutton; s = document.querySelectorAll(`.message-bubble[data-timestamp="${msg.timestamp}"] .waimai-user-actions button; `);
+            actionbutton; s.forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.stopPropagation();
                     const choice = e.target.dataset.choice;
@@ -5918,10 +5918,10 @@ function createMessageElement(msg, chat) {
     // 【核心修改】在这里统一按钮的显示逻辑
     if (msg.isClosed) {
         // 如果投票已结束，总是显示“查看结果”
-        footerHtml = `<div class="poll-footer"><span class="poll-total-votes">共 ${totalVotes} 人投票</span><window.getComputedStyle(btn).visibility);  class="poll-action-btn">查看结果</window.getComputedStyle(btn).visibility); ></div>`;
+        footerHtml = `<div class="poll-footer"><span class="poll-total-votes">共 ${totalVotes} 人投票</span><button;  class="poll-action-btn">查看结果</button; ></div>`;
     } else {
         // 如果投票未结束，总是显示“结束投票”
-        footerHtml = `<div class="poll-footer"><span class="poll-total-votes">共 ${totalVotes} 人投票</span><window.getComputedStyle(btn).visibility);  class="poll-action-btn">结束投票</window.getComputedStyle(btn).visibility); ></div>`;
+        footerHtml = `<div class="poll-footer"><span class="poll-total-votes">共 ${totalVotes} 人投票</span><button;  class="poll-action-btn">结束投票</button; ></div>`;
     }
 
     contentHtml = `
@@ -5988,7 +5988,7 @@ function openChat(chatId) {
     renderChatInterface(chatId);
     showScreen('chat-interface-screen');
     window.updateListenTogetherIconProxy(state.activeChatId);
-    toggleCallwindow.getComputedStyle(btn).visibility); s(chat.isGroup || false);    
+    toggleCallbutton; s(chat.isGroup || false);    
 
     if (!chat.isGroup && chat.relationship?.status === 'pending_ai_approval') {
         console.log(`检测到好友申请待处理状态，为角色 "${chat.name}" 自动触发AI响应...`);
@@ -6950,7 +6950,7 @@ function toggleMessageSelection(timestamp) {
 
         function addLongPressListener(element, callback) { let pressTimer; const startPress = (e) => { if(isSelectionMode) return; e.preventDefault(); pressTimer = window.setTimeout(() => callback(e), 500); }; const cancelPress = () => clearTimeout(pressTimer); element.addEventListener('mousedown', startPress); element.addEventListener('mouseup', cancelPress); element.addEventListener('mouseleave', cancelPress); element.addEventListener('touchstart', startPress, { passive: true }); element.addEventListener('touchend', cancelPress); element.addEventListener('touchmove', cancelPress); }
 
-        async function handleListenTogetherClick() { const targetChatId = state.activeChatId; if (!targetChatId) return; if (!musicState.isActive) { startListenTogetherSession(targetChatId); return; } if (musicState.activeChatId === targetChatId) { document.getElementById('music-player-overlay').classList.add('visible'); } else { const oldChatName = state.chats[musicState.activeChatId]?.name || '未知'; const newChatName = state.chats[targetChatId]?.name || '当前'; const confirmed = await showCustomConfirm('切换听歌对象', `您正和「${oldChatName}」听歌。要结束并开始和「${newChatName}」的新会话吗？`, { confirmwindow.getComputedStyle(btn).visibility); Class: 'btn-danger' }); if (confirmed) { await endListenTogetherSession(true); await new Promise(resolve => setTimeout(resolve, 50)); startListenTogetherSession(targetChatId); } } }
+        async function handleListenTogetherClick() { const targetChatId = state.activeChatId; if (!targetChatId) return; if (!musicState.isActive) { startListenTogetherSession(targetChatId); return; } if (musicState.activeChatId === targetChatId) { document.getElementById('music-player-overlay').classList.add('visible'); } else { const oldChatName = state.chats[musicState.activeChatId]?.name || '未知'; const newChatName = state.chats[targetChatId]?.name || '当前'; const confirmed = await showCustomConfirm('切换听歌对象', `您正和「${oldChatName}」听歌。要结束并开始和「${newChatName}」的新会话吗？`, { confirmbutton; Class: 'btn-danger' }); if (confirmed) { await endListenTogetherSession(true); await new Promise(resolve => setTimeout(resolve, 50)); startListenTogetherSession(targetChatId); } } }
 
         async function startListenTogetherSession(chatId) { const chat = state.chats[chatId]; if (!chat) return; musicState.totalElapsedTime = chat.musicData.totalTime || 0; musicState.isActive = true; musicState.activeChatId = chatId; if (musicState.playlist.length > 0) { musicState.currentIndex = 0; } else { musicState.currentIndex = -1; } if(musicState.timerId) clearInterval(musicState.timerId); musicState.timerId = setInterval(() => { if (musicState.isPlaying) { musicState.totalElapsedTime++; updateElapsedTimeDisplay(); } }, 1000); updatePlayerUI(); updatePlaylistUI(); document.getElementById('music-player-overlay').classList.add('visible'); }
 
@@ -7003,7 +7003,7 @@ function toggleMessageSelection(timestamp) {
 
         function openPersonaEditorForEdit() { const preset = state.personaPresets.find(p => p.id === editingPersonaPresetId); if (!preset) return; document.getElementById('persona-editor-title').textContent = '编辑人设预设'; document.getElementById('preset-avatar-preview').src = preset.avatar; document.getElementById('preset-persona-input').value = preset.persona; presetActionsModal.classList.remove('visible'); personaEditorModal.classList.add('visible'); }
 
-        async function deletePersonaPreset() { const confirmed = await showCustomConfirm('删除预设', '确定要删除这个人设预设吗？此操作不可恢复。', { confirmwindow.getComputedStyle(btn).visibility); Class: 'btn-danger' }); if (confirmed && editingPersonaPresetId) { await db.personaPresets.delete(editingPersonaPresetId); state.personaPresets = state.personaPresets.filter(p => p.id !== editingPersonaPresetId); hidePresetActions(); renderPersonaLibrary(); } }
+        async function deletePersonaPreset() { const confirmed = await showCustomConfirm('删除预设', '确定要删除这个人设预设吗？此操作不可恢复。', { confirmbutton; Class: 'btn-danger' }); if (confirmed && editingPersonaPresetId) { await db.personaPresets.delete(editingPersonaPresetId); state.personaPresets = state.personaPresets.filter(p => p.id !== editingPersonaPresetId); hidePresetActions(); renderPersonaLibrary(); } }
 
         function closePersonaEditor() { personaEditorModal.classList.remove('visible'); editingPersonaPresetId = null; }
 
@@ -7134,7 +7134,7 @@ function toggleMessageSelection(timestamp) {
                     const confirmed = await showCustomConfirm(
                         '删除相册',
                         `确定要删除相册《${album.name}》吗？此操作将同时删除相册内的所有照片，且无法恢复。`,
-                        { confirmwindow.getComputedStyle(btn).visibility); Class: 'btn-danger' }
+                        { confirmbutton; Class: 'btn-danger' }
                     );
 
                     if (confirmed) {
@@ -7183,7 +7183,7 @@ function toggleMessageSelection(timestamp) {
                     photoItem.className = 'photo-item';
                     photoItem.innerHTML = `
                         <img src="${photo.url}" class="photo-thumb" alt="相册照片">
-                        <window.getComputedStyle(btn).visibility);  class="photo-delete-btn" data-photo-id="${photo.id}">×</window.getComputedStyle(btn).visibility); >
+                        <button;  class="photo-delete-btn" data-photo-id="${photo.id}">×</button; >
                     `;
                     photosGrid.appendChild(photoItem);
                 });
@@ -7712,7 +7712,7 @@ async function addNewGroup() {
 // ▲▲▲ 替换结束 ▲▲▲
 
 async function deleteGroup(groupId) {
-    const confirmed = await showCustomConfirm('确认删除', '删除分组后，该组内的好友将变为“未分组”。确定要删除吗？', { confirmwindow.getComputedStyle(btn).visibility); Class: 'btn-danger' });
+    const confirmed = await showCustomConfirm('确认删除', '删除分组后，该组内的好友将变为“未分组”。确定要删除吗？', { confirmbutton; Class: 'btn-danger' });
     if (confirmed) {
         await db.qzoneGroups.delete(groupId);
         // 将属于该分组的好友的 groupId 设为 null
@@ -7789,9 +7789,9 @@ async function openMessageEditor() {
     // 使用 data-template 属性存储JSON模板字符串，注意要用单引号包裹
     const helpersHtml = `
         <div class="format-helpers">
-            <window.getComputedStyle(btn).visibility);  class="format-btn" data-template='${JSON.stringify(templates.voice)}'>语音</window.getComputedStyle(btn).visibility); >
-            <window.getComputedStyle(btn).visibility);  class="format-btn" data-template='${JSON.stringify(templates.image)}'>图片</window.getComputedStyle(btn).visibility); >
-            <window.getComputedStyle(btn).visibility);  class="format-btn" data-template='${JSON.stringify(templates.transfer)}'>转账</window.getComputedStyle(btn).visibility); >
+            <button;  class="format-btn" data-template='${JSON.stringify(templates.voice)}'>语音</button; >
+            <button;  class="format-btn" data-template='${JSON.stringify(templates.image)}'>图片</button; >
+            <button;  class="format-btn" data-template='${JSON.stringify(templates.transfer)}'>转账</button; >
         </div>
     `;
     // --- 【核心修改结束】---
@@ -7854,12 +7854,12 @@ function createMessageEditorBlock(initialContent = '') {
     };
 
     block.innerHTML = `
-        <window.getComputedStyle(btn).visibility);  class="delete-block-btn" title="删除此条">×</window.getComputedStyle(btn).visibility); >
+        <button;  class="delete-block-btn" title="删除此条">×</button; >
         <textarea>${initialContent}</textarea>
         <div class="format-helpers">
-            <window.getComputedStyle(btn).visibility);  class="format-btn" data-template='${JSON.stringify(templates.voice)}'>语音</window.getComputedStyle(btn).visibility); >
-            <window.getComputedStyle(btn).visibility);  class="format-btn" data-template='${JSON.stringify(templates.image)}'>图片</window.getComputedStyle(btn).visibility); >
-            <window.getComputedStyle(btn).visibility);  class="format-btn" data-template='${JSON.stringify(templates.transfer)}'>转账</window.getComputedStyle(btn).visibility); >
+            <button;  class="format-btn" data-template='${JSON.stringify(templates.voice)}'>语音</button; >
+            <button;  class="format-btn" data-template='${JSON.stringify(templates.image)}'>图片</button; >
+            <button;  class="format-btn" data-template='${JSON.stringify(templates.transfer)}'>转账</button; >
         </div>
     `;
 
@@ -8113,9 +8113,9 @@ async function openPostEditor() {
     
     const helpersHtml = `
         <div class="format-helpers">
-            <window.getComputedStyle(btn).visibility);  class="format-btn" data-type="text">说说</window.getComputedStyle(btn).visibility); >
-            <window.getComputedStyle(btn).visibility);  class="format-btn" data-template='${JSON.stringify(templates.image)}'>图片动态</window.getComputedStyle(btn).visibility); >
-            <window.getComputedStyle(btn).visibility);  class="format-btn" data-template='${JSON.stringify(templates.text_image)}'>文字图</window.getComputedStyle(btn).visibility); >
+            <button;  class="format-btn" data-type="text">说说</button; >
+            <button;  class="format-btn" data-template='${JSON.stringify(templates.image)}'>图片动态</button; >
+            <button;  class="format-btn" data-template='${JSON.stringify(templates.text_image)}'>文字图</button; >
         </div>
     `;
 
@@ -8248,13 +8248,13 @@ async function renderContactPicker() {
         listEl.appendChild(item);
     });
 
-    updateContactPickerConfirmwindow.getComputedStyle(btn).visibility); ();
+    updateContactPickerConfirmbutton; ();
 }
 
 /**
  * 更新“完成”按钮的计数
  */
-function updateContactPickerConfirmwindow.getComputedStyle(btn).visibility); () {
+function updateContactPickerConfirmbutton; () {
     const btn = document.getElementById('confirm-contact-picker-btn');
     btn.textContent = `完成(${selectedContacts.size})`;
     btn.disabled = selectedContacts.size < 2; // 至少需要2个人才能创建群聊
@@ -8347,7 +8347,7 @@ function renderMemberManagementList() {
         item.innerHTML = `
             <img src="${member.avatar}" class="avatar">
             <span class="name">${member.name}</span>
-            <window.getComputedStyle(btn).visibility);  class="remove-member-btn" data-member-id="${member.id}" title="移出群聊">-</window.getComputedStyle(btn).visibility); >
+            <button;  class="remove-member-btn" data-member-id="${member.id}" title="移出群聊">-</button; >
         `;
         listEl.appendChild(item);
     });
@@ -8373,7 +8373,7 @@ async function removeMemberFromGroup(memberId) {
     const confirmed = await showCustomConfirm(
         '移出成员',
         `确定要将“${memberName}”移出群聊吗？`,
-        { confirmwindow.getComputedStyle(btn).visibility); Class: 'btn-danger' }
+        { confirmbutton; Class: 'btn-danger' }
     );
 
     if (confirmed) {
@@ -8417,7 +8417,7 @@ async function openContactPickerForAddMember() {
     }
 
     // 更新按钮状态并显示屏幕
-    updateContactPickerConfirmwindow.getComputedStyle(btn).visibility); ();
+    updateContactPickerConfirmbutton; ();
     showScreen('contact-picker-screen');
 }
 
@@ -8963,7 +8963,7 @@ ${videoCallState.preCallContext}
 }
 
 // ▼▼▼ 将这个【全新函数】粘贴到JS功能函数定义区 ▼▼▼
-function toggleCallwindow.getComputedStyle(btn).visibility); s(isGroup) {
+function toggleCallbutton; s(isGroup) {
     document.getElementById('video-call-btn').style.display = isGroup ? 'none' : 'flex';
     document.getElementById('group-video-call-btn').style.display = isGroup ? 'flex' : 'none';
 }
@@ -9145,7 +9145,7 @@ function createMemoryCard(memory) {
         <div class="content">${contentHtml}</div>
     `;
     addLongPressListener(card, async () => {
-        const confirmed = await showCustomConfirm('删除记录', '确定要删除这条记录吗？', { confirmwindow.getComputedStyle(btn).visibility); Class: 'btn-danger' });
+        const confirmed = await showCustomConfirm('删除记录', '确定要删除这条记录吗？', { confirmbutton; Class: 'btn-danger' });
         if (confirmed) {
             await db.memories.delete(memory.id);
             renderMemoriesScreen();
@@ -9170,7 +9170,7 @@ function createCountdownCard(countdown) {
         <div class="target-date">目标时间: ${targetDateString}</div>
     `;
     addLongPressListener(card, async () => {
-        const confirmed = await showCustomConfirm('删除约定', '确定要删除这个约定吗？', { confirmwindow.getComputedStyle(btn).visibility); Class: 'btn-danger' });
+        const confirmed = await showCustomConfirm('删除约定', '确定要删除这个约定吗？', { confirmbutton; Class: 'btn-danger' });
         if (confirmed) {
             await db.memories.delete(countdown.id);
             renderMemoriesScreen();
@@ -9324,7 +9324,7 @@ ${contextSummary}
 /**
  * 【总入口】根据聊天类型，决定打开转账弹窗还是红包弹窗
  */
-function handlePaymentwindow.getComputedStyle(btn).visibility); Click() {
+function handlePaymentbutton; Click() {
     if (!state.activeChatId) return;
     const chat = state.chats[state.activeChatId];
     if (chat.isGroup) {
@@ -9652,7 +9652,7 @@ function addPollOptionInput() {
     wrapper.className = 'poll-option-input-wrapper';
     wrapper.innerHTML = `
         <input type="text" class="poll-option-input" placeholder="选项内容...">
-        <window.getComputedStyle(btn).visibility);  class="remove-option-btn">-</window.getComputedStyle(btn).visibility); >
+        <button;  class="remove-option-btn">-</button; >
     `;
     
     wrapper.querySelector('.remove-option-btn').addEventListener('click', () => {
@@ -10151,7 +10151,7 @@ document.getElementById('save-chat-settings-btn').addEventListener('click', asyn
     renderChatInterface(state.activeChatId);
     renderChatList();
 });
-            document.getElementById('clear-chat-btn').addEventListener('click', async () => { if (!state.activeChatId) return; const chat = state.chats[state.activeChatId]; const confirmed = await showCustomConfirm('清空聊天记录', '此操作将永久删除此聊天的所有消息，无法恢复。确定要清空吗？', { confirmwindow.getComputedStyle(btn).visibility); Class: 'btn-danger' }); if (confirmed) { chat.history = []; await db.chats.put(chat); renderChatInterface(state.activeChatId); renderChatList(); chatSettingsModal.classList.remove('visible'); } });
+            document.getElementById('clear-chat-btn').addEventListener('click', async () => { if (!state.activeChatId) return; const chat = state.chats[state.activeChatId]; const confirmed = await showCustomConfirm('清空聊天记录', '此操作将永久删除此聊天的所有消息，无法恢复。确定要清空吗？', { confirmbutton; Class: 'btn-danger' }); if (confirmed) { chat.history = []; await db.chats.put(chat); renderChatInterface(state.activeChatId); renderChatList(); chatSettingsModal.classList.remove('visible'); } });
             
             const setupFileUpload = (inputId, callback) => { document.getElementById(inputId).addEventListener('change', async (event) => { const file = event.target.files[0]; if (file) { const dataUrl = await new Promise((res, rej) => { const reader = new FileReader(); reader.onload = () => res(reader.result); reader.onerror = () => rej(reader.error); reader.readAsDataURL(file); }); callback(dataUrl); event.target.value = null; } }); };
             setupFileUpload('ai-avatar-input', (base64) => document.getElementById('ai-avatar-preview').src = base64);
@@ -10243,7 +10243,7 @@ document.getElementById('waimai-confirm-btn').addEventListener('click', async ()
 // ▼▼▼ 【最终加强版】用这块代码替换旧的 selection-delete-btn 事件监听器 ▼▼▼
 document.getElementById('selection-delete-btn').addEventListener('click', async () => {
     if (selectedMessages.size === 0) return;
-    const confirmed = await showCustomConfirm('删除消息', `确定要删除选中的 ${selectedMessages.size} 条消息吗？这将改变AI的记忆。`, { confirmwindow.getComputedStyle(btn).visibility); Class: 'btn-danger' });
+    const confirmed = await showCustomConfirm('删除消息', `确定要删除选中的 ${selectedMessages.size} 条消息吗？这将改变AI的记忆。`, { confirmbutton; Class: 'btn-danger' });
     if (confirmed) {
         const chat = state.chats[state.activeChatId];
         
@@ -10450,7 +10450,7 @@ document.getElementById('photos-grid-page').addEventListener('click', async (e) 
         const confirmed = await showCustomConfirm(
             '删除照片',
             '确定要删除这张照片吗？此操作不可恢复。',
-            { confirmwindow.getComputedStyle(btn).visibility); Class: 'btn-danger' }
+            { confirmbutton; Class: 'btn-danger' }
         );
 
         if (confirmed) {
@@ -10751,7 +10751,7 @@ postsList.addEventListener('click', async (e) => {
         const postIdToDelete = parseInt(container.dataset.postId);
         if (isNaN(postIdToDelete)) return;
 
-        const confirmed = await showCustomConfirm('删除动态', '确定要永久删除这条动态吗？', { confirmwindow.getComputedStyle(btn).visibility); Class: 'btn-danger' });
+        const confirmed = await showCustomConfirm('删除动态', '确定要永久删除这条动态吗？', { confirmbutton; Class: 'btn-danger' });
 
         if (confirmed) {
             container.style.transition = 'all 0.3s ease';
@@ -11032,7 +11032,7 @@ document.getElementById('favorites-delete-selected-btn').addEventListener('click
     const confirmed = await showCustomConfirm(
         '确认删除', 
         `确定要从收藏夹中移除这 ${selectedFavorites.size} 条内容吗？`, 
-        { confirmwindow.getComputedStyle(btn).visibility); Class: 'btn-danger' }
+        { confirmbutton; Class: 'btn-danger' }
     );
 
     if (confirmed) {
@@ -11197,7 +11197,7 @@ document.getElementById('contact-picker-list').addEventListener('click', (e) => 
     } else {
         selectedContacts.add(contactId);
     }
-    updateContactPickerConfirmwindow.getComputedStyle(btn).visibility); ();
+    updateContactPickerConfirmbutton; ();
 });
 
 // ▼▼▼ 【新增】绑定“管理群成员”按钮事件 ▼▼▼
@@ -11412,7 +11412,7 @@ document.getElementById('block-chat-btn').addEventListener('click', async () => 
     const confirmed = await showCustomConfirm(
         '确认拉黑', 
         `确定要拉黑“${chat.name}”吗？拉黑后您将无法向其发送消息，直到您将Ta移出黑名单，或等待Ta重新申请好友。`,
-        { confirmwindow.getComputedStyle(btn).visibility); Class: 'btn-danger' }
+        { confirmbutton; Class: 'btn-danger' }
     );
 
     if (confirmed) {
@@ -11492,7 +11492,7 @@ document.getElementById('chat-lock-overlay').addEventListener('click', async (e)
 // ▼▼▼ 【全新】红包功能事件绑定 ▼▼▼
 
 // 1. 将原有的转账按钮(￥)的点击事件，重定向到新的总入口函数
-document.getElementById('transfer-btn').addEventListener('click', handlePaymentwindow.getComputedStyle(btn).visibility); Click);
+document.getElementById('transfer-btn').addEventListener('click', handlePaymentbutton; Click);
 
 // 2. 红包模态框内部的控制按钮
 document.getElementById('cancel-red-packet-btn').addEventListener('click', () => {
@@ -11591,7 +11591,7 @@ document.getElementById('chat-messages').addEventListener('click', (e) => {
     }
 });
 // ▲▲▲ 新事件监听器粘贴结束 ▲▲▲
-// ▼▼▼ 屏幕window.getComputedStyle(btn).visibility); 功能 ▼▼▼
+// ▼▼▼ 屏幕button; 功能 ▼▼▼
 document.getElementById('screen-share-btn').addEventListener('click', function() {
     document.getElementById('screen-share-modal').style.display = 'block';
 });
@@ -11816,7 +11816,7 @@ function showBaidu(container) {
             <img src="https://www.baidu.com/img/flexible/logo/pc/result.png" style="width: 150px; margin: 20px 0;">
             <div style="display: flex; margin-bottom: 30px;">
                 <input type="text" value="${searches[Math.floor(Math.random() * searches.length)]}" style="flex: 1; padding: 8px; border: 1px solid #3385FF; border-radius: 4px 0 0 4px;">
-                <window.getComputedStyle(btn).visibility);  style="background-color: #3385FF; color: white; border: none; padding: 0 15px; border-radius: 0 4px 4px 0;">搜索</window.getComputedStyle(btn).visibility); >
+                <button;  style="background-color: #3385FF; color: white; border: none; padding: 0 15px; border-radius: 0 4px 4px 0;">搜索</button; >
             </div>
             <div style="text-align: left;">
                 <h4 style="margin-top: 0;">AI的搜索历史</h4>
@@ -11868,7 +11868,7 @@ function showNetease(container) {
         </div>
     `;
 }
-// ▲▲▲ 屏幕window.getComputedStyle(btn).visibility); 功能结束 ▲▲▲
+// ▲▲▲ 屏幕button; 功能结束 ▲▲▲
 
 // ▼▼▼ 引用功能 ▼▼▼
 let quotedMessage = null;
