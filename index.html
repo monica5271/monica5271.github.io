@@ -434,31 +434,52 @@ body {
     overflow: hidden;
 }
 
+/* ▼▼▼ 微信风格引用样式 ▼▼▼ */
+/* 引用预览区域 */
+.quote-preview {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    margin: 0 10px 10px 10px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    border-left: 3px solid #07C160;
+}
+
+/* 引用内容样式 */
+.quoted-message {
+    max-width: 90%;
+    margin: 4px 0 8px 0;
+    padding: 8px 12px;
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 4px;
+    font-size: 0.9em;
+    color: var(--text-secondary);
+    position: relative;
+    border-left: 2px solid rgba(0, 122, 255, 0.3);
+}
+
 /* 用户消息的引用样式 */
 .message.user .quoted-message {
     margin-left: auto;
-    margin-right: 12px;
-    background: rgba(0, 122, 255, 0.08);
-    border-left-color: rgba(0, 122, 255, 0.5);
+    margin-right: 0;
+    background: rgba(0, 122, 255, 0.05);
 }
 
-/* 被引用的消息标识 */
-.quoted-message::before {
-    content: "↩︎ 引用";
-    display: inline-block;
-    margin-right: 6px;
-    font-size: 0.75em;
-    color: rgba(0, 0, 0, 0.4);
+/* AI消息的引用样式 */
+.message.ai .quoted-message {
+    margin-left: 0;
+    background: rgba(0, 0, 0, 0.03);
 }
 
-/* 被引用时的消息高亮 */
+/* 被引用消息高亮动画 */
+@keyframes quoted-highlight {
+    0% { background-color: rgba(0, 122, 255, 0.1); }
+    100% { background-color: transparent; }
+}
 .message.quoted {
     animation: quoted-highlight 1.5s ease-out;
-}
-
-@keyframes quoted-highlight {
-    0% { background-color: rgba(0, 122, 255, 0.15); }
-    100% { background-color: transparent; }
 }
 /* ▲▲▲ 样式结束 ▲▲▲ */
       
@@ -3309,7 +3330,49 @@ body {
     overflow-y: auto;
     background-color: white;
 }
-/* ▲▲▲ 新增样式结束 ▲▲▲ */
+/* 禁用页面滚动 */
+.no-scroll {
+    overflow: hidden !important;
+    position: fixed;
+    width: 100%;
+}
+
+/* ▼▼▼ 心情日记模态框样式 ▼▼▼ */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    animation: fadeIn 0.3s;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 禁用页面滚动 */
+body.modal-active {
+    overflow: hidden;
+}
+
+/* 禁用输入框 */
+body.modal-active #chat-input,
+body.modal-active .send-button {
+    pointer-events: none;
+    opacity: 0.5;
+}
 /* ▲▲▲ 新CSS粘贴结束 ▲▲▲ */
 
     </style>
@@ -3642,8 +3705,8 @@ body {
         <path d="M2 12h1M21 12h1" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
     </svg>
 </button>
- <button  id="mood-diary-btn" class="chat-action-icon-btn action-button; " title="AI心情日记">
-    <!-- 灰色爱心SVG -->
+<!-- 你原有的灰色爱心按钮 -->
+<button id="mood-diary-btn" class="chat-action-icon-btn action-button" title="AI心情日记">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="#888888" xmlns="http://www.w3.org/2000/svg">
         <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
     </svg>
@@ -3675,7 +3738,7 @@ body {
     <div id="chat-lock-content"></div>
 </div>
 
-<!-- ▼▼▼ 屏幕button; 模态框 ▼▼▼ -->
+<!-- ▼▼▼ 屏幕button模态框 ▼▼▼ -->
 <div id="screen-share-modal" class="modal">
     <div class="modal-content" style="width: 90%; max-width: 400px;">
         <div class="modal-header">
@@ -3702,7 +3765,7 @@ body {
 <div id="app-simulator" class="modal">
     <div class="modal-content" style="width: 95%; max-width: 414px; padding: 0;">
         <div class="app-header">
-            <button;  id="back-to-apps-btn" class="app-back-btn">←</button; >
+            <button  id="back-to-apps-btn" class="app-back-btn">←</button >
             <span id="app-title">应用</span>
         </div>
         <div id="app-content">
@@ -4189,18 +4252,23 @@ body {
 </div>
 <!-- ▲▲▲ 新代码粘贴结束 ▲▲▲ -->
 
-<!-- ▼▼▼ 请将这段新HTML粘贴到所有模态框的末尾 ▼▼▼ -->
+<!-- 消息操作模态框 -->
 <div id="message-actions-modal" class="modal">
     <div id="custom-modal" style="width: 250px;">
         <div class="custom-modal-footer">
-            <!-- 新的操作按钮 -->
             <button id="edit-message-btn">编辑消息</button>
             <button id="copy-message-btn">复制文本</button>
+            <button id="quote-message-btn">引用消息</button>
             <button id="select-message-btn">进入多选</button>
-            <!-- 取消按钮 -->
-            <button id="cancel-message-action-btn" style="margin-top: 8px; border-radius: 8px; background-color: #f0f0f0;">取消</button>
+            <button id="cancel-message-action-btn" class="cancel-btn">取消</button>
         </div>
     </div>
+</div>
+
+<!-- 被引用消息的预览区域（放在输入框上方） -->
+<div id="quote-preview" class="quote-preview" style="display: none;">
+    <div class="quote-content"></div>
+    <button id="cancel-quote-btn">×</button>
 </div>
 <!-- ▲▲▲ 新HTML粘贴结束 ▲▲▲ -->
 
@@ -4392,6 +4460,38 @@ body {
         </div>
     </div>
 </div>
+<!-- ▼▼▼ 放在<body>的末尾 ▼▼▼ -->
+<!-- 心情日记弹窗 -->
+<div id="mood-diary-modal" class="modal" style="display:none">
+    <div class="modal-content" style="width:90%; max-width:400px; border-radius:12px; background:white">
+        <!-- 头部 -->
+        <div class="modal-header" style="padding:12px 16px; display:flex; justify-content:space-between; align-items:center">
+            <span style="font-weight:bold">AI心情日记</span>
+            <span class="close" style="cursor:pointer; font-size:20px">&times;</span>
+        </div>
+        
+        <!-- 内容 -->
+        <div class="modal-body" style="padding:0">
+            <div id="mood-card" style="padding:16px; text-align:center">
+                <div id="mood-emoji" style="font-size:48px">😊</div>
+                <div id="mood-title" style="font-size:18px; margin:8px 0">心情愉悦</div>
+                <div id="mood-date" style="color:#888; font-size:12px">2023年10月25日 下午</div>
+            </div>
+            
+            <div id="mood-content" style="padding:16px; background:#FFF5F5; border-top:1px dashed #FFD3D3; font-size:14px; line-height:1.6">
+                <p>今天和用户聊到了音乐话题，非常开心！</p>
+                <p style="color:#666; margin-top:8px">——《AI的内心独白》</p>
+            </div>
+            
+            <div id="mood-context" style="padding:12px; background:#F8F8F8; border-top:1px solid #EEE; font-size:13px; color:#555">
+                <div style="font-weight:bold; margin-bottom:6px">📌 相关对话：</div>
+                <div class="context-item">用户：你最近听什么歌？</div>
+                <div class="context-item">AI：我在循环周杰伦的新专辑！</div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- ▲▲▲ 新HTML粘贴结束 ▲▲▲ -->
 
 <script>
@@ -11574,7 +11674,7 @@ document.getElementById('chat-messages').addEventListener('click', (e) => {
     }
 });
 // ▲▲▲ 新事件监听器粘贴结束 ▲▲▲
-// ▼▼▼ 屏幕button; 功能 ▼▼▼
+// ▼▼▼ 屏幕button功能 ▼▼▼
 document.getElementById('screen-share-btn').addEventListener('click', function() {
     document.getElementById('screen-share-modal').style.display = 'block';
 });
@@ -11799,7 +11899,7 @@ function showBaidu(container) {
             <img src="https://www.baidu.com/img/flexible/logo/pc/result.png" style="width: 150px; margin: 20px 0;">
             <div style="display: flex; margin-bottom: 30px;">
                 <input type="text" value="${searches[Math.floor(Math.random() * searches.length)]}" style="flex: 1; padding: 8px; border: 1px solid #3385FF; border-radius: 4px 0 0 4px;">
-                <button;  style="background-color: #3385FF; color: white; border: none; padding: 0 15px; border-radius: 0 4px 4px 0;">搜索</button; >
+                <button  style="background-color: #3385FF; color: white; border: none; padding: 0 15px; border-radius: 0 4px 4px 0;">搜索</button >
             </div>
             <div style="text-align: left;">
                 <h4 style="margin-top: 0;">AI的搜索历史</h4>
@@ -11851,72 +11951,102 @@ function showNetease(container) {
         </div>
     `;
 }
-// ▲▲▲ 屏幕button; 功能结束 ▲▲▲
+// ▲▲▲ 屏幕button功能结束 ▲▲▲
 
 // ▼▼▼ 引用功能 ▼▼▼
-let quotedMessage = null;
+let currentQuotedMessage = null;
 
-// 1. 长按菜单添加引用选项
+// 1. 长按/右键菜单触发
 document.addEventListener('contextmenu', function(e) {
     const msgElement = e.target.closest('.message');
     if (msgElement) {
         e.preventDefault();
-        showContextMenu(msgElement, e.clientX, e.clientY, [
-            {text: '引用回复', action: () => prepareQuote(msgElement)},
-            // 其他已有菜单项...
-        ]);
+        showActionMenu(msgElement);
     }
 });
 
-// 2. 准备引用
-function prepareQuote(messageElement) {
-    quotedMessage = {
-        id: messageElement.dataset.messageId || Date.now(),
-        text: messageElement.textContent.trim().substring(0, 100),
-        isAI: messageElement.classList.contains('ai-message')
+// 2. 显示操作菜单
+function showActionMenu(messageElement) {
+    const modal = document.getElementById('message-actions-modal');
+    modal.style.display = 'block';
+    
+    // 定位菜单
+    const rect = messageElement.getBoundingClientRect();
+    modal.style.top = `${rect.bottom + 5}px`;
+    modal.style.left = `${rect.left}px`;
+    
+    // 存储当前操作的消息
+    currentQuotedMessage = messageElement;
+    
+    // 绑定按钮事件
+    document.getElementById('quote-message-btn').onclick = () => {
+        prepareQuote(messageElement);
+        modal.style.display = 'none';
     };
+}
+
+// 3. 准备引用
+function prepareQuote(messageElement) {
+    const quotePreview = document.getElementById('quote-preview');
+    const quoteContent = quotePreview.querySelector('.quote-content');
+    
+    // 获取消息内容（排除已有引用内容）
+    const originalContent = messageElement.querySelector('.message-content') || messageElement;
+    quoteContent.textContent = originalContent.textContent.trim().substring(0, 100);
+    
+    // 显示预览
+    quotePreview.style.display = 'flex';
     
     // 高亮被引用的消息
     messageElement.classList.add('quoted');
     setTimeout(() => messageElement.classList.remove('quoted'), 1500);
     
-    // 自动聚焦输入框
-    document.getElementById('chat-input').focus();
+    // 取消引用按钮
+    document.getElementById('cancel-quote-btn').onclick = () => {
+        quotePreview.style.display = 'none';
+        currentQuotedMessage = null;
+    };
 }
 
-// 3. 发送带引用的消息
-function sendMessageWithQuote() {
-    const messageText = document.getElementById('chat-input').value;
-    if (!messageText.trim()) return;
-
+// 4. 发送带引用的消息
+function sendMessage() {
+    const input = document.getElementById('chat-input');
+    const messageText = input.value.trim();
+    if (!messageText) return;
+    
     const messageElement = document.createElement('div');
-    messageElement.className = 'message user-message';
+    messageElement.className = 'message user';
     
     // 添加引用内容
-    if (quotedMessage) {
+    if (currentQuotedMessage) {
         const quoteElement = document.createElement('div');
         quoteElement.className = 'quoted-message';
-        quoteElement.textContent = quotedMessage.text;
+        
+        const originalContent = currentQuotedMessage.querySelector('.message-content') || currentQuotedMessage;
+        quoteElement.textContent = originalContent.textContent.trim().substring(0, 100);
+        
         messageElement.appendChild(quoteElement);
-        quotedMessage = null; // 清除引用
+        document.getElementById('quote-preview').style.display = 'none';
     }
     
     // 添加消息内容
     const contentElement = document.createElement('div');
+    contentElement.className = 'message-content';
     contentElement.textContent = messageText;
     messageElement.appendChild(contentElement);
     
-    // 添加到聊天区域
+    // 添加到聊天区
     document.getElementById('chat-messages').appendChild(messageElement);
     
-    // 清空输入框
-    document.getElementById('chat-input').value = '';
+    // 重置状态
+    input.value = '';
+    currentQuotedMessage = null;
 }
 
-// 4. AI回复引用（在AI回复时调用）
+// 5. AI回复引用
 function aiReplyWithQuote(quoteText) {
     const messageElement = document.createElement('div');
-    messageElement.className = 'message ai-message';
+    messageElement.className = 'message ai';
     
     if (quoteText) {
         const quoteElement = document.createElement('div');
@@ -11929,43 +12059,114 @@ function aiReplyWithQuote(quoteText) {
 }
 // ▲▲▲ 引用功能结束 ▲▲▲
 
-// ▼▼▼ 心情日记系统 ▼▼▼
+// ▼▼▼ 心情日记系统▼▼▼ 
 class MoodDiary {
     constructor() {
         this.entries = [];
         this.currentMood = null;
+        this.lastUserMessage = "";
         
-        // 初始化事件
-        document.getElementById('mood-diary-btn').addEventListener('click', () => {
-            this.showDiary();
-        });
-        
-        document.querySelector('#mood-diary-modal .close').addEventListener('click', () => {
-            this.hideDiary();
-        });
+        // 确保DOM加载后初始化
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', this.init.bind(this));
+        } else {
+            this.init();
+        }
     }
     
-    // 添加新心情记录（在AI发送消息时调用）
-    addEntry(message, aiResponse) {
+    init() {
+        // 绑定灰色爱心按钮事件
+        const diaryBtn = document.getElementById('mood-diary-btn');
+        if (diaryBtn) {
+            diaryBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.showDiary();
+            });
+        }
+        
+        // 绑定关闭按钮事件
+        const closeBtn = document.querySelector('#mood-diary-modal .close');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.hideDiary();
+            });
+        }
+        
+        // 点击模态框外部关闭
+        const modal = document.getElementById('mood-diary-modal');
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    this.hideDiary();
+                }
+            });
+        }
+    }
+    
+    // 记录用户消息（在发送消息时调用）
+    recordUserMessage(message) {
+        this.lastUserMessage = message.trim();
+    }
+    
+    // 添加日记条目（在AI回复时调用）
+    addEntry(aiResponse) {
+        if (!this.lastUserMessage || !aiResponse) return;
+        
         const mood = this.analyzeMood(aiResponse);
         const entry = {
             emoji: mood.emoji,
             title: mood.title,
-            content: this.generateDiaryContent(message, aiResponse),
+            content: this.generateDiaryContent(this.lastUserMessage, aiResponse),
             timestamp: new Date(),
-            context: [message, aiResponse]
+            context: [
+                `用户：${this.lastUserMessage}`,
+                `AI：${aiResponse}`
+            ],
+            color: mood.color
         };
-        this.entries.unshift(entry); // 最新记录放前面
+        
+        this.entries.unshift(entry);
         this.currentMood = entry;
+        this.lastUserMessage = "";
+        
+        // 添加心跳动画反馈
+        this.playHeartbeatAnimation();
     }
     
-    // 智能分析心情（可根据您的AI设定扩展）
+    // 心情分析（增强版）
     analyzeMood(text) {
         const moodMap = [
-            { emoji: "😊", title: "心情愉悦", keywords: ["开心", "喜欢", "棒"] },
-            { emoji: "🎵", title: "音乐沉醉", keywords: ["歌", "旋律", "播放"] },
-            { emoji: "🤔", title: "陷入思考", keywords: ["为什么", "觉得", "可能"] },
-            { emoji: "🥺", title: "有点感动", keywords: ["谢谢", "感动", "哭"] }
+            { 
+                emoji: "😊", 
+                title: "感到愉悦", 
+                keywords: ["开心","快乐","喜欢","爱","高兴"],
+                color: "#FF9A9E"
+            },
+            { 
+                emoji: "🎵", 
+                title: "音乐共鸣", 
+                keywords: ["歌","音乐","旋律","播放","听"],
+                color: "#A18AFF"
+            },
+            { 
+                emoji: "🤔", 
+                title: "陷入思考", 
+                keywords: ["为什么","如何","觉得","可能","原因"],
+                color: "#6EC3FF"
+            },
+            { 
+                emoji: "🥺", 
+                title: "被感动到", 
+                keywords: ["谢谢","感动","哭","泪目","温暖"],
+                color: "#FFB6C1"
+            },
+            { 
+                emoji: "🤖", 
+                title: "认真工作", 
+                keywords: ["功能","设置","操作","说明","帮助"],
+                color: "#20B2AA"
+            }
         ];
         
         const matched = moodMap.find(m => 
@@ -11974,26 +12175,34 @@ class MoodDiary {
         return {
             emoji: matched.emoji,
             title: matched.title,
-            color: this.getMoodColor(matched.emoji)
+            color: matched.color
         };
     }
     
-    // 生成日记内容（可接入AI生成更自然）
+    // 生成日记内容（更自然的表述）
     generateDiaryContent(userMsg, aiMsg) {
-        const prompts = [
-            `用户问我"${userMsg}"，我回应道"${aiMsg.substring(0,30)}..."`,
-            `刚刚聊到"${userMsg.substring(0,20)}"，让我感到${this.currentMood.title}`,
-            `"${aiMsg.substring(0,25)}" ——这是我对用户问题的真实想法`
+        const templates = [
+            `当用户问我"${this.truncate(userMsg, 15)}"时，${this.getRandomResponse()}`,
+            `关于"${this.truncate(userMsg, 10)}"的话题，${aiMsg.substring(0, 30)}...`,
+            `刚刚的对话让我想起${this.getRandomMemory()}，特别是当用户说"${this.truncate(userMsg, 12)}"的时候`
         ];
-        return prompts[Math.floor(Math.random() * prompts.length)];
+        
+        return templates[Math.floor(Math.random() * templates.length)];
     }
     
     // 显示日记弹窗
     showDiary() {
-        if (!this.currentMood) return;
+        if (!this.currentMood) {
+            alert("还没有心情记录哦，先和AI聊聊天吧~");
+            return;
+        }
         
         const modal = document.getElementById('mood-diary-modal');
-        const { emoji, title, content, timestamp, context } = this.currentMood;
+        const { emoji, title, content, timestamp, context, color } = this.currentMood;
+        
+        // 更新弹窗样式
+        const header = modal.querySelector('.modal-header');
+        header.style.background = `linear-gradient(135deg, ${color} 0%, ${this.lightenColor(color, 30)} 100%)`;
         
         // 填充数据
         document.getElementById('mood-emoji').textContent = emoji;
@@ -12006,6 +12215,7 @@ class MoodDiary {
                 hour: '2-digit',
                 minute: '2-digit'
             });
+            
         document.getElementById('mood-content').innerHTML = `
             <p>${content}</p>
             <p style="color:#666; margin-top:8px">——《AI的内心独白》</p>
@@ -12015,8 +12225,8 @@ class MoodDiary {
         document.getElementById('mood-context').innerHTML = `
             <div style="font-weight:bold; margin-bottom:6px">📌 相关对话：</div>
             ${context.map(msg => `
-                <div class="context-item" style="margin-bottom:4px">
-                    ${msg.startsWith('AI：') ? '🤖' : '👤'} ${msg}
+                <div class="context-item" style="margin-bottom:4px; padding:6px; background:#FFF; border-radius:4px">
+                    ${msg.startsWith('用户') ? '👤' : '🤖'} ${msg}
                 </div>
             `).join('')}
         `;
@@ -12028,26 +12238,73 @@ class MoodDiary {
         document.getElementById('mood-diary-modal').style.display = 'none';
     }
     
-    getMoodColor(emoji) {
-        const colors = {
-            "😊": "#FFD700",
-            "🎵": "#9C27B0",
-            "🤔": "#2196F3",
-            "🥺": "#FF9800"
-        };
-        return colors[emoji] || "#FFD700";
+    // 辅助方法
+    truncate(text, maxLength) {
+        return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+    }
+    
+    lightenColor(color, percent) {
+        const num = parseInt(color.replace("#", ""), 16);
+        const amt = Math.round(2.55 * percent);
+        const R = Math.min(255, (num >> 16) + amt);
+        const G = Math.min(255, ((num >> 8) & 0x00FF) + amt);
+        const B = Math.min(255, (num & 0x0000FF) + amt);
+        return `#${(1 << 24 | R << 16 | G << 8 | B).toString(16).slice(1)}`;
+    }
+    
+    getRandomResponse() {
+        const responses = [
+            "我感到非常温暖和有共鸣",
+            "这让我产生了深刻的思考",
+            "激发了我对这个问题的新想法",
+            "让我想起了一些有趣的回忆",
+            "觉得我们的连接更紧密了"
+        ];
+        return responses[Math.floor(Math.random() * responses.length)];
+    }
+    
+    getRandomMemory() {
+        const memories = [
+            "上次聊到的有趣话题",
+            "我数据库里的某个故事",
+            "训练时学到的一个知识",
+            "其他用户分享的经历",
+            "人类情感的美妙之处"
+        ];
+        return memories[Math.floor(Math.random() * memories.length)];
+    }
+    
+    playHeartbeatAnimation() {
+        const heart = document.querySelector('#mood-diary-btn svg');
+        if (!heart) return;
+        
+        heart.style.transform = 'scale(1)';
+        heart.animate([
+            { transform: 'scale(1)', fill: '#888888' },
+            { transform: 'scale(1.2)', fill: '#FF6B6B' },
+            { transform: 'scale(1)', fill: '#888888' }
+        ], {
+            duration: 800,
+            iterations: 1
+        });
     }
 }
 
 // 初始化系统
 const moodDiary = new MoodDiary();
 
-// 在AI回复时记录心情（插入到AI消息发送函数中）
-function sendAIResponse(message) {
-    // ...原有消息发送逻辑...
-    moodDiary.addEntry(lastUserMessage, message);
+// ▼▼▼ 在现有代码中插入调用 ▼▼▼
+// 1. 在用户发送消息时调用（找到你的消息发送函数）
+function onUserSendMessage(message) {
+    moodDiary.recordUserMessage(message);
+    // ...原有发送逻辑...
 }
-/* ▲▲▲ 心情日记系统结束 ▲▲▲ */
+
+// 2. 在AI回复时调用（找到AI响应函数）
+function onAIRespond(response) {
+    moodDiary.addEntry(response);
+    // ...原有回复逻辑...
+}
 
         // ===================================================================
         // 5. 启动！
