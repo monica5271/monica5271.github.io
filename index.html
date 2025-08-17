@@ -342,59 +342,47 @@ body {
         .message-bubble.user .voice-duration { color: #3e6224; }
 
 /* ▼▼▼ 用这块代码替换掉你原来的 .message-bubble .content 样式 ▼▼▼ */
-/* ▼▼▼ 通用内容区样式 ▼▼▼ */
+/* ▼▼▼ 通用气泡样式（不干扰主题颜色）▼▼▼ */
 .message-bubble .content {
     position: relative;
     font-size: var(--chat-font-size, 16px);
     padding: 8px 12px;
     line-height: 1.5;
     word-break: break-word;
-    /* 新增：透亮渐变 + 阴影 */
+    border-radius: 8px; /* 统一圆角，具体值会被主题覆盖 */
+    /* 阴影效果 */
+    box-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.08), /* 外阴影 */
+        inset 0 0 12px rgba(255, 255, 255, 0.6); /* 内发光 */
+    /* 确保文字颜色不被覆盖 */
+    isolation: isolate; /* 防止伪元素影响文字 */
+}
+
+/* 透亮渐变层（通过伪元素实现） */
+.message-bubble .content::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: inherit; /* 继承父元素的圆角 */
     background: linear-gradient(
         135deg,
-        rgba(255, 255, 255, 0.85) 0%,
-        rgba(255, 255, 255, 0.7) 100%
+        rgba(255, 255, 255, 0.4) 0%,
+        rgba(255, 255, 255, 0.2) 100%
     );
-    box-shadow: 
-        0 2px 4px rgba(0, 0, 0, 0.05), /* 柔和外阴影 */
-        inset 0 0 10px rgba(255, 255, 255, 0.4); /* 内发光效果 */
-    backdrop-filter: blur(2px); /* 毛玻璃效果，可选 */
+    z-index: -1; /* 置于背景色之上，文字之下 */
 }
 
 /* 用户气泡（右侧） */
 .message-bubble.user .content {
-    color: #585858;
-    border-radius: 8px 2px 8px 8px;
-    /* 保留原背景色，但通过渐变增强透亮感 */
-    background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.85) 0%,
-        rgba(255, 255, 255, 0.75) 100%
-    );
+    border-radius: 8px 2px 8px 8px; /* 保留原有圆角 */
 }
 
 /* AI气泡（左侧） */
 .message-bubble.ai .content {
-    color: #585858;
-    border-radius: 2px 8px 8px 8px;
-    /* 保留原背景色，但通过渐变增强透亮感 */
-    background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.8) 0%,
-        rgba(255, 255, 255, 0.7) 100%
-    );
-}
-
-/* 气泡小箭头（如果需要） */
-.message-bubble::after {
-    content: "";
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    opacity: 1;
-    z-index: 1;
+    border-radius: 2px 8px 8px 8px; /* 保留原有圆角 */
 }
 
 /* ▼▼▼ 引用消息样式 ▼▼▼ */
