@@ -386,58 +386,49 @@ body {
 }
 
 /* ▼▼▼ 引用消息样式 ▼▼▼ */
-/* ▼▼▼ 引用消息专属样式 ▼▼▼ */
 /* 引用预览区 */
-#quote-preview {
-    display: none; /* 默认隐藏 */
-    background: #f5f5f5;
+/* ▼▼▼ 改进的引用样式 ▼▼▼ */
+.quote-preview {
+    display: flex;
+    align-items: center;
     padding: 8px 12px;
     margin: 0 10px 10px 10px;
+    background: #f5f5f5;
     border-radius: 8px;
     border-left: 3px solid #07C160;
-    align-items: center;
-    justify-content: space-between;
+    position: relative;
+    transition: all 0.2s ease;
 }
 
-/* 被引用的消息样式 */
-.quoted-message {
-    max-width: 100%;
-    margin: 4px 0;
-    padding: 8px 12px;
-    background: rgba(0, 0, 0, 0.03);
-    border-radius: 4px;
-    font-size: 0.85em;
-    border-left: 2px solid rgba(0, 122, 255, 0.3);
-    word-break: break-word;
+.quote-content {
+    font-size: 14px;
+    color: #666;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right: 10px;
 }
 
-/* 用户消息的引用 */
-.message-wrapper.user .quoted-message {
-    margin-left: auto;
-    background: rgba(0, 122, 255, 0.05);
-}
-
-/* 模态框定位修正 */
-#message-actions-modal {
-    position: fixed;
-    z-index: 1000;
-    display: none;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    padding: 8px;
-    width: 150px;
-}
-
-#message-actions-modal button {
-    display: block;
-    width: 100%;
-    padding: 8px;
-    margin: 4px 0;
-    background: none;
+.quote-cancel-btn {
     border: none;
-    text-align: left;
+    background: none;
     cursor: pointer;
+    font-size: 18px;
+    color: #888;
+    padding: 0 5px;
+    transition: color 0.2s;
+}
+
+.quote-cancel-btn:hover {
+    color: #ff3b30;
+}
+
+/* 被引用消息的高亮样式 */
+.message.quoted {
+    background-color: rgba(7, 193, 96, 0.05);
+    border-left: 2px solid #07C160;
+    padding-left: 8px;
+    transition: all 0.3s ease;
 }
 /* ▲▲▲ 样式结束 ▲▲▲ */
       
@@ -4223,15 +4214,15 @@ body.modal-active .send-button {
     </div>
 </div>
 
-<!-- 引用预览区（放在输入框上方） -->
+<!-- 改进后的引用预览区 -->
 <div id="quote-preview" class="quote-preview" style="display:none;">
     <div class="quote-content" style="flex:1;"></div>
-    <button id="cancel-quote-btn" style="border:none; background:none; cursor:pointer;">×</button>
+    <button id="cancel-quote-btn" class="quote-cancel-btn">×</button>
 </div>
 
-<!-- 消息输入区 -->
+<!-- 消息输入区 (保持不变) -->
 <div class="chat-input-area">
-    <div id="quote-preview-container"></div> <!-- 引用预览将插入这里 -->
+    <div id="quote-preview-container"></div>
     <input id="chat-input" type="text" placeholder="输入消息...">
     <button id="send-button">发送</button>
 </div>
@@ -11935,99 +11926,65 @@ function showNetease(container) {
 // ▲▲▲ 屏幕button功能结束 ▲▲▲
 
 // ▼▼▼ 引用功能 ▼▼▼
+// 引用功能实现 (兼容原有代码)
 document.addEventListener('DOMContentLoaded', function() {
-    let currentQuotedMessage = null;
-    
-    // 1. 右键菜单触发
-    document.addEventListener('contextmenu', function(e) {
-        const messageWrapper = e.target.closest('.message-wrapper');
-        if (!messageWrapper) return;
-        
-        e.preventDefault();
-        showActionMenu(messageWrapper, e.clientX, e.clientY);
-    });
-
-    // 2. 显示操作菜单
-    function showActionMenu(wrapper, x, y) {
-        const modal = document.getElementById('message-actions-modal');
-        modal.style.display = 'block';
-        modal.style.left = `${x}px`;
-        modal.style.top = `${y}px`;
-        
-        currentQuotedMessage = wrapper;
-        
-        // 移除旧事件监听防止重复绑定
-        const quoteBtn = document.getElementById('quote-message-btn');
-        quoteBtn.replaceWith(quoteBtn.cloneNode(true));
-        
-        // 绑定新事件
-        document.getElementById('quote-message-btn').addEventListener('click', function() {
-            showQuotePreview(wrapper);
-            modal.style.display = 'none';
-        });
-    }
-
-    // 3. 显示引用预览
-    function showQuotePreview(wrapper) {
-        const preview = document.getElementById('quote-preview');
-        const content = preview.querySelector('.quote-content');
-        
-        // 获取消息内容（从.content元素中）
-        const messageContent = wrapper.querySelector('.content')?.textContent || '';
-        content.textContent = messageContent.length > 50 
-            ? `${messageContent.substring(0, 50)}...` 
-            : messageContent;
-        
-        preview.style.display = 'flex';
-        
-        // 取消引用
-        document.getElementById('cancel-quote-btn').addEventListener('click', function() {
-            preview.style.display = 'none';
-            currentQuotedMessage = null;
-        });
-    }
-
-    // 4. 发送带引用的消息
-    document.getElementById('send-button').addEventListener('click', function() {
-        const input = document.getElementById('chat-input');
-        const messageText = input.value.trim();
-        if (!messageText) return;
-        
-        // 创建消息外层容器
-        const wrapper = document.createElement('div');
-        wrapper.className = 'message-wrapper user';
-        
-        // 创建气泡容器
-        const bubble = document.createElement('div');
-        bubble.className = 'message-bubble';
-        
-        // 添加引用内容（如果存在）
-        if (currentQuotedMessage) {
-            const quoteDiv = document.createElement('div');
-            quoteDiv.className = 'quoted-message';
-            const quotedContent = currentQuotedMessage.querySelector('.content')?.textContent || '';
-            quoteDiv.textContent = quotedContent.length > 30 
-                ? `${quotedContent.substring(0, 30)}...` 
-                : quotedContent;
-            bubble.appendChild(quoteDiv);
+    // 长按菜单中的引用按钮
+    document.getElementById('quote-message-btn').addEventListener('click', function() {
+        const selectedMessage = document.querySelector('.message.selected');
+        if (selectedMessage) {
+            quoteMessage(selectedMessage);
+            document.getElementById('message-actions-modal').style.display = 'none';
         }
-        
-        // 添加消息内容
-        const contentDiv = document.createElement('div');
-        contentDiv.className = 'content';
-        contentDiv.textContent = messageText;
-        bubble.appendChild(contentDiv);
-        
-        // 组装消息
-        wrapper.appendChild(bubble);
-        document.getElementById('chat-messages').appendChild(wrapper);
-        
-        // 重置状态
-        input.value = '';
+    });
+    
+    // 取消引用按钮
+    document.getElementById('cancel-quote-btn').addEventListener('click', function() {
         document.getElementById('quote-preview').style.display = 'none';
-        currentQuotedMessage = null;
+        document.getElementById('quote-preview-container').innerHTML = '';
     });
 });
+
+function quoteMessage(messageElement) {
+    // 获取消息内容 (排除不需要的元素)
+    const messageContent = messageElement.querySelector('.message-content').innerText;
+    const sender = messageElement.classList.contains('user') ? '你' : 'AI';
+    
+    // 创建引用预览
+    const quotePreview = document.getElementById('quote-preview');
+    quotePreview.querySelector('.quote-content').innerText = `${sender}: ${messageContent}`;
+    quotePreview.style.display = 'flex';
+    
+    // 插入到输入框上方
+    document.getElementById('quote-preview-container').appendChild(quotePreview.cloneNode(true));
+    
+    // 高亮被引用的消息
+    messageElement.classList.add('quoted');
+    setTimeout(() => {
+        messageElement.classList.remove('quoted');
+    }, 2000);
+    
+    // 聚焦输入框
+    document.getElementById('chat-input').focus();
+}
+
+// 保持原有的长按菜单逻辑不变
+function showMessageActions(event, messageElement) {
+    // 原有的长按菜单显示逻辑
+    const modal = document.getElementById('message-actions-modal');
+    modal.style.display = 'block';
+    
+    // 标记选中的消息
+    document.querySelectorAll('.message').forEach(msg => {
+        msg.classList.remove('selected');
+    });
+    messageElement.classList.add('selected');
+    
+    // 定位菜单
+    const modalContent = modal.querySelector('#custom-modal');
+    modalContent.style.position = 'fixed';
+    modalContent.style.left = `${event.clientX}px`;
+    modalContent.style.top = `${event.clientY}px`;
+}
 // ▲▲▲ 引用功能结束 ▲▲▲
 
 // ▼▼▼ 心情日记系统▼▼▼ 
