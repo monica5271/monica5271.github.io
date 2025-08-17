@@ -356,56 +356,106 @@ body {
 }
 /* ▲▲▲ 通用样式结束 ▲▲▲ */
 
-/* === 默认气泡样式 === */
+/* ▼▼▼ 现代化气泡基础样式 ▼▼▼ */
+.message-bubble .content {
+    position: relative;
+    font-size: var(--chat-font-size, 16px);
+    padding: 8px 12px;
+    line-height: 1.5;
+    word-break: break-word;
+    border-radius: 16px;
+    margin: 6px 0;
+    overflow: hidden;
+    transition: all 0.2s ease;
+    
+    /* 微妙的渐变透亮效果 */
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 60%;
+        background: linear-gradient(
+            120deg,
+            rgba(255, 255, 255, 0.4) 0%,
+            rgba(255, 255, 255, 0.1) 50%,
+            rgba(255, 255, 255, 0) 100%
+        );
+        border-radius: 16px 16px 0 0;
+        pointer-events: none;
+        z-index: 1;
+    }
+}
+
+/* 用户气泡默认样式 */
 .message-bubble.user .content {
-    background-color: rgba(255, 255, 255, 0.75); /* 回退值 */
-    background: var(--user-bubble-bg, rgba(255, 255, 255, 0.75));
+    background: linear-gradient(
+        135deg, 
+        var(--user-bubble-bg, #f0f7ff) 0%, 
+        color-mix(in srgb, var(--user-bubble-bg, #f0f7ff), white 30%) 100%
+    );
     color: var(--user-bubble-text, #585858);
     border-radius: 8px 2px 8px 8px;
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1),
-               0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: 
+        2px 2px 8px rgba(0, 0, 0, 0.1),
+        0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
+/* AI气泡默认样式 */
 .message-bubble.ai .content {
-    background-color: rgba(255, 255, 255, 0.7); /* 回退值 */
-    background: var(--ai-bubble-bg, rgba(255, 255, 255, 0.7));
+    background: linear-gradient(
+        135deg, 
+        var(--ai-bubble-bg, #f8f9fa) 0%, 
+        color-mix(in srgb, var(--ai-bubble-bg, #f8f9fa), white 30%) 100%
+    );
     color: var(--ai-bubble-text, #585858);
     border-radius: 2px 8px 8px 8px;
-    box-shadow: -2px 2px 8px rgba(0, 0, 0, 0.1),
-                0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: 
+        -2px 2px 8px rgba(0, 0, 0, 0.1),
+        0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-/* === 主题颜色定义 === */
-/* 注意：这里使用 background-color 而不是 background */
-#chat-messages[data-theme="pink_blue"] .message-bubble.user .content {
+/* ▼▼▼ 主题颜色定义 ▼▼▼ */
+/* 粉蓝主题示例 - 其他主题保持相同模式 */
+#chat-messages[data-theme="pink_blue"] {
     --user-bubble-bg: #fff0f6;
     --user-bubble-text: #432531;
-    background: #fff0f6; /* 直接定义确保覆盖 */
-}
-
-#chat-messages[data-theme="pink_blue"] .message-bubble.ai .content {
     --ai-bubble-bg: #eff7ff;
     --ai-bubble-text: #263a4e;
-    background: #eff7ff;
+    
+    /* 增强主题覆盖力 */
+    & .message-bubble.user .content {
+        background: linear-gradient(
+            135deg, 
+            #fff0f6 0%,
+            color-mix(in srgb, #fff0f6, white 30%) 100%
+        );
+    }
+    & .message-bubble.ai .content {
+        background: linear-gradient(
+            135deg, 
+            #eff7ff 0%,
+            color-mix(in srgb, #eff7ff, white 30%) 100%
+        );
+    }
 }
 
-/* 其他主题保持相同模式... */
-#chat-messages[data-theme="blue_white"] .message-bubble.user .content {
-    --user-bubble-bg: #eff7ff;
-    --user-bubble-text: #263a4e;
-    background: #eff7ff;
-}
-/* 继续其他主题... */
-
-/* 小尾巴颜色修复 */
+/* 小尾巴样式修复 */
 .message-bubble.user::after {
-    background: inherit;
-    background-color: inherit; /* 双重保障 */
+    background: linear-gradient(
+        135deg, 
+        var(--user-bubble-bg, #f0f7ff) 0%, 
+        color-mix(in srgb, var(--user-bubble-bg, #f0f7ff), white 30%) 100%
+    );
 }
 
 .message-bubble.ai::after {
-    background: inherit;
-    background-color: inherit;
+    background: linear-gradient(
+        135deg, 
+        var(--ai-bubble-bg, #f8f9fa) 0%, 
+        color-mix(in srgb, var(--ai-bubble-bg, #f8f9fa), white 30%) 100%
+    );
 }
 
 /* ▼▼▼ 引用消息样式 ▼▼▼ */
