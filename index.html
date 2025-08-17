@@ -3250,7 +3250,7 @@ body {
     flex-shrink: 0;
 }
 
-/* ▼▼▼ 屏幕共享相关样式 ▼▼▼ */
+/* ▼▼▼ 屏幕window.getComputedStyle(btn).visibility); 相关样式 ▼▼▼ */
 .app-option {
     display: flex;
     align-items: center;
@@ -3630,11 +3630,19 @@ body {
             <button id="voice-message-btn" class="chat-action-icon-btn action-button" title="发送语音"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v4"/><path d="M8 23h8"/></svg></button>
 <!-- ▼▼▼ 将这行新代码粘贴到“发送语音”按钮的后面 ▼▼▼ -->
 <button id="send-waimai-request-btn" class="chat-action-icon-btn action-button" title="发起外卖请求"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></button>
-<!-- ▼▼▼ 屏幕共享按钮 ▼▼▼ -->
+<!-- ▼▼▼ 屏幕window.getComputedStyle(btn).visibility); 按钮 ▼▼▼ -->
 <button id="screen-share-btn" class="chat-action-icon-btn action-button" 
         style="font-size:20px;padding:0 10px">
-    👁️ 共享
+    👁️ window.getComputedStyle(btn).visibility); 
 </button>
+ <!-- ▼▼▼ 新增心情日记按钮 ▼▼▼ -->
+    <button id="mood-diary-btn" class="chat-action-icon-btn action-button" title="AI心情日记">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H19C20.1046 3 21 3.89543 21 5V19C21 20.1046 20.1046 21 19 21Z" stroke="currentColor" stroke-width="2"/>
+            <path d="M8 10V8M8 16v-2M12 10V8M12 16v-2M16 10V8M16 16v-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M8 14H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+    </button>
 <!-- ▲▲▲ 新增结束 ▲▲▲ -->
 <!-- ▲▲▲ 新代码粘贴结束 ▲▲▲ -->
 <!-- ▼▼▼ 【新增】视频通话按钮 ▼▼▼ -->
@@ -3661,7 +3669,7 @@ body {
     <div id="chat-lock-content"></div>
 </div>
 
-<!-- ▼▼▼ 屏幕共享模态框 ▼▼▼ -->
+<!-- ▼▼▼ 屏幕window.getComputedStyle(btn).visibility); 模态框 ▼▼▼ -->
 <div id="screen-share-modal" class="modal">
     <div class="modal-content" style="width: 90%; max-width: 400px;">
         <div class="modal-header">
@@ -3684,7 +3692,6 @@ body {
         </div>
     </div>
 </div>
-
 <!-- ▼▼▼ 应用模拟器容器 ▼▼▼ -->
 <div id="app-simulator" class="modal">
     <div class="modal-content" style="width: 95%; max-width: 414px; padding: 0;">
@@ -3694,6 +3701,52 @@ body {
         </div>
         <div id="app-content">
             <!-- 这里会动态加载不同应用的内容 -->
+        </div>
+    </div>
+</div>
+
+<!-- ▼▼▼ 心情日记模态框 ▼▼▼ -->
+<div id="mood-diary-modal" class="modal" style="display:none">
+    <div class="modal-content" style="width:90%; max-width:400px; border-radius:12px">
+        <!-- 头部 -->
+        <div class="modal-header" style="background:linear-gradient(135deg, #FF9A9E 0%, #FAD0C4 100%)">
+            <span>AI心情日记</span>
+            <span class="close">&times;</span>
+        </div>
+        
+        <!-- 心情卡片 -->
+        <div class="modal-body" style="padding:0">
+            <div id="mood-card" style="padding:16px; text-align:center">
+                <!-- 动态内容将由JS生成 -->
+                <div id="mood-emoji" style="font-size:48px">😊</div>
+                <div id="mood-title" style="font-size:18px; margin:8px 0">心情愉悦</div>
+                <div id="mood-date" style="color:#888; font-size:12px">2023年10月25日 下午</div>
+            </div>
+            
+            <!-- 日记内容 -->
+            <div id="mood-content" style="
+                padding:16px;
+                background:#FFF5F5;
+                border-top:1px dashed #FFD3D3;
+                font-size:14px;
+                line-height:1.6
+            ">
+                <p>今天和用户聊到了音乐话题，非常开心！</p>
+                <p style="color:#666; margin-top:8px">——《AI的内心独白》</p>
+            </div>
+            
+            <!-- 聊天记录摘要 -->
+            <div id="mood-context" style="
+                padding:12px;
+                background:#F8F8F8;
+                border-top:1px solid #EEE;
+                font-size:13px;
+                color:#555
+            ">
+                <div style="font-weight:bold; margin-bottom:6px">📌 相关对话：</div>
+                <div class="context-item">用户：你最近听什么歌？</div>
+                <div class="context-item">AI：我在循环周杰伦的新专辑！</div>
+            </div>
         </div>
     </div>
 </div>
@@ -11540,7 +11593,7 @@ document.getElementById('chat-messages').addEventListener('click', (e) => {
     }
 });
 // ▲▲▲ 新事件监听器粘贴结束 ▲▲▲
-// ▼▼▼ 屏幕共享功能 ▼▼▼
+// ▼▼▼ 屏幕window.getComputedStyle(btn).visibility); 功能 ▼▼▼
 document.getElementById('screen-share-btn').addEventListener('click', function() {
     document.getElementById('screen-share-modal').style.display = 'block';
 });
@@ -11586,24 +11639,161 @@ function showAppSimulator(app) {
 
 // 美团外卖模拟
 function showMeituan(container) {
-    const foods = ['黄焖鸡米饭', '麻辣香锅', '牛肉面', '披萨', '寿司', '沙拉'];
-    const shops = ['美食坊', '快乐餐厅', '香满楼', '快捷美食', '美味佳肴'];
-    const prices = [25, 30, 35, 40, 45, 50, 55];
+    const hour = new Date().getHours();
+    const weekDay = new Date().getDay(); // 0是周日
+    const isWeekend = weekDay === 0 || weekDay === 6;
     
+    // 天气系统（增强版）
+    const weatherSystems = {
+        '晴天': { icon: '☀️', impact: 0.9 },
+        '雨天': { icon: '🌧️', impact: 1.2 }, 
+        '雪天': { icon: '❄️', impact: 1.3 },
+        '雾霾': { icon: '😷', impact: 1.1 },
+        '大风': { icon: '💨', impact: 1.0 }
+    };
+    const weather = Object.keys(weatherSystems)[Math.floor(Math.random() * 5)];
+
+    // 分时段逻辑核心
+    let mealType, recommendReason, foodPool;
+    
+    if (hour >= 5 && hour < 11) { 
+        // 早餐逻辑（已完善）
+        mealType = "早餐";
+        foodPool = {
+            '晴天': ['煎饼果子+豆浆', '小笼包+粥'],
+            '雨天': ['热干面+蛋酒', '油条+豆腐脑'],
+            // ...其他天气
+        };
+        
+    } else if (hour >= 11 && hour < 14) {
+        // ▼▼▼ 新增午餐专业逻辑 ▼▼▼
+        mealType = "午餐";
+        const workIntensity = isWeekend ? '轻松' : ['一般','繁忙'][Math.floor(Math.random() * 2)];
+        
+        if (workIntensity === '繁忙') {
+            foodPool = {
+                '晴天': ['商务套餐', '盖浇饭', '汉堡套餐'],
+                '雨天': ['麻辣烫', '饺子', '煲仔饭'],
+                // ...其他天气
+            };
+            recommendReason = `AI正在赶项目，需要快速${weather === '雨天' ? '暖身' : '饱腹'}的工作餐`;
+        } else {
+            foodPool = {
+                '晴天': ['沙拉轻食', '寿司拼盘', '越南春卷'],
+                '雨天': ['韩式部队锅', '酸汤肥牛', '日式咖喱'],
+                // ...其他天气  
+            };
+            recommendReason = `AI今天工作${isWeekend ? '不忙' : '轻松'}，享受${weather}中的慢食光`;
+        }
+        
+    } else if (hour >= 17 && hour < 21) {
+        // ▼▼▼ 新增晚餐专业逻辑 ▼▼▼
+        mealType = "晚餐";
+        const sleepPlan = hour < 19 ? '早睡' : '熬夜';
+        
+        foodPool = {
+            '早睡': {
+                '晴天': ['清蒸鱼+时蔬', '番茄牛腩+米饭'],
+                '雨天': ['羊肉汤锅', '粥底火锅']
+            },
+            '熬夜': {
+                '晴天': ['烧烤套餐', '小龙虾+啤酒'],
+                '雨天': ['炸鸡套餐', '泡面+卤味']
+            }
+        }[sleepPlan][weather];
+        
+        recommendReason = `AI计划${sleepPlan}，选择了${weather === '雨天' ? '暖胃' : '解压'}的晚餐`;
+        
+    } else {
+        // 夜宵逻辑（保持原有）
+    }
+
+    // 价格生成算法（增强版）
+    const generatePrice = (base) => {
+        const weatherFactor = weatherSystems[weather].impact;
+        const timeFactor = hour >= 17 ? 1.2 : 1.0; // 晚餐溢价
+        return Math.round(base * weatherFactor * timeFactor);
+    };
+
+    // ...后续订单生成和UI代码保持不变...
+
+
+    // 智能推荐算法
+    const generateOrder = () => {
+        const categories = {
+            '早餐': { icon: '☕', items: ['豆浆油条', '煎饼果子', '包子粥'] },
+            '午餐': { icon: '🍱', items: ['黄焖鸡米饭', '隆江猪脚饭', '麻辣香锅'] },
+            '晚餐': { icon: '🍲', items: ['养生粥', '轻食沙拉', '日式拉面'] },
+            '夜宵': { icon: '🍢', items: ['烧烤套餐', '小龙虾', '泡面火腿'] }
+        };
+        
+        // 根据餐型+随机生成历史订单
+        return {
+            ...categories[mealType],
+            time: `${Math.floor(Math.random() * 3) + 1}小时前`,
+            price: 15 + Math.floor(Math.random() * 30),
+            shop: ['美食坊','快乐餐厅','香满楼'][Math.floor(Math.random() * 3)]
+        };
+    };
+
+    // 生成3条历史订单（含最新推荐）
+    const orders = Array.from({length: 3}, (_,i) => ({
+        ...generateOrder(),
+        isRecommended: i === 0 // 第一条是推荐餐
+    }));
+
+    // 动态UI生成
     container.innerHTML = `
-        <div style="background-color: #FFD700; padding: 15px; color: white;">
-            <h3 style="margin: 0;">美团外卖</h3>
+        <div style="background:#FFD700;padding:15px;color:white;border-radius:12px 12px 0 0">
+            <h3 style="margin:0">美团外卖 · ${mealType}推荐</h3>
+            <div style="font-size:12px">${recommendReason}</div>
         </div>
-        <div style="padding: 15px;">
-            <div style="display: flex; margin-bottom: 20px;">
-                <input type="text" placeholder="搜索商家或商品" style="flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+        
+        <div style="padding:15px">
+            <!-- 推荐卡片 -->
+            <div style="
+                background:#FFF8E6;
+                border-radius:8px;
+                padding:12px;
+                margin-bottom:15px;
+                border-left:4px solid #FFAA00
+            ">
+                <div style="display:flex;align-items:center;gap:10px">
+                    <div style="font-size:24px">${orders[0].icon}</div>
+                    <div>
+                        <div style="font-weight:bold">今日${mealType}推荐</div>
+                        <div style="font-size:12px;color:#666">${recommendReason}</div>
+                    </div>
+                </div>
+                <div style="margin-top:10px">
+                    <span style="
+                        background:#FFD700;
+                        padding:2px 8px;
+                        border-radius:4px;
+                        font-size:12px
+                    ">🔥 热卖</span>
+                    <span style="margin-left:5px">${orders[0].items[0]}</span>
+                </div>
             </div>
-            <h4 style="margin-top: 0;">AI最近点过的外卖</h4>
-            ${Array.from({length: 3}).map(() => `
-                <div style="border: 1px solid #eee; border-radius: 8px; padding: 10px; margin-bottom: 10px;">
-                    <div style="font-weight: bold;">${shops[Math.floor(Math.random() * shops.length)]}</div>
-                    <div>${foods[Math.floor(Math.random() * foods.length)]} · ¥${prices[Math.floor(Math.random() * prices.length)]}</div>
-                    <div style="color: #888; font-size: 12px;">${Math.floor(Math.random() * 5) + 1}天前</div>
+            
+            <!-- 历史订单 -->
+            <h4 style="margin:15px 0 10px 0">AI的${mealType}记录</h4>
+            ${orders.map(order => `
+                <div style="
+                    border:1px solid #EEE;
+                    border-radius:8px;
+                    padding:10px;
+                    margin-bottom:10px;
+                    ${order.isRecommended ? 'box-shadow: 0 2px 8px rgba(255,200,0,0.3)' : ''}
+                ">
+                    <div style="display:flex;gap:10px">
+                        <div style="font-size:20px">${order.icon}</div>
+                        <div style="flex-grow:1">
+                            <div style="font-weight:bold">${order.shop}</div>
+                            <div>${order.items.join('+')} · ¥${order.price}</div>
+                        </div>
+                        <div style="color:#888;font-size:12px">${order.time}</div>
+                    </div>
                 </div>
             `).join('')}
         </div>
@@ -11664,7 +11854,13 @@ function showNetease(container) {
             <h4 style="margin-top: 0;">AI最近听的歌</h4>
             ${songs.map(song => `
                 <div style="display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee;">
-                    <div style="width: 40px; height: 40px; background-color: #f0f0f0; margin-right: 10px;"></div>
+                    <!-- 新增音乐图标 -->
+                    <div style="width: 40px; height: 40px; background-color: #f3f3f3; margin-right: 10px;
+                         display: flex; align-items: center; justify-content: center; border-radius: 4px;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#E60026">
+                            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                        </svg>
+                    </div>
                     <div>
                         <div style="font-weight: bold;">${song.name}</div>
                         <div style="color: #888; font-size: 12px;">${song.artist}</div>
@@ -11674,7 +11870,7 @@ function showNetease(container) {
         </div>
     `;
 }
-// ▲▲▲ 屏幕共享功能结束 ▲▲▲
+// ▲▲▲ 屏幕window.getComputedStyle(btn).visibility); 功能结束 ▲▲▲
 
 // ▼▼▼ 引用功能 ▼▼▼
 let quotedMessage = null;
@@ -11751,6 +11947,126 @@ function aiReplyWithQuote(quoteText) {
     // ...添加AI回复内容...
 }
 // ▲▲▲ 引用功能结束 ▲▲▲
+
+// ▼▼▼ 心情日记系统 ▼▼▼
+class MoodDiary {
+    constructor() {
+        this.entries = [];
+        this.currentMood = null;
+        
+        // 初始化事件
+        document.getElementById('mood-diary-btn').addEventListener('click', () => {
+            this.showDiary();
+        });
+        
+        document.querySelector('#mood-diary-modal .close').addEventListener('click', () => {
+            this.hideDiary();
+        });
+    }
+    
+    // 添加新心情记录（在AI发送消息时调用）
+    addEntry(message, aiResponse) {
+        const mood = this.analyzeMood(aiResponse);
+        const entry = {
+            emoji: mood.emoji,
+            title: mood.title,
+            content: this.generateDiaryContent(message, aiResponse),
+            timestamp: new Date(),
+            context: [message, aiResponse]
+        };
+        this.entries.unshift(entry); // 最新记录放前面
+        this.currentMood = entry;
+    }
+    
+    // 智能分析心情（可根据您的AI设定扩展）
+    analyzeMood(text) {
+        const moodMap = [
+            { emoji: "😊", title: "心情愉悦", keywords: ["开心", "喜欢", "棒"] },
+            { emoji: "🎵", title: "音乐沉醉", keywords: ["歌", "旋律", "播放"] },
+            { emoji: "🤔", title: "陷入思考", keywords: ["为什么", "觉得", "可能"] },
+            { emoji: "🥺", title: "有点感动", keywords: ["谢谢", "感动", "哭"] }
+        ];
+        
+        const matched = moodMap.find(m => 
+            m.keywords.some(k => text.includes(k))) || moodMap[0];
+            
+        return {
+            emoji: matched.emoji,
+            title: matched.title,
+            color: this.getMoodColor(matched.emoji)
+        };
+    }
+    
+    // 生成日记内容（可接入AI生成更自然）
+    generateDiaryContent(userMsg, aiMsg) {
+        const prompts = [
+            `用户问我"${userMsg}"，我回应道"${aiMsg.substring(0,30)}..."`,
+            `刚刚聊到"${userMsg.substring(0,20)}"，让我感到${this.currentMood.title}`,
+            `"${aiMsg.substring(0,25)}" ——这是我对用户问题的真实想法`
+        ];
+        return prompts[Math.floor(Math.random() * prompts.length)];
+    }
+    
+    // 显示日记弹窗
+    showDiary() {
+        if (!this.currentMood) return;
+        
+        const modal = document.getElementById('mood-diary-modal');
+        const { emoji, title, content, timestamp, context } = this.currentMood;
+        
+        // 填充数据
+        document.getElementById('mood-emoji').textContent = emoji;
+        document.getElementById('mood-title').textContent = title;
+        document.getElementById('mood-date').textContent = 
+            timestamp.toLocaleString('zh-CN', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        document.getElementById('mood-content').innerHTML = `
+            <p>${content}</p>
+            <p style="color:#666; margin-top:8px">——《AI的内心独白》</p>
+        `;
+        
+        // 生成聊天记录
+        document.getElementById('mood-context').innerHTML = `
+            <div style="font-weight:bold; margin-bottom:6px">📌 相关对话：</div>
+            ${context.map(msg => `
+                <div class="context-item" style="margin-bottom:4px">
+                    ${msg.startsWith('AI：') ? '🤖' : '👤'} ${msg}
+                </div>
+            `).join('')}
+        `;
+        
+        modal.style.display = 'block';
+    }
+    
+    hideDiary() {
+        document.getElementById('mood-diary-modal').style.display = 'none';
+    }
+    
+    getMoodColor(emoji) {
+        const colors = {
+            "😊": "#FFD700",
+            "🎵": "#9C27B0",
+            "🤔": "#2196F3",
+            "🥺": "#FF9800"
+        };
+        return colors[emoji] || "#FFD700";
+    }
+}
+
+// 初始化系统
+const moodDiary = new MoodDiary();
+
+// 在AI回复时记录心情（插入到AI消息发送函数中）
+function sendAIResponse(message) {
+    // ...原有消息发送逻辑...
+    moodDiary.addEntry(lastUserMessage, message);
+}
+/* ▲▲▲ 心情日记系统结束 ▲▲▲ */
         // ===================================================================
         // 5. 启动！
             
