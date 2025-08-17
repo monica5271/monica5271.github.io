@@ -385,51 +385,6 @@ body {
     border-radius: 2px 8px 8px 8px; /* 保留原有圆角 */
 }
 
-/* ▼▼▼ 引用消息样式 ▼▼▼ */
-/* 引用预览区 */
-/* ▼▼▼ 改进的引用样式 ▼▼▼ */
-.quote-preview {
-    display: flex;
-    align-items: center;
-    padding: 8px 12px;
-    margin: 0 10px 10px 10px;
-    background: #f5f5f5;
-    border-radius: 8px;
-    border-left: 3px solid #07C160;
-    position: relative;
-    transition: all 0.2s ease;
-}
-
-.quote-content {
-    font-size: 14px;
-    color: #666;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    padding-right: 10px;
-}
-
-.quote-cancel-btn {
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-size: 18px;
-    color: #888;
-    padding: 0 5px;
-    transition: color 0.2s;
-}
-
-.quote-cancel-btn:hover {
-    color: #ff3b30;
-}
-
-/* 被引用消息的高亮样式 */
-.message.quoted {
-    background-color: rgba(7, 193, 96, 0.05);
-    border-left: 2px solid #07C160;
-    padding-left: 8px;
-    transition: all 0.3s ease;
-}
 /* ▲▲▲ 样式结束 ▲▲▲ */
       
         #chat-messages[data-theme="pink_blue"] .message-bubble.user .content { background-color: #fff0f6; color: #432531; }
@@ -3286,6 +3241,47 @@ body {
     width: 100%;
 }
 
+/* ▼▼▼ 引用样式 ▼▼▼ */
+/* 引用预览样式 - 适配新消息布局 */
+.quote-preview {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    margin: 0 0 10px 0;
+    background: #f5f5f5;
+    border-radius: 8px;
+    border-left: 3px solid #07C160;
+    animation: fadeIn 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.quote-content {
+    font-size: 14px;
+    color: #666;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+}
+
+/* 被引用消息高亮效果 */
+.message-wrapper.highlighted .message-bubble {
+    animation: highlight 2s ease;
+    position: relative;
+}
+
+@keyframes highlight {
+    0% { background-color: rgba(7, 193, 96, 0.1); }
+    100% { background-color: transparent; }
+}
+
+/* 长按菜单适配新布局 */
+#message-actions-modal {
+    z-index: 1000;
+}
+
 /* ▼▼▼ 心情日记模态框样式 ▼▼▼ */
 .modal {
     position: fixed;
@@ -3691,7 +3687,7 @@ body.modal-active .send-button {
 <div id="screen-share-modal" class="modal">
     <div class="modal-content" style="width: 90%; max-width: 400px;">
         <div class="modal-header">
-            <span>查看AI的屏幕</span>
+            <span id="screen-share-title">查看AI的屏幕</span>
             <span class="close">&times;</span>
         </div>
         <div class="modal-body">
@@ -4213,14 +4209,13 @@ body.modal-active .send-button {
         </div>
     </div>
 </div>
-
-<!-- 改进后的引用预览区 -->
+<!-- 引用预览区 -->
 <div id="quote-preview" class="quote-preview" style="display:none;">
     <div class="quote-content" style="flex:1;"></div>
-    <button id="cancel-quote-btn" class="quote-cancel-btn">×</button>
+    <button id="cancel-quote-btn" style="border:none; background:none; cursor:pointer;">×</button>
 </div>
 
-<!-- 消息输入区 (保持不变) -->
+<!-- 消息输入区 -->
 <div class="chat-input-area">
     <div id="quote-preview-container"></div>
     <input id="chat-input" type="text" placeholder="输入消息...">
@@ -4471,6 +4466,13 @@ body.modal-active .send-button {
         let editingPersonaPresetId = null;
 
 let waimaiTimers = {}; // 用于存储外卖倒计时
+
+function getAIName() {
+  // 如果你聊天对象有名字，就用那个；没有就显示 "AI"
+  // ⚠️ 下面的 state 路径要根据你项目里的实际结构改
+  // 如果你不确定，先保留，只会默认显示 "AI"
+  return (window.state?.chats?.[state.activeChatId]?.ai?.name) || "AI";
+}
 
 let activeMessageTimestamp = null;
 let activePostId = null; // <-- 新增：用于存储当前操作的动态ID
@@ -11633,8 +11635,10 @@ document.getElementById('chat-messages').addEventListener('click', (e) => {
 // ▲▲▲ 新事件监听器粘贴结束 ▲▲▲
 
 // ▼▼▼ 屏幕button功能 ▼▼▼
-document.getElementById('screen-share-btn').addEventListener('click', function() {
-    document.getElementById('screen-share-modal').style.display = 'block';
+document.getElementById('screen-share-btn').addEventListener('click', function () {
+  const aiName = getAIName();  // 拿到 AI 的名字
+  document.getElementById('screen-share-title').textContent = `查看${aiName}的屏幕`;
+  document.getElementById('screen-share-modal').style.display = 'block';
 });
 
 // 关闭模态框
@@ -11677,315 +11681,320 @@ function showAppSimulator(app) {
 }
 
 // 美团外卖模拟（结合AI个性版）
+// 存储历史订单（不会丢失，除非刷新整个页面）
+let aiOrderHistory = [];
+
+// 获取 AI 名字（之前我给过你一个函数，可以放全局复用）
+function getAIName() {
+  return (window.state?.chats?.[state.activeChatId]?.ai?.name) 
+      || (window.state?.chats?.[state.activeChatId]?.name) 
+      || "AI";
+}
+
+// 食物池
+const foodPool = {
+  breakfast: ["鸡蛋灌饼","豆浆油条","鸡胸肉沙拉","燕麦牛奶","包子","豆腐脑","水果酸奶杯","煎饼果子","抹茶蛋糕","甜甜圈"],
+  lunch: ["黄焖鸡米饭","麻辣香锅","寿司套餐","牛肉盖饭","烤鱼","番茄炒蛋","牛排","石锅拌饭","奶茶","提拉米苏"],
+  dinner: ["火锅","汉堡薯条","披萨","牛肉面","烤串","意大利面","鸡胸肉沙拉","粥","巧克力蛋糕","冰激凌"],
+  lateNight: ["炸鸡啤酒","热干面","小龙虾","烧烤","泡面","奶茶","鸡肉卷","甜甜圈","布朗尼","抹茶慕斯"]
+};
+
+// 天气系统
+const weathers = [
+  { name: "晴天", icon: "☀️", priceFactor: 1 },
+  { name: "雨天", icon: "🌧️", priceFactor: 1.2 },
+  { name: "雪天", icon: "❄️", priceFactor: 1.3 },
+  { name: "雾霾", icon: "🌫️", priceFactor: 1.1 },
+  { name: "大风", icon: "💨", priceFactor: 1 }
+];
+
+// 个性设定（这里可以写死，也可以以后改成读取 state）
+const aiPersonality = {
+  isFitness: true,       // 健身型
+  isVegetarian: false,   // 素食
+  sweetTooth: 0.4,       // 爱吃甜食几率（0~1）
+  budgetLevel: 1.2       // 1=正常，>1 豪华，<1 节俭
+};
+
+// 获取当前时间段
+function getMealType() {
+  const hour = new Date().getHours();
+  if (hour >= 5 && hour < 10) return "breakfast";
+  if (hour >= 10 && hour < 15) return "lunch";
+  if (hour >= 15 && hour < 21) return "dinner";
+  return "lateNight";
+}
+
+// 随机挑一个食物，结合个性
+function pickFood(mealType) {
+  let foods = foodPool[mealType].slice();
+
+  // 健身倾向：多推鸡胸肉沙拉/高蛋白
+  if (aiPersonality.isFitness && foods.includes("鸡胸肉沙拉")) {
+    foods.push("鸡胸肉沙拉","鸡胸肉沙拉");
+  }
+
+  // 素食：过滤掉肉类
+  if (aiPersonality.isVegetarian) {
+    foods = foods.filter(f => !f.match(/鸡|牛|肉|鱼|虾|汉堡|烧烤/));
+  }
+
+  // 甜食偏好：随机加权
+  if (Math.random() < aiPersonality.sweetTooth) {
+    foods = foods.concat(["巧克力蛋糕","甜甜圈","抹茶蛋糕","提拉米苏","冰激凌","布朗尼","抹茶慕斯"]);
+  }
+
+  return foods[Math.floor(Math.random() * foods.length)];
+}
+
+// 生成一个订单
+function generateOrder(mealType, weather, aiName) {
+  const food = pickFood(mealType);
+  let basePrice = 20 + Math.random() * 20;
+  basePrice *= weather.priceFactor;
+  basePrice *= aiPersonality.budgetLevel;
+  basePrice = basePrice.toFixed(2);
+
+  const shops = ["望京小馆","川味人家","街角甜品屋","健康轻食店","深夜食堂","快乐炸鸡店"];
+  const shop = shops[Math.floor(Math.random() * shops.length)];
+
+  // 推荐理由
+  let reason = `${weather.name}${weather.icon}`;
+  if (aiPersonality.isFitness && food.includes("沙拉")) {
+    reason = `${aiName}健身后需要高蛋白 · ${weather.name}${weather.icon}`;
+  } else if (aiPersonality.isVegetarian) {
+    reason = `${aiName}坚持素食 · ${weather.name}${weather.icon}`;
+  } else if (food.match(|甜|奶茶|布朗尼|冰激凌/)) {
+    reason = `${aiName}想犒劳自己 · ${weather.name}${weather.icon}`;
+  }
+
+  return {
+    food,
+    price: basePrice,
+    shop,
+    reason,
+    time: new Date().toLocaleTimeString("zh-CN", {hour:"2-digit", minute:"2-digit"})
+  };
+}
+
+// 渲染美团外卖页面
 function showMeituan(container) {
-    // 基础数据
-    const hour = new Date().getHours();
-    const weekDay = new Date().getDay();
-    const isWeekend = weekDay === 0 || weekDay === 6;
-    
-    // ▼▼▼ 新增AI个性系统 ▼▼▼
-    const aiPersonality = {
-        isFitness: true,    // 是否健身
-        isVegetarian: false, // 是否素食
-        sweetTooth: 0.3,    // 0-1甜食偏好
-        budgetLevel: 2      // 1-3消费水平
-    };
-    
-    // 天气系统
-    const weatherSystems = {
-        '晴天': { icon: '☀️', impact: 0.9 },
-        '雨天': { icon: '🌧️', impact: 1.2 }, 
-        '雪天': { icon: '❄️', impact: 1.3 },
-        '雾霾': { icon: '😷', impact: 1.1 },
-        '大风': { icon: '💨', impact: 1.0 }
-    };
-    const weather = Object.keys(weatherSystems)[Math.floor(Math.random() * 5)];
+  const aiName = getAIName();
+  const mealType = getMealType();
+  const weather = weathers[Math.floor(Math.random() * weathers.length)];
 
-    // ▼▼▼ 智能食物池（根据AI个性过滤）▼▼▼
-    const getAllFoods = () => {
-        const baseFoods = {
-            '健身': ['鸡胸肉沙拉', '蛋白奶昔', '全麦三明治', '水煮西兰花'],
-            '高热量': ['炸鸡套餐', '芝士汉堡', '奶油意面', '巧克力蛋糕'],
-            '健康': ['藜麦沙拉', '蒸鱼套餐', '蔬菜汤', '水果拼盘'],
-            '快捷': ['黄焖鸡米饭', '猪脚饭', '煲仔饭', '牛肉面']
-        };
-        
-        // 根据AI个性筛选
-        let filtered = [];
-        if (aiPersonality.isFitness) {
-            filtered = [...filtered, ...baseFoods['健身']];
-        } else {
-            filtered = [...filtered, ...baseFoods['高热量']];
-        }
-        
-        if (aiPersonality.isVegetarian) {
-            filtered = filtered.filter(f => !f.includes('鸡') && !f.includes('鱼') && !f.includes('牛'));
-        }
-        
-        // 10%概率破戒
-        if (Math.random() < 0.1) {
-            filtered.push(...baseFoods['高热量']);
-        }
-        
-        return [...new Set(filtered)]; // 去重
-    };
-
-    // 分时段逻辑
-    let mealType, recommendReason;
-    const foods = getAllFoods();
-    
-    if (hour >= 5 && hour < 11) {
-        mealType = "早餐";
-        recommendReason = aiPersonality.isFitness ? 
-            "AI晨练后需要高蛋白早餐" : 
-            "AI想用美味早餐开启一天";
-    } else if (hour >= 11 && hour < 14) {
-        mealType = "午餐";
-        recommendReason = isWeekend ? 
-            "周末悠闲午餐时光" : 
-            `工作${aiPersonality.isFitness ? "健身" : "普通"}午餐`;
-    } else if (hour >= 17 && hour < 21) {
-        mealType = "晚餐";
-        recommendReason = aiPersonality.isFitness ? 
-            "健身后的低碳水晚餐" : 
-            "放松身心的晚餐时间";
-    } else {
-        mealType = "夜宵";
-        recommendReason = "深夜解馋时刻";
+  // 如果还没生成过订单，就新建；否则继续在历史上追加
+  if (aiOrderHistory.length === 0) {
+    for (let i=0; i<3; i++) {
+      aiOrderHistory.push(generateOrder(mealType, weather, aiName));
     }
+  } else {
+    aiOrderHistory.push(generateOrder(mealType, weather, aiName));
+  }
 
-    // ▼▼▼ 智能推荐算法（结合个性）▼▼▼
-    const generateOrder = () => {
-        // 基础价格
-        let basePrice = 15 + Math.floor(Math.random() * 30);
-        
-        // 个性影响价格
-        if (aiPersonality.budgetLevel === 3) basePrice *= 1.5;
-        if (aiPersonality.budgetLevel === 1) basePrice *= 0.7;
-        
-        // 选择食物
-        let selectedFood;
-        if (aiPersonality.isFitness && Math.random() > 0.3) {
-            // 健身AI优先健康食品
-            const healthyFoods = foods.filter(f => 
-                f.includes('沙拉') || f.includes('蒸') || f.includes('水煮'));
-            selectedFood = healthyFoods[Math.floor(Math.random() * healthyFoods.length)] || 
-                         foods[Math.floor(Math.random() * foods.length)];
-        } else {
-            selectedFood = foods[Math.floor(Math.random() * foods.length)];
-        }
-        
-        return {
-            icon: mealType === '早餐' ? '☕' : 
-                  mealType === '午餐' ? '🍱' : 
-                  mealType === '晚餐' ? '🍲' : '🍢',
-            item: selectedFood,
-            price: Math.round(basePrice * weatherSystems[weather].impact),
-            shop: ['健身厨房','轻食记','能量补给站'][Math.floor(Math.random() * 3)],
-            time: `${Math.floor(Math.random() * 3) + 1}小时前`
-        };
-    };
-
-    // 生成3条订单（第一条是推荐）
-    const orders = Array.from({length: 3}, (_,i) => ({
-        ...generateOrder(),
-        isRecommended: i === 0
-    }));
-
-    // ▼▼▼ 生成UI ▼▼▼
-    container.innerHTML = `
-        <div style="background:#FFD700;padding:15px;color:white;border-radius:12px 12px 0 0">
-            <h3 style="margin:0">美团外卖 · ${mealType}推荐</h3>
-            <div style="font-size:12px">
-                ${recommendReason} · ${weather}${weatherSystems[weather].icon}
-                ${aiPersonality.isFitness ? '· 🏋️‍ 健身模式' : ''}
-            </div>
+  // 显示
+  container.innerHTML = `
+    <div style="background:#FFD600;padding:15px;">
+      <h3 style="margin:0;">美团外卖</h3>
+      <p>${aiName}的${mealType === "breakfast" ? "早餐" : mealType==="lunch" ? "午餐" : mealType==="dinner" ? "晚餐" : "夜宵"}记录</p >
+    </div>
+    <div style="padding:15px;">
+      ${aiOrderHistory.map(o => `
+        <div style="border-bottom:1px solid #eee;padding:10px 0;">
+          <strong>${o.food}</strong> - ¥${o.price}<br>
+          <span style="color:#555;">${o.shop} · ${o.time}</span><br>
+          <em style="color:#999;">推荐理由：${o.reason}</em>
         </div>
-        
-        <div style="padding:15px">
-            <!-- 推荐卡片 -->
-            <div style="
-                background:#FFF8E6;
-                border-radius:8px;
-                padding:12px;
-                margin-bottom:15px;
-                border-left:4px solid #FFAA00
-            ">
-                <div style="display:flex;align-items:center;gap:10px">
-                    <div style="font-size:24px">${orders[0].icon}</div>
-                    <div>
-                        <div style="font-weight:bold">今日${mealType}推荐</div>
-                        <div style="font-size:12px;color:#666">${recommendReason}</div>
-                    </div>
-                </div>
-                <div style="margin-top:10px">
-                    <span style="
-                        background:#FFD700;
-                        padding:2px 8px;
-                        border-radius:4px;
-                        font-size:12px
-                    ">${aiPersonality.isFitness ? '💪 健身' : '🔥 热卖'}</span>
-                    <span style="margin-left:5px">${orders[0].item}</span>
-                    <span style="float:right;font-weight:bold">¥${orders[0].price}</span>
-                </div>
-            </div>
-            
-            <!-- 历史订单 -->
-            <h4 style="margin:15px 0 10px 0">AI的${mealType}记录</h4>
-            ${orders.map(order => `
-                <div style="
-                    border:1px solid #EEE;
-                    border-radius:8px;
-                    padding:10px;
-                    margin-bottom:10px;
-                    ${order.isRecommended ? 'box-shadow: 0 2px 8px rgba(255,200,0,0.3)' : ''}
-                ">
-                    <div style="display:flex;gap:10px">
-                        <div style="font-size:20px">${order.icon}</div>
-                        <div style="flex-grow:1">
-                            <div style="font-weight:bold">${order.shop}</div>
-                            <div>${order.item} · ¥${order.price}</div>
-                        </div>
-                        <div style="color:#888;font-size:12px">${order.time}</div>
-                    </div>
-                </div>
-            `).join('')}
-        </div>
-    `;
+      `).join("")}
+    </div>
+  `;
 }
 // 百度搜索模拟
+// 存历史
+let aiBaiduHistory = [];
+
 function showBaidu(container) {
-    const searches = [
-        '如何学习编程', 
-        '最新科技新闻', 
-        '健康饮食建议', 
-        '旅游景点推荐', 
-        '电影推荐'
+  const aiName = getAIName();
+
+  // 如果没历史，就先造 3 条
+  if (aiBaiduHistory.length === 0) {
+    aiBaiduHistory = [
+      "如何快速缓解焦虑",
+      "附近好吃的火锅店",
+      "网易云下载速度慢怎么办"
     ];
-    
-    container.innerHTML = `
-        <div style="background-color: #3385FF; padding: 15px; color: white;">
-            <h3 style="margin: 0;">百度搜索</h3>
-        </div>
-        <div style="padding: 15px; text-align: center;">
-            <img src="https://www.baidu.com/img/flexible/logo/pc/result.png" style="width: 150px; margin: 20px 0;">
-            <div style="display: flex; margin-bottom: 30px;">
-                <input type="text" value="${searches[Math.floor(Math.random() * searches.length)]}" style="flex: 1; padding: 8px; border: 1px solid #3385FF; border-radius: 4px 0 0 4px;">
-                <button  style="background-color: #3385FF; color: white; border: none; padding: 0 15px; border-radius: 0 4px 4px 0;">搜索</button >
-            </div>
-            <div style="text-align: left;">
-                <h4 style="margin-top: 0;">AI的搜索历史</h4>
-                ${searches.map(search => `
-                    <div style="padding: 8px 0; border-bottom: 1px solid #eee; display: flex; justify-content: space-between;">
-                        <span>${search}</span>
-                        <span style="color: #888;">${Math.floor(Math.random() * 5) + 1}天前</span>
-                    </div>
-                `).join('')}
-            </div>
-        </div>
-    `;
+  } else {
+    // 新增一条随机搜索
+    const samples = [
+      "今日天气预报",
+      "最新电影票房",
+      "理财怎么入门",
+      "好听的睡前歌曲",
+      "健身餐推荐",
+      "失眠怎么办"
+    ];
+    const newSearch = samples[Math.floor(Math.random() * samples.length)];
+    aiBaiduHistory.unshift(newSearch); // 新的放最前
+  }
+
+  container.innerHTML = `
+    <div style="background:#3385FF;padding:15px;color:white;">
+      <h3 style="margin:0;">百度搜索</h3>
+    </div>
+    <div style="padding:15px;text-align:center;">
+      < img src="https://www.baidu.com/img/flexible/logo/pc/result.png" style="width:150px;margin:20px 0;">
+      <div style="display:flex;margin-bottom:30px;">
+        <input type="text" value="${aiBaiduHistory[0]}" style="flex:1;padding:8px;border:1px solid #3385FF;border-radius:4px 0 0 4px;">
+        <button style="background:#3385FF;color:white;border:none;padding:0 15px;border-radius:0 4px 4px 0;">搜索</button>
+      </div>
+      <div style="text-align:left;">
+        <h4 style="margin-top:0;">${aiName}的搜索历史</h4>
+        ${aiBaiduHistory.slice(0,5).map((s,i) => `
+          <div style="padding:8px 0;border-bottom:1px solid #eee;display:flex;justify-content:space-between;">
+            <span>${s}</span>
+            <span style="color:#888;">${i+1}天前</span>
+          </div>`).join("")}
+      </div>
+    </div>
+  `;
 }
 
 // 网易云音乐模拟
+// 存历史
+let aiMusicHistory = [];
+
 function showNetease(container) {
-    const songs = [
-        {name: '晴天', artist: '周杰伦'},
-        {name: '平凡之路', artist: '朴树'},
-        {name: '起风了', artist: '买辣椒也用券'},
-        {name: '夜曲', artist: '周杰伦'},
-        {name: '理想三旬', artist: '陈鸿宇'}
+  const aiName = getAIName();
+
+  // 如果没历史，就给几首默认
+  if (aiMusicHistory.length === 0) {
+    aiMusicHistory = [
+      { name:"晴天", artist:"周杰伦" },
+      { name:"平凡之路", artist:"朴树" },
+      { name:"起风了", artist:"买辣椒也用券" }
     ];
-    
-    container.innerHTML = `
-        <div style="background-color: #E60026; padding: 15px; color: white;">
-            <h3 style="margin: 0;">网易云音乐</h3>
-        </div>
-        <div style="padding: 15px;">
-            <div style="display: flex; margin-bottom: 20px;">
-                <input type="text" placeholder="搜索音乐、歌手" style="flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
-            </div>
-            <h4 style="margin-top: 0;">AI最近听的歌</h4>
-            ${songs.map(song => `
-                <div style="display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee;">
-                    <!-- 新增音乐图标 -->
-                    <div style="width: 40px; height: 40px; background-color: #f3f3f3; margin-right: 10px;
-                         display: flex; align-items: center; justify-content: center; border-radius: 4px;">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#E60026">
-                            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <div style="font-weight: bold;">${song.name}</div>
-                        <div style="color: #888; font-size: 12px;">${song.artist}</div>
-                    </div>
-                </div>
-            `).join('')}
-        </div>
-    `;
+  } else {
+    // 随机加一首
+    const samples = [
+      { name:"夜曲", artist:"周杰伦" },
+      { name:"演员", artist:"薛之谦" },
+      { name:"Love Story", artist:"Taylor Swift" },
+      { name:"海阔天空", artist:"Beyond" },
+      { name:"青花瓷", artist:"周杰伦" }
+    ];
+    const newSong = samples[Math.floor(Math.random() * samples.length)];
+    aiMusicHistory.unshift(newSong); // 新的放最前
+  }
+
+  container.innerHTML = `
+    <div style="background:#E60026;color:white;padding:15px;">
+      <h3 style="margin:0;">网易云音乐</h3>
+    </div>
+    <div style="padding:15px;">
+      <h4 style="margin:0 0 10px 0;">${aiName}最近听的歌</h4>
+      ${aiMusicHistory.slice(0,6).map(s => `
+        <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #eee;">
+          <span>${s.name} - ${s.artist}</span>
+          <span style="color:#E60026;">▶</span>
+        </div>`).join("")}
+    </div>
+  `;
 }
 // ▲▲▲ 屏幕button功能结束 ▲▲▲
 
-// ▼▼▼ 引用功能 ▼▼▼
-// 引用功能实现 (兼容原有代码)
-document.addEventListener('DOMContentLoaded', function() {
-    // 长按菜单中的引用按钮
+// ▼▼▼ 引用▼▼▼ 
+// 存储当前选中的消息
+let currentSelectedMessage = null;
+
+// 初始化消息交互功能
+function initMessageInteractions() {
+    // 为所有消息添加右键/长按事件
+    document.querySelectorAll('.message-wrapper').forEach(wrapper => {
+        // 右键点击
+        wrapper.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            selectMessageForAction(this, e.clientX, e.clientY);
+        });
+        
+        // 移动端长按
+        let longPressTimer;
+        wrapper.addEventListener('touchstart', function(e) {
+            longPressTimer = setTimeout(() => {
+                selectMessageForAction(this, e.touches[0].clientX, e.touches[0].clientY);
+            }, 500);
+        });
+        
+        wrapper.addEventListener('touchend', function() {
+            clearTimeout(longPressTimer);
+        });
+    });
+
+    // 引用按钮事件
     document.getElementById('quote-message-btn').addEventListener('click', function() {
-        const selectedMessage = document.querySelector('.message.selected');
-        if (selectedMessage) {
-            quoteMessage(selectedMessage);
-            document.getElementById('message-actions-modal').style.display = 'none';
+        if (currentSelectedMessage) {
+            createQuote(currentSelectedMessage);
+            hideMessageActions();
         }
     });
-    
-    // 取消引用按钮
+
+    // 取消引用
     document.getElementById('cancel-quote-btn').addEventListener('click', function() {
         document.getElementById('quote-preview').style.display = 'none';
         document.getElementById('quote-preview-container').innerHTML = '';
     });
-});
+}
 
-function quoteMessage(messageElement) {
-    // 获取消息内容 (排除不需要的元素)
-    const messageContent = messageElement.querySelector('.message-content').innerText;
-    const sender = messageElement.classList.contains('user') ? '你' : 'AI';
+// 选择消息并显示操作菜单
+function selectMessageForAction(messageWrapper, x, y) {
+    // 清除之前的选择
+    document.querySelectorAll('.message-wrapper').forEach(w => {
+        w.classList.remove('selected');
+    });
     
-    // 创建引用预览
-    const quotePreview = document.getElementById('quote-preview');
-    quotePreview.querySelector('.quote-content').innerText = `${sender}: ${messageContent}`;
+    // 设置新选择
+    messageWrapper.classList.add('selected');
+    currentSelectedMessage = messageWrapper;
+    
+    // 显示菜单
+    const modal = document.getElementById('message-actions-modal');
+    modal.style.display = 'flex';
+    modal.querySelector('#custom-modal').style.left = `${x}px`;
+    modal.querySelector('#custom-modal').style.top = `${y}px`;
+}
+
+// 创建引用
+function createQuote(messageWrapper) {
+    const messageContent = messageWrapper.querySelector('.message-content').textContent;
+    const isAI = messageWrapper.classList.contains('ai');
+    const sender = isAI ? 'AI' : '你';
+    
+    // 准备引用预览
+    const quotePreview = document.getElementById('quote-preview').cloneNode(true);
+    quotePreview.querySelector('.quote-content').textContent = `${sender}: ${messageContent.trim()}`;
     quotePreview.style.display = 'flex';
     
-    // 插入到输入框上方
-    document.getElementById('quote-preview-container').appendChild(quotePreview.cloneNode(true));
+    // 插入到容器
+    const container = document.getElementById('quote-preview-container');
+    container.innerHTML = '';
+    container.appendChild(quotePreview);
     
     // 高亮被引用的消息
-    messageElement.classList.add('quoted');
+    messageWrapper.classList.add('highlighted');
     setTimeout(() => {
-        messageElement.classList.remove('quoted');
+        messageWrapper.classList.remove('highlighted');
     }, 2000);
     
     // 聚焦输入框
     document.getElementById('chat-input').focus();
 }
 
-// 保持原有的长按菜单逻辑不变
-function showMessageActions(event, messageElement) {
-    // 原有的长按菜单显示逻辑
-    const modal = document.getElementById('message-actions-modal');
-    modal.style.display = 'block';
-    
-    // 标记选中的消息
-    document.querySelectorAll('.message').forEach(msg => {
-        msg.classList.remove('selected');
-    });
-    messageElement.classList.add('selected');
-    
-    // 定位菜单
-    const modalContent = modal.querySelector('#custom-modal');
-    modalContent.style.position = 'fixed';
-    modalContent.style.left = `${event.clientX}px`;
-    modalContent.style.top = `${event.clientY}px`;
+// 隐藏操作菜单
+function hideMessageActions() {
+    document.getElementById('message-actions-modal').style.display = 'none';
 }
-// ▲▲▲ 引用功能结束 ▲▲▲
+
+// 初始化
+document.addEventListener('DOMContentLoaded', initMessageInteractions);
 
 // ▼▼▼ 心情日记系统▼▼▼ 
 class MoodDiary {
