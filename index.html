@@ -143,12 +143,12 @@ body {
     flex-grow: 1;
     overflow-y: auto;
     overflow-x: hidden; /* 核心修正1: 强制禁止水平滚动/拖动 */
-    padding: 10px 15px; /* 核心修正2: 将左右内边距增加到15px，提供更多呼吸空间 */
+    padding: 8px 14px; /* 核心修正2: 将左右内边距增加到15px，提供更多呼吸空间 */
     padding-top: 110px;
     margin-top: -80px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
     box-sizing: border-box; /* 确保内边距计算正确 */
 }
 /* ▲▲▲ 替换结束 ▲▲▲ */
@@ -399,9 +399,9 @@ body {
 /* ▲▲▲ 添加结束 ▲▲▲ */
 
 
-        #chat-messages[data-theme="pink_blue"] .message-bubble.user .content { background-color: #fff0f6; color: #432531; }
-        #chat-messages[data-theme="pink_blue"] .message-bubble.ai .content { background-color: #eff7ff; color: #263a4e; }
-        #chat-messages[data-theme="blue_white"] .message-bubble.user .content { background-color: #eff7ff; color: #263a4e; }
+        #chat-messages[data-theme="pink_blue"] .message-bubble.user .content { background-color: #f7d1e0; color: #432531; }
+        #chat-messages[data-theme="pink_blue"] .message-bubble.ai .content { background-color: #bcd8f6; color: #263a4e; }
+        #chat-messages[data-theme="blue_white"] .message-bubble.user .content { background-color: #bcd8f6; color: #263a4e; }
         #chat-messages[data-theme="blue_white"] .message-bubble.ai .content { background-color: #f8f9fa; color: #383d41; }
         #chat-messages[data-theme="purple_yellow"] .message-bubble.user .content { background-color: #faf7ff; color: #827693; }
         #chat-messages[data-theme="purple_yellow"] .message-bubble.ai .content { background-color: #fffde4; color: #5C4033; }
@@ -411,21 +411,21 @@ body {
         #chat-messages[data-theme="yellow_white"] .message-bubble.ai .content { background-color: #f8f9fa; color: #383d41; }
         #chat-messages[data-theme="red_black"] .message-bubble.user .content { background-color: #C62828; color: #FFFFFF; }
         #chat-messages[data-theme="red_black"] .message-bubble.ai .content { background-color: #212121; color: #FFFFFF; }
-        #chat-messages[data-theme="blue_yellow"] .message-bubble.user .content { background-color: #A0D2EB; color: #153243; }
-        #chat-messages[data-theme="blue_yellow"] .message-bubble.ai .content { background-color: #FEF9E7; color: #5D4037; }
-        #chat-messages[data-theme="pink_yellow"] .message-bubble.user .content { background-color: #fff0f6; color: #432531; }
-        #chat-messages[data-theme="pink_yellow"] .message-bubble.ai .content { background-color: #FEF9E7; color: #5D4037; }
-        #chat-messages[data-theme="pink_purple"] .message-bubble.user .content { background-color: #fff0f6; color: #a78396; }
-        #chat-messages[data-theme="pink_purple"] .message-bubble.ai .content { background-color: #faf7ff; color: #827693; }
-        #chat-messages[data-theme="gray_white"] .message-bubble.user .content { background-color: #e9ecef; color: #495057; }
+        #chat-messages[data-theme="blue_yellow"] .message-bubble.user .content { background-color: #bcd8f6; color: #153243; }
+        #chat-messages[data-theme="blue_yellow"] .message-bubble.ai .content { background-color: #f5ebc8; color: #5D4037; }
+        #chat-messages[data-theme="pink_yellow"] .message-bubble.user .content { background-color: #f7d1e0; color: #432531; }
+        #chat-messages[data-theme="pink_yellow"] .message-bubble.ai .content { background-color: #faf1d2; color: #5D4037; }
+        #chat-messages[data-theme="pink_purple"] .message-bubble.user .content { background-color: #f7d1e0; color: #a78396; }
+        #chat-messages[data-theme="pink_purple"] .message-bubble.ai .content { background-color: #e6d7ff; color: #827693; }
+        #chat-messages[data-theme="gray_white"] .message-bubble.user .content { background-color: #d9dadb; color: #495057; }
         #chat-messages[data-theme="gray_white"] .message-bubble.ai .content { background-color: #f8f9fa; color: #383d41; }
-        #chat-messages[data-theme="blue_green"] .message-bubble.user .content { background-color: #d1ecf1; color: #0c5460; }
+        #chat-messages[data-theme="blue_green"] .message-bubble.user .content { background-color: #bcd8f6; color: #0c5460; }
         #chat-messages[data-theme="blue_green"] .message-bubble.ai .content { background-color: #d4edda; color: #155724; }
-        #chat-messages[data-theme="pink_white"] .message-bubble.user .content { background-color: #fff0f6; color: #a78396; }
+        #chat-messages[data-theme="pink_white"] .message-bubble.user .content { background-color: #f7d1e0; color: #a78396; }
         #chat-messages[data-theme="pink_white"] .message-bubble.ai .content { background-color: #f8f9fa; color: #383d41; }
-        #chat-messages[data-theme="pink_black"] .message-bubble.user .content { background-color: #F8BBD0; color: #5B2C6F; }
-        #chat-messages[data-theme="pink_black"] .message-bubble.ai .content { background-color: #343a40; color: #f8f9fa; }
-        #chat-messages[data-theme="pink_green"] .message-bubble.user .content { background-color: #F8BBD0; color: #5B2C6F; }
+        #chat-messages[data-theme="pink_black"] .message-bubble.user .content { background-color: #fac6d8; color: #5B2C6F; }
+        #chat-messages[data-theme="pink_black"] .message-bubble.ai .content { background-color: #42484e; color: #f8f9fa; }
+        #chat-messages[data-theme="pink_green"] .message-bubble.user .content { background-color: #fac6d8; color: #5B2C6F; }
         #chat-messages[data-theme="pink_green"] .message-bubble.ai .content { background-color: #C8E6C9; color: #1B5E20; }
         #chat-messages[data-theme="green_black"] .message-bubble.user .content { background-color: #d4edda; color: #155724; }
         #chat-messages[data-theme="green_black"] .message-bubble.ai .content { background-color: #343a40; color: #f8f9fa; }
@@ -5199,7 +5199,7 @@ async function renderChatList() {
         chatListEl.innerHTML = '<p style="text-align:center; color: #8a8a8a; margin-top: 50px;">点击右上角 "+" 或群组图标添加聊天</p>';
         return;
     }
-    
+
 function renderMessage(message) {
     // ... 原有的渲染逻辑
     
