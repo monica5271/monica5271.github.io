@@ -4016,11 +4016,18 @@ body {
 <!-- ▲▲▲ 新代码粘贴结束 ▲▲▲ -->
 
 <!-- ▼▼▼ 请将这段新HTML粘贴到所有模态框的末尾 ▼▼▼ -->
-<div id="message-actions-modal" style="display:none; position:absolute; background:#fff; border:1px solid #ccc; border-radius:6px; padding:5px;">
-  <button class="action-btn" data-action="quote">引用</button>
-  <button class="action-btn" data-action="edit">编辑</button>
-  <button class="action-btn" data-action="multi">多选</button>
-  <button class="action-btn" data-action="delete">删除</button>
+<div id="message-actions-modal" class="modal">
+    <div id="custom-modal" style="width: 250px;">
+        <div class="custom-modal-footer">
+            <!-- 新的操作按钮 -->
+            <button id="edit-message-btn">编辑消息</button>
+            <button id="copy-message-btn">复制文本</button>
+             <button id="quote-message-btn">引用文本</button>
+            <button id="select-message-btn">进入多选</button>
+            <!-- 取消按钮 -->
+            <button id="cancel-message-action-btn" style="margin-top: 8px; border-radius: 8px; background-color: #f0f0f0;">取消</button>
+        </div>
+    </div>
 </div>
 <!-- ▲▲▲ 新HTML粘贴结束 ▲▲▲ -->
 
@@ -10929,13 +10936,13 @@ document.getElementById('existing-groups-list').addEventListener('click', (e) =>
 });
 // ▲▲▲ 新代码粘贴结束 ▲▲▲
 
-// ▼▼▼ 请将这段【新代码】粘贴到 init() 的事件监听器区域末尾 ▼▼▼
-let pendingQuote = null;   // 保存引用
-let editingMsgId = null;   // 保存正在编辑的消息ID
+// ▼▼▼ 核心逻辑（已修复引用功能）▼▼▼
+let pendingQuote = null;   // 保存引用内容
+let editingMsgId = null;  // 保存编辑的消息ID
 let multiSelectMode = false;
 let selectedMsgs = new Set();
 
-// 绑定长按（右键）
+// 1. 右键菜单触发
 document.addEventListener("contextmenu", function (e) {
   const bubble = e.target.closest(".message-bubble");
   if (bubble) {
@@ -10948,98 +10955,70 @@ document.addEventListener("contextmenu", function (e) {
   }
 });
 
-// 点击菜单按钮
+// 2. 点击菜单按钮（适配你的HTML按钮ID）
 document.addEventListener("click", function (e) {
-  if (e.target.classList.contains("action-btn")) {
-    const action = e.target.dataset.action;
-    const modal = document.getElementById("message-actions-modal");
-    const targetId = modal.getAttribute("data-target-id");
-    const msgEl = document.querySelector(`[data-message-id="${targetId}"] .message-text`);
+  const modal = document.getElementById("message-actions-modal");
+  const targetId = modal.getAttribute("data-target-id");
+  const msgEl = targetId ? document.querySelector(`[data-message-id="${targetId}"] .message-text`) : null;
+
+  // 处理引用按钮
+  if (e.target.id === "quote-message-btn" && msgEl) {
+    pendingQuote = { 
+      id: targetId, 
+      text: msgEl.textContent.trim() 
+    };
+    console.log("已设置引用:", pendingQuote); // 调试用
     modal.style.display = "none";
+    return;
+  }
 
-    if (!targetId || !msgEl) return;
+  // 处理其他按钮
+  if (e.target.id === "edit-message-btn" && msgEl) {
+    editingMsgId = targetId;
+    document.getElementById("chat-input").value = msgEl.textContent.trim();
+    modal.style.display = "none";
+  }
 
-    if (action === "quote") {
-      pendingQuote = { id: targetId, text: msgEl.textContent.trim() };
-    }
+  if (e.target.id === "select-message-btn") {
+    multiSelectMode = !multiSelectMode;
+    selectedMsgs.clear();
+    alert(multiSelectMode ? "多选模式开启" : "多选模式关闭");
+    modal.style.display = "none";
+  }
 
-    if (action === "edit") {
-      editingMsgId = targetId;
-      document.getElementById("chat-input").value = msgEl.textContent.trim(); // 输入框ID请换成你自己的
-    }
-
-    if (action === "multi") {
-      multiSelectMode = !multiSelectMode;
-      selectedMsgs.clear();
-      alert(multiSelectMode ? "多选模式开启" : "多选模式关闭");
-    }
-
-    if (action === "delete") {
-      deleteMessage(targetId);
-    }
+  if (e.target.id === "cancel-message-action-btn") {
+    modal.style.display = "none";
   }
 });
 
-// 点击气泡时，多选模式下可以勾选
-document.addEventListener("click", function (e) {
-  if (multiSelectMode) {
-    const bubble = e.target.closest(".message-bubble");
-    if (bubble) {
-      const msgId = bubble.getAttribute("data-message-id");
-      if (selectedMsgs.has(msgId)) {
-        selectedMsgs.delete(msgId);
-        bubble.classList.remove("selected");
-      } else {
-        selectedMsgs.add(msgId);
-        bubble.classList.add("selected");
-      }
-    }
-  }
-});
-
-// 删除单条
-function deleteMessage(id) {
-  state.chats[state.activeChatId].messages =
-    state.chats[state.activeChatId].messages.filter(m => m.id !== id);
-  renderMessages();
-}
-
-// 删除多选
-function deleteSelected() {
-  state.chats[state.activeChatId].messages =
-    state.chats[state.activeChatId].messages.filter(m => !selectedMsgs.has(m.id));
-  selectedMsgs.clear();
-  multiSelectMode = false;
-  renderMessages();
-}
-
-// 发送消息（带引用/编辑）
+// 3. 发送消息逻辑（示例）
 function sendMessage(text, sender) {
+  if (!text.trim()) return;
+
   if (editingMsgId) {
-    // 编辑模式：覆盖内容
+    // 编辑模式
     const msgs = state.chats[state.activeChatId].messages;
     const msg = msgs.find(m => m.id === editingMsgId);
     if (msg) {
       msg.text = text;
-      msg.quote = pendingQuote;
+      msg.quote = pendingQuote; // 携带引用
     }
     editingMsgId = null;
   } else {
-    // 普通发送
-    const newMsg = {
+    // 新建消息
+    state.chats[state.activeChatId].messages.push({
       id: "msg_" + Date.now(),
       sender: sender,
       text: text,
-      quote: pendingQuote
-    };
-    state.chats[state.activeChatId].messages.push(newMsg);
+      quote: pendingQuote // 携带引用
+    });
   }
 
-  pendingQuote = null;
+  pendingQuote = null; // 清空引用
   renderMessages();
 }
 
-// 渲染消息
+// 4. 渲染消息时显示引用
 function renderMessage(msg) {
   return `
     <div class="message-bubble ${msg.sender}" data-message-id="${msg.id}">
@@ -11048,7 +11027,8 @@ function renderMessage(msg) {
     </div>
   `;
 }
-// ▲▲▲ 替换结束 ▲▲▲
+// ▲▲▲ 核心逻辑结束 ▲▲▲
+
 
 // ▼▼▼ 在 init() 函数的事件监听器区域末尾添加 ▼▼▼
 
@@ -11410,6 +11390,25 @@ function openScreenShare() {
 function closeScreenShare() {
   document.getElementById("screen-share-modal").style.display = "none !important";
 }
+
+// 确保 closeScreenShare 是全局函数
+window.closeScreenShare = function() {
+  console.log("Attempting to close modal..."); // 调试用
+  const modal = document.getElementById("screen-share-modal");
+  if (modal) {
+    modal.style.display = "none";
+  } else {
+    console.error("Modal element not found!");
+  }
+};
+
+// 同时用 JS 绑定事件（双重保障）
+document.addEventListener("DOMContentLoaded", function() {
+  const closeBtn = document.querySelector("#screen-share-modal button");
+  if (closeBtn) {
+    closeBtn.addEventListener("click", closeScreenShare);
+  }
+});
 
 document.querySelectorAll(".app-tab").forEach(tab => {
   tab.addEventListener("click", function() {
