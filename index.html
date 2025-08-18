@@ -342,56 +342,67 @@ body {
         .message-bubble.user .voice-duration { color: #3e6224; }
 
 /* ▼▼▼ 用这块代码替换掉你原来的 .message-bubble .content 样式 ▼▼▼ */
-/* 通用内容区基础样式 */
+/* 通用内容区样式，为时间戳和字体大小做准备 */
 .message-bubble .content {
     position: relative;
     font-size: var(--chat-font-size, 16px);
     padding: 8px 12px;
     line-height: 1.5;
-    word-break: break-word;
-    margin: 4px 0; /* 缩小气泡上下间距 */
-    background: linear-gradient(
-        135deg, 
-        rgba(255,255,255,0.85) 0%,
-        rgba(255,255,255,0.78) 100%
-    );
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
-    border: 1px solid rgba(255,255,255,0.3);
-    box-shadow: 
-        0 1px 2px rgba(0,0,0,0.05),
-        inset 0 0 10px rgba(255,255,255,0.2);
-}
-
-/* 用户气泡特定样式 */
-.message-bubble.user .content {
-    color: #585858;
-    border-radius: 8px 2px 8px 8px;
-    /* 保持原有主题色但增加透亮效果 */
-    background: linear-gradient(
-        135deg, 
-        rgba(255,255,255,0.9) 0%,
-        rgba(255,255,255,0.82) 100%
-    );
-}
-
-/* AI气泡特定样式 */
-.message-bubble.ai .content {
-    color: #585858;
-    border-radius: 2px 8px 8px 8px;
-    /* 保持原有主题色但增加透亮效果 */
-    background: linear-gradient(
-        135deg, 
-        rgba(255,255,255,0.85) 0%,
-        rgba(255,255,255,0.75) 100%
-    );
-}
-
-/* 移除原有伪元素装饰 */
-.message-bubble::after {
-    content: none;
+    word-break: break-word; /* 核心修正: 强制长单词或URL换行，防止撑破气泡 */
 }
 /* ▲▲▲ 替换结束 ▲▲▲ */
+
+        /* === 气泡主题样式 === */
+        .message-bubble.user .content { background-color: rgba(255, 255, 255, 0.75); color: #585858; border-radius: 8px 2px 8px 8px; }
+        .message-bubble.ai .content { background-color: rgba(255, 255, 255, 0.7); color: #585858; border-radius: 2px 8px 8px 8px; }
+      
+.message-bubble::after {
+    content: "";
+    position: absolute;
+    width: 20px;  
+    height: 20px; 
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 1; 
+    z-index: 1;
+}
+/* 1. 缩小消息间距（不影响布局结构） */
+.message-wrapper {
+    margin-bottom: 6px !important; /* 原值通常是12-15px */
+}
+
+/* 2. 添加透亮渐变效果（兼容所有主题） */
+.message-bubble .content {
+    background-image: linear-gradient(
+        to bottom, 
+        rgba(255,255,255,0.3) 0%, 
+        rgba(255,255,255,0.1) 100%
+    ) !important;
+    backdrop-filter: blur(2px) !important;
+    -webkit-backdrop-filter: blur(2px) !important;
+    border: 1px solid rgba(255,255,255,0.2) !important;
+}
+
+/* 3. 增强气泡层次感（可选） */
+.message-bubble.user .content {
+    box-shadow: 
+        0 1px 2px rgba(0,0,0,0.1),
+        inset 0 0 10px rgba(255,255,255,0.4) !important;
+}
+.message-bubble.ai .content {
+    box-shadow: 
+        0 1px 2px rgba(0,0,0,0.1),
+        inset 0 0 10px rgba(255,255,255,0.4) !important;
+}
+
+/* 4. 特殊卡片内容保持原有样式 */
+.message-bubble .content:has(.waimai-card, .link-share-card, .transfer-card, img:only-child) {
+    background-image: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+/* ▲▲▲ 添加结束 ▲▲▲ */
+
 
         #chat-messages[data-theme="pink_blue"] .message-bubble.user .content { background-color: #fff0f6; color: #432531; }
         #chat-messages[data-theme="pink_blue"] .message-bubble.ai .content { background-color: #eff7ff; color: #263a4e; }
