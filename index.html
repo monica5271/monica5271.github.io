@@ -2800,20 +2800,6 @@ body {
     font-weight: 500;
 }
 
-/* === 引用样式=== */
-.quote-bubble {
-  font-size: 12px;
-  color: rgba(0,0,0,0.6);
-  background: rgba(200,200,200,0.15);
-  border-left: 3px solid #ccc;
-  padding: 2px 6px;
-  margin-bottom: 4px;
-  border-radius: 4px;
-}
-
-.message-bubble.selected {
-  outline: 2px solid #007bff; /* 多选高亮 */
-}
 /* === 【全新美化版】回忆卡片样式 === */
 
 /* 1. 卡片总容器：这里负责定义整体的背景色和边框 */
@@ -4022,7 +4008,6 @@ body {
             <!-- 新的操作按钮 -->
             <button id="edit-message-btn">编辑消息</button>
             <button id="copy-message-btn">复制文本</button>
-             <button id="quote-message-btn">引用文本</button>
             <button id="select-message-btn">进入多选</button>
             <!-- 取消按钮 -->
             <button id="cancel-message-action-btn" style="margin-top: 8px; border-radius: 8px; background-color: #f0f0f0;">取消</button>
@@ -10936,97 +10921,6 @@ document.getElementById('existing-groups-list').addEventListener('click', (e) =>
 });
 // ▲▲▲ 新代码粘贴结束 ▲▲▲
 
-// ▼▼▼ 核心逻辑（已修复引用功能）▼▼▼
-let pendingQuote = null;   // 保存引用内容
-let editingMsgId = null;  // 保存编辑的消息ID
-let multiSelectMode = false;
-let selectedMsgs = new Set();
-
-// 1. 右键菜单触发
-document.addEventListener("contextmenu", function (e) {
-  const bubble = e.target.closest(".message-bubble");
-  if (bubble) {
-    e.preventDefault();
-    const modal = document.getElementById("message-actions-modal");
-    modal.style.display = "block";
-    modal.style.left = e.pageX + "px";
-    modal.style.top = e.pageY + "px";
-    modal.setAttribute("data-target-id", bubble.getAttribute("data-message-id"));
-  }
-});
-
-// 2. 点击菜单按钮（适配你的HTML按钮ID）
-document.addEventListener("click", function (e) {
-  const modal = document.getElementById("message-actions-modal");
-  const targetId = modal.getAttribute("data-target-id");
-  const msgEl = targetId ? document.querySelector(`[data-message-id="${targetId}"] .message-text`) : null;
-
-  // 处理引用按钮
-  if (e.target.id === "quote-message-btn" && msgEl) {
-    pendingQuote = { 
-      id: targetId, 
-      text: msgEl.textContent.trim() 
-    };
-    console.log("已设置引用:", pendingQuote); // 调试用
-    modal.style.display = "none";
-    return;
-  }
-
-  // 处理其他按钮
-  if (e.target.id === "edit-message-btn" && msgEl) {
-    editingMsgId = targetId;
-    document.getElementById("chat-input").value = msgEl.textContent.trim();
-    modal.style.display = "none";
-  }
-
-  if (e.target.id === "select-message-btn") {
-    multiSelectMode = !multiSelectMode;
-    selectedMsgs.clear();
-    alert(multiSelectMode ? "多选模式开启" : "多选模式关闭");
-    modal.style.display = "none";
-  }
-
-  if (e.target.id === "cancel-message-action-btn") {
-    modal.style.display = "none";
-  }
-});
-
-// 3. 发送消息逻辑（示例）
-function sendMessage(text, sender) {
-  if (!text.trim()) return;
-
-  if (editingMsgId) {
-    // 编辑模式
-    const msgs = state.chats[state.activeChatId].messages;
-    const msg = msgs.find(m => m.id === editingMsgId);
-    if (msg) {
-      msg.text = text;
-      msg.quote = pendingQuote; // 携带引用
-    }
-    editingMsgId = null;
-  } else {
-    // 新建消息
-    state.chats[state.activeChatId].messages.push({
-      id: "msg_" + Date.now(),
-      sender: sender,
-      text: text,
-      quote: pendingQuote // 携带引用
-    });
-  }
-
-  pendingQuote = null; // 清空引用
-  renderMessages();
-}
-
-// 4. 渲染消息时显示引用
-function renderMessage(msg) {
-  return `
-    <div class="message-bubble ${msg.sender}" data-message-id="${msg.id}">
-      ${msg.quote ? `<div class="quote-bubble">${msg.quote.text}</div>` : ""}
-      <div class="message-text">${msg.text}</div>
-    </div>
-  `;
-}
 // ▲▲▲ 核心逻辑结束 ▲▲▲
 
 
@@ -11373,50 +11267,75 @@ document.getElementById('chat-lock-overlay').addEventListener('click', async (e)
     }
 });
 
-// ▼▼▼ 【全新】屏幕共享事件绑定 ▼▼▼
-document.getElementById("screen-share-btn").addEventListener("click", openScreenShare);
+// ▼▼▼ 【优化版】屏幕共享事件绑定 ▼▼▼
+document.getElementById("screen-share-btn")?.addEventListener("click", openScreenShare);
 
 function openScreenShare() {
   const modal = document.getElementById("screen-share-modal");
-  const content = document.getElementById("screen-share-content");
+  if (!modal) {
+    console.error("Screen share modal not found");
+    return;
+  }
 
-  const aiName = state?.aiName || "AI";  // 读取你设定的 AI 名字
+  const aiName = state?.aiName || "AI";
   document.getElementById("ai-device-name").textContent = aiName + "的手机";
 
   showAppContent("meituan", aiName);
   modal.style.display = "block";
+  
+  // 每次打开时重新绑定关闭按钮
+  bindCloseButton();
 }
 
+// 单一、明确的关闭函数
 function closeScreenShare() {
-  document.getElementById("screen-share-modal").style.display = "none !important";
-}
-
-// 确保 closeScreenShare 是全局函数
-window.closeScreenShare = function() {
-  console.log("Attempting to close modal..."); // 调试用
+  console.log("Closing screen share modal");
   const modal = document.getElementById("screen-share-modal");
   if (modal) {
     modal.style.display = "none";
-  } else {
-    console.error("Modal element not found!");
   }
-};
+}
 
-// 同时用 JS 绑定事件（双重保障）
-document.addEventListener("DOMContentLoaded", function() {
+// 专用函数绑定关闭按钮
+function bindCloseButton() {
   const closeBtn = document.querySelector("#screen-share-modal button");
   if (closeBtn) {
+    // 先移除旧监听器避免重复绑定
+    closeBtn.removeEventListener("click", closeScreenShare);
     closeBtn.addEventListener("click", closeScreenShare);
+  } else {
+    console.warn("Close button not found");
   }
-});
+}
 
-document.querySelectorAll(".app-tab").forEach(tab => {
-  tab.addEventListener("click", function() {
-    const app = this.dataset.app;
-    const aiName = state?.aiName || "AI";
-    showAppContent(app, aiName);
+// 初始化绑定
+document.addEventListener("DOMContentLoaded", function() {
+  // 预绑定关闭按钮（如果已存在）
+  bindCloseButton();
+  
+  // 应用标签页绑定
+  document.querySelectorAll(".app-tab").forEach(tab => {
+    tab.addEventListener("click", function() {
+      const app = this.dataset.app;
+      const aiName = state?.aiName || "AI";
+      showAppContent(app, aiName);
+    });
   });
 });
+
+// ESC键关闭支持
+document.addEventListener("keydown", function(e) {
+  if (e.key === "Escape") {
+    closeScreenShare();
+  }
+});
+function showAppContent(app, aiName) {
+  // 新增：检查弹窗是否仍然打开
+  const modal = document.getElementById("screen-share-modal");
+  if (modal.style.display !== "block") return;
+
+  // 原有渲染逻辑...
+}
 
 // ------------------ 数据生成逻辑 ------------------
 function extractKeywords(messages) {
