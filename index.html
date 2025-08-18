@@ -348,15 +348,17 @@ body {
     font-size: var(--chat-font-size, 16px);
     padding: 8px 12px;
     line-height: 1.5;
-    word-break: break-word;
-    border-radius: 8px; /* 统一圆角，具体值会被主题覆盖 */
-    /* 阴影效果 */
+    word-break: break-word; /* 核心修正: 强制长单词或URL换行，防止撑破气泡 */
+}
+/* ▲▲▲ 替换结束 ▲▲▲ */
+
+   /* 阴影效果 */
     box-shadow: 
         0 2px 4px rgba(0, 0, 0, 0.08), /* 外阴影 */
         inset 0 0 12px rgba(255, 255, 255, 0.6); /* 内发光 */
     /* 确保文字颜色不被覆盖 */
     isolation: isolate; /* 防止伪元素影响文字 */
-}
+
 
 /* 透亮渐变层（通过伪元素实现） */
 .message-bubble .content::before {
@@ -384,7 +386,6 @@ body {
 .message-bubble.ai .content {
     border-radius: 2px 8px 8px 8px; /* 保留原有圆角 */
 }
-
       
         #chat-messages[data-theme="pink_blue"] .message-bubble.user .content { background-color: #fff0f6; color: #432531; }
         #chat-messages[data-theme="pink_blue"] .message-bubble.ai .content { background-color: #eff7ff; color: #263a4e; }
@@ -3177,22 +3178,6 @@ body {
     flex-shrink: 0;
 }
 
-/* ▼▼▼ 屏幕共享样式 ▼▼▼ */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
-  z-index: 1000;
-}
-.modal .close {
-  cursor: pointer;
-  font-size: 24px;
-  float: right;
-}
-/* ▲▲▲ 插入结束 ▲▲▲ */
 /* ▲▲▲ 新CSS粘贴结束 ▲▲▲ */
 
     </style>
@@ -3518,14 +3503,6 @@ body {
 <!-- ▲▲▲ 新代码粘贴结束 ▲▲▲ -->
 <!-- ▼▼▼ 【新增】视频通话按钮 ▼▼▼ -->
 <button id="video-call-btn" class="chat-action-icon-btn action-button" title="视频通话"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg></button>
-<!-- ▼▼▼ 【新增】屏幕共享按钮 ▼▼▼ -->
-<button id="screen-share-btn" class="chat-action-icon-btn action-button" title="屏幕共享">
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye">
-    <circle cx="12" cy="12" r="10"></circle>
-    <circle cx="12" cy="12" r="4"></circle>
-  </svg>
-</button>
-<!-- ▲▲▲ 屏幕共享按钮结束 ▲▲▲ -->
 <!-- ▲▲▲ 新增结束 ▲▲▲
 <!-- ▼▼▼群视频通话按钮 ▼▼▼ -->
 <button id="group-video-call-btn" class="chat-action-icon-btn action-button" title="群视频通话"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></button>
@@ -3952,28 +3929,6 @@ body {
     </div>
 </div>
 <!-- ▲▲▲ 替换结束 ▲▲▲ -->
-
-<!-- ▼▼▼屏幕共享 ▼▼▼ -->
-<div id="screen-share-modal" style="display:none; position:fixed; top:10%; left:50%; transform:translateX(-50%); width:360px; height:640px; background:#000; border-radius:20px; overflow:hidden; z-index:1000; box-shadow:0 0 20px rgba(0,0,0,0.5);">
-  <div style="background:#111; color:#fff; padding:6px 10px; font-size:12px; display:flex; justify-content:space-between; align-items:center;">
-    <span id="ai-device-name">AI的手机</span>
-    <span>
-      <button onclick="closeScreenShare()" style="background:none; border:none; color:#fff; cursor:pointer; font-size:14px;">✖</button>
-    </span>
-  </div>
-
-  <!-- 顶部导航 -->
-  <div style="display:flex; background:#222; color:#fff; text-align:center;">
-    <div class="app-tab" data-app="meituan" style="flex:1; padding:8px; cursor:pointer;">美团</div>
-    <div class="app-tab" data-app="baidu" style="flex:1; padding:8px; cursor:pointer;">百度</div>
-    <div class="app-tab" data-app="netease" style="flex:1; padding:8px; cursor:pointer;">网易云</div>
-  </div>
-
-  <!-- 内容区域 -->
-  <div id="screen-share-content" style="background:#fff; height:calc(100% - 70px); overflow:auto; font-size:14px;">
-    <!-- 动态插入 -->
-  </div>
-</div>
 
 <!-- ▼▼▼ 请将这个新的模态框HTML粘贴到所有其他模态框之后 ▼▼▼ -->
 <div id="group-management-modal" class="modal">
@@ -10921,8 +10876,25 @@ document.getElementById('existing-groups-list').addEventListener('click', (e) =>
 });
 // ▲▲▲ 新代码粘贴结束 ▲▲▲
 
-// ▲▲▲ 核心逻辑结束 ▲▲▲
+// ▼▼▼ 请将这段【新代码】粘贴到 init() 的事件监听器区域末尾 ▼▼▼
+// 消息操作菜单的按钮事件
+document.getElementById('cancel-message-action-btn').addEventListener('click', hideMessageActions);
+// ▼▼▼ 【修正】使用新的编辑器入口 ▼▼▼
+document.getElementById('edit-message-btn').addEventListener('click', openAdvancedMessageEditor);
+// ▲▲▲ 替换结束 ▲▲▲
+document.getElementById('copy-message-btn').addEventListener('click', copyMessageContent);
 
+// ▼▼▼ 请用这段【修正后】的代码替换旧的 select-message-btn 事件监听器 ▼▼▼
+document.getElementById('select-message-btn').addEventListener('click', () => {
+    // 【核心修复】在关闭菜单前，先捕获时间戳
+    const timestampToSelect = activeMessageTimestamp; 
+    hideMessageActions();
+    // 使用捕获到的值
+    if (timestampToSelect) {
+        enterSelectionMode(timestampToSelect);
+    }
+});
+// ▲▲▲ 替换结束 ▲▲▲
 
 // ▼▼▼ 在 init() 函数的事件监听器区域末尾添加 ▼▼▼
 
@@ -11266,201 +11238,6 @@ document.getElementById('chat-lock-overlay').addEventListener('click', async (e)
         }
     }
 });
-
-// ▼▼▼ 【优化版】屏幕共享事件绑定 ▼▼▼
-document.getElementById("screen-share-btn")?.addEventListener("click", openScreenShare);
-
-function openScreenShare() {
-  const modal = document.getElementById("screen-share-modal");
-  if (!modal) {
-    console.error("Screen share modal not found");
-    return;
-  }
-
-  const aiName = state?.aiName || "AI";
-  document.getElementById("ai-device-name").textContent = aiName + "的手机";
-
-  showAppContent("meituan", aiName);
-  modal.style.display = "block";
-  
-  // 每次打开时重新绑定关闭按钮
-  bindCloseButton();
-}
-
-// 单一、明确的关闭函数
-function closeScreenShare() {
-  console.log("Closing screen share modal");
-  const modal = document.getElementById("screen-share-modal");
-  if (modal) {
-    modal.style.display = "none";
-  }
-}
-
-// 专用函数绑定关闭按钮
-function bindCloseButton() {
-  const closeBtn = document.querySelector("#screen-share-modal button");
-  if (closeBtn) {
-    // 先移除旧监听器避免重复绑定
-    closeBtn.removeEventListener("click", closeScreenShare);
-    closeBtn.addEventListener("click", closeScreenShare);
-  } else {
-    console.warn("Close button not found");
-  }
-}
-
-// 初始化绑定
-document.addEventListener("DOMContentLoaded", function() {
-  // 预绑定关闭按钮（如果已存在）
-  bindCloseButton();
-  
-  // 应用标签页绑定
-  document.querySelectorAll(".app-tab").forEach(tab => {
-    tab.addEventListener("click", function() {
-      const app = this.dataset.app;
-      const aiName = state?.aiName || "AI";
-      showAppContent(app, aiName);
-    });
-  });
-});
-
-// ESC键关闭支持
-document.addEventListener("keydown", function(e) {
-  if (e.key === "Escape") {
-    closeScreenShare();
-  }
-});
-function showAppContent(app, aiName) {
-  // 新增：检查弹窗是否仍然打开
-  const modal = document.getElementById("screen-share-modal");
-  if (modal.style.display !== "block") return;
-
-  // 原有渲染逻辑...
-}
-
-// ------------------ 数据生成逻辑 ------------------
-function extractKeywords(messages) {
-  const text = messages.map(m => m.text).join(" ");
-  const foods = ["奶茶","火锅","沙拉","烧烤","披萨","霸王茶姬"];
-  const songs = ["七里香","日不落","演员","稻香","告白气球","孤勇者"];
-  const searches = ["天气","电影","记忆力","音乐推荐"];
-
-  return {
-    mentionedFoods: foods.filter(f => text.includes(f)),
-    mentionedSongs: songs.filter(s => text.includes(s)),
-    mentionedSearch: searches.filter(s => text.includes(s))
-  };
-}
-
-function generateOrders(aiName, weather, messages) {
-  const { mentionedFoods } = extractKeywords(messages);
-  let orders = [];
-
-  mentionedFoods.forEach(f => {
-    orders.push({ food: f, reason: `因为刚刚聊到${f}` });
-  });
-
-  if (weather.includes("冷")) {
-    orders.push({ food: "火锅", reason: "天气冷，想吃点热的" });
-  } else if (weather.includes("热")) {
-    orders.push({ food: "冰可乐", reason: "天气热，想喝冷饮" });
-  }
-
-  if (orders.length === 0) {
-    orders.push({ food: "沙拉", reason: `${aiName} 最近想清淡饮食` });
-  }
-
-  return orders;
-}
-
-function generateSongs(aiName, messages) {
-  const { mentionedSongs } = extractKeywords(messages);
-  let songs = [];
-
-  mentionedSongs.forEach(s => {
-    songs.push({ name: s, artist: "聊天提到过" });
-  });
-
-  if (songs.length === 0) {
-    songs.push({ name: "七里香", artist: "周杰伦" });
-  }
-
-  return songs;
-}
-
-function generateSearches(aiName, messages) {
-  const { mentionedSearch } = extractKeywords(messages);
-  let searches = [];
-
-  mentionedSearch.forEach(s => {
-    searches.push(`${aiName} 搜索了「${s}」`);
-  });
-
-  if (searches.length === 0) {
-    searches.push(`${aiName} 搜索了「明天天气」`);
-  }
-
-  return searches;
-}
-
-// ------------------ UI 渲染 ------------------
-function showAppContent(app, aiName) {
-  const content = document.getElementById("screen-share-content");
-  const date = new Date().toLocaleDateString();
-  const weather = "阴天";  // 你可以接入真实 API
-  const messages = state?.chats?.[state.activeChatId]?.messages || [];
-
-  if (app === "meituan") {
-    const orders = generateOrders(aiName, weather, messages);
-    content.innerHTML = `
-      <div style="background:#ffcc00; padding:10px;">
-        <input type="text" placeholder="搜索商家/美食" style="width:100%; padding:8px; border-radius:6px; border:1px solid #ddd;">
-      </div>
-      <div>
-        ${orders.map(o => `
-          <div style="display:flex; padding:10px; border-bottom:1px solid #eee; align-items:center;">
-            <img src="https://img.icons8.com/emoji/48/hamburger-emoji.png" style="width:40px; height:40px; border-radius:6px; margin-right:10px;">
-            <div>
-              <div><b>${o.food}</b></div>
-              <div style="color:#666; font-size:12px;">${date} · ${o.reason}</div>
-            </div>
-          </div>
-        `).join("")}
-      </div>
-    `;
-  }
-
-  if (app === "baidu") {
-    const searches = generateSearches(aiName, messages);
-    content.innerHTML = `
-      <div style="background:#3388ff; padding:10px;">
-        <input type="text" placeholder="百度一下" style="width:100%; padding:8px; border-radius:20px; border:1px solid #ddd;">
-      </div>
-      <div>
-        ${searches.map(s => `
-          <div style="padding:10px; border-bottom:1px solid #eee;">🔍 ${s}</div>
-        `).join("")}
-      </div>
-    `;
-  }
-
-  if (app === "netease") {
-    const songs = generateSongs(aiName, messages);
-    content.innerHTML = `
-      <div style="background:#d43c33; color:#fff; padding:10px; font-weight:bold;">播放记录</div>
-      <div>
-        ${songs.map(s => `
-          <div style="display:flex; padding:10px; border-bottom:1px solid #eee; align-items:center;">
-            <img src="https://img.icons8.com/emoji/48/musical-note.png" style="width:40px; height:40px; border-radius:4px; margin-right:10px;">
-            <div>
-              <div><b>${s.name}</b></div>
-              <div style="color:#666; font-size:12px;">${s.artist}</div>
-            </div>
-          </div>
-        `).join("")}
-      </div>
-    `;
-  }
-}
 
 // ▼▼▼ 【全新】红包功能事件绑定 ▼▼▼
 
