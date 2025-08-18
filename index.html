@@ -352,56 +352,98 @@ body {
 }
 /* ▲▲▲ 替换结束 ▲▲▲ */
 
-/* === 现代化气泡（平滑渐变+自然透亮）=== */
+/* ▼▼▼ 现代化气泡样式（渐变+透亮+阴影+紧凑）▼▼▼ */
+.message-bubble .content {
+    position: relative;
+    font-size: var(--chat-font-size, 15px); /* 稍微减小字体大小 */
+    padding: 6px 12px; /* 减少上下padding */
+    line-height: 1.4; /* 紧凑的行高 */
+    word-break: break-word;
+    backdrop-filter: blur(4px); /* 添加毛玻璃效果 */
+    border: 0.5px solid rgba(255,255,255,0.2); /* 细腻的边框 */
+}
+
+/* 气泡容器基础样式 */
 .message-bubble.user .content,
 .message-bubble.ai .content {
-  position: relative;
-  border-radius: 16px;
-  margin: 6px 0;
-  overflow: hidden;
-  transition: all 0.2s ease;
+    position: relative;
+    margin: 4px 0; /* 减少上下间距 */
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* 更顺滑的动画 */
+    box-sizing: border-box;
 }
 
-/* 默认气泡颜色（会被主题覆盖） */
+/* 用户气泡样式 */
 .message-bubble.user .content {
-  background: var(--user-bubble-bg, linear-gradient(135deg, #f0f7ff 0%, #e0f0ff 100%));
-  color: var(--user-bubble-text, #585858);
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1),
-              0 1px 2px rgba(0, 0, 0, 0.05);
-  border-radius: 8px 2px 8px 8px;
+    background: var(--user-bubble-bg, linear-gradient(135deg, rgba(240,247,255,0.9) 0%, rgba(224,240,255,0.9) 100%));
+    color: var(--user-bubble-text, #585858);
+    border-radius: 12px 4px 12px 12px; /* 更圆润的圆角 */
+    box-shadow: 
+        2px 2px 6px rgba(0, 0, 0, 0.08),
+        0 1px 2px rgba(0, 0, 0, 0.05),
+        inset 0 0 0 1px rgba(255,255,255,0.3); /* 内发光效果 */
 }
 
+/* AI气泡样式 */
 .message-bubble.ai .content {
-  background: var(--ai-bubble-bg, linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%));
-  color: var(--ai-bubble-text, #585858);
-  box-shadow: -2px 2px 8px rgba(0, 0, 0, 0.1),
-               0 1px 2px rgba(0, 0, 0, 0.05);
-  border-radius: 2px 8px 8px 8px;
+    background: var(--ai-bubble-bg, linear-gradient(135deg, rgba(248,249,250,0.9) 0%, rgba(233,236,239,0.9) 100%));
+    color: var(--ai-bubble-text, #585858);
+    border-radius: 4px 12px 12px 12px; /* 更圆润的圆角 */
+    box-shadow: 
+        -2px 2px 6px rgba(0, 0, 0, 0.08),
+        0 1px 2px rgba(0, 0, 0, 0.05),
+        inset 0 0 0 1px rgba(255,255,255,0.3); /* 内发光效果 */
 }
 
-/* 主题颜色定义 - 现在会覆盖默认值 */
+/* 主题颜色定义 - 添加透明度 */
 #chat-messages[data-theme="pink_blue"] {
-  --user-bubble-bg: #fff0f6;
-  --user-bubble-text: #432531;
-  --ai-bubble-bg: #eff7ff;
-  --ai-bubble-text: #263a4e;
+    --user-bubble-bg: rgba(255,240,246,0.9);
+    --user-bubble-text: #432531;
+    --ai-bubble-bg: rgba(239,247,255,0.9);
+    --ai-bubble-text: #263a4e;
 }
 
 #chat-messages[data-theme="blue_white"] {
-  --user-bubble-bg: #eff7ff;
-  --user-bubble-text: #263a4e;
-  --ai-bubble-bg: #f8f9fa;
-  --ai-bubble-text: #383d41;
+    --user-bubble-bg: rgba(239,247,255,0.9);
+    --user-bubble-text: #263a4e;
+    --ai-bubble-bg: rgba(248,249,250,0.9);
+    --ai-bubble-text: #383d41;
 }
 
-/* 继续其他主题的定义... */
+/* 其他主题保持相同修改方式... */
 
-/* 小尾巴颜色修复 */
-.message-bubble.user::after {
-  background: var(--user-bubble-bg, linear-gradient(135deg, #f0f7ff 0%, #e0f0ff 100%));
-}
+/* 小尾巴样式优化 */
+.message-bubble.user::after,
 .message-bubble.ai::after {
-  background: var(--ai-bubble-bg, linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%));
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: inherit;
+    backdrop-filter: blur(2px);
+    z-index: -1; /* 放在内容后面 */
+    opacity: 0.8;
+}
+
+.message-bubble.user::after {
+    right: -5px;
+    bottom: 0;
+    clip-path: polygon(100% 0, 0 0, 100% 100%);
+}
+
+.message-bubble.ai::after {
+    left: -5px;
+    bottom: 0;
+    clip-path: polygon(0 0, 0 100%, 100% 0);
+}
+
+/* 悬停效果增强 */
+.message-bubble.user .content:hover,
+.message-bubble.ai .content:hover {
+    transform: translateY(-1px);
+    box-shadow: 
+        2px 4px 8px rgba(0, 0, 0, 0.12),
+        0 2px 4px rgba(0, 0, 0, 0.08);
 }
 
         #chat-messages[data-theme="pink_blue"] .message-bubble.user .content { background-color: #fff0f6; color: #432531; }
