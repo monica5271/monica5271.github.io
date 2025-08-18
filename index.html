@@ -342,7 +342,7 @@ body {
         .message-bubble.user .voice-duration { color: #3e6224; }
 
 /* ▼▼▼ 用这块代码替换掉你原来的 .message-bubble .content 样式 ▼▼▼ */
-/* ▼▼▼ 通用气泡样式（不干扰主题颜色）▼▼▼ */
+/* 通用内容区样式，为时间戳和字体大小做准备 */
 .message-bubble .content {
     position: relative;
     font-size: var(--chat-font-size, 16px);
@@ -385,7 +385,6 @@ body {
     border-radius: 2px 8px 8px 8px; /* 保留原有圆角 */
 }
 
-/* ▲▲▲ 样式结束 ▲▲▲ */
       
         #chat-messages[data-theme="pink_blue"] .message-bubble.user .content { background-color: #fff0f6; color: #432531; }
         #chat-messages[data-theme="pink_blue"] .message-bubble.ai .content { background-color: #eff7ff; color: #263a4e; }
@@ -2801,6 +2800,20 @@ body {
     font-weight: 500;
 }
 
+/* === 引用样式=== */
+.quote-bubble {
+  font-size: 12px;
+  color: rgba(0,0,0,0.6);
+  background: rgba(200,200,200,0.15);
+  border-left: 3px solid #ccc;
+  padding: 2px 6px;
+  margin-bottom: 4px;
+  border-radius: 4px;
+}
+
+.message-bubble.selected {
+  outline: 2px solid #007bff; /* 多选高亮 */
+}
 /* === 【全新美化版】回忆卡片样式 === */
 
 /* 1. 卡片总容器：这里负责定义整体的背景色和边框 */
@@ -3177,147 +3190,7 @@ body {
     text-align: center;
     flex-shrink: 0;
 }
-/* ▼▼▼ 屏幕button相关样式 ▼▼▼ */
-.app-option {
-    display: flex;
-    align-items: center;
-    padding: 12px 15px;
-    border-bottom: 1px solid #eee;
-    cursor: pointer;
-}
 
-.app-option:hover {
-    background-color: #f5f5f5;
-}
-
-.app-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: bold;
-    margin-right: 12px;
-}
-
-#app-simulator {
-    display: none;
-    background-color: rgba(0,0,0,0.7);
-}
-
-#app-simulator .modal-content {
-    border-radius: 12px;
-    overflow: hidden;
-    height: 80%;
-}
-
-.app-header {
-    padding: 12px 15px;
-    background-color: #f8f8f8;
-    border-bottom: 1px solid #ddd;
-    display: flex;
-    align-items: center;
-}
-
-.app-back-btn {
-    background: none;
-    border: none;
-    font-size: 18px;
-    margin-right: 10px;
-    cursor: pointer;
-}
-
-#app-content {
-    height: calc(100% - 45px);
-    overflow-y: auto;
-    background-color: white;
-}
-/* 禁用页面滚动 */
-.no-scroll {
-    overflow: hidden !important;
-    position: fixed;
-    width: 100%;
-}
-
-/* ▼▼▼ 引用样式 ▼▼▼ */
-/* 引用预览样式 - 适配新消息布局 */
-.quote-preview {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 12px;
-    margin: 0 0 10px 0;
-    background: #f5f5f5;
-    border-radius: 8px;
-    border-left: 3px solid #07C160;
-    animation: fadeIn 0.3s ease;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.quote-content {
-    font-size: 14px;
-    color: #666;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    flex: 1;
-}
-
-/* 被引用消息高亮效果 */
-.message-wrapper.highlighted .message-bubble {
-    animation: highlight 2s ease;
-    position: relative;
-}
-
-@keyframes highlight {
-    0% { background-color: rgba(7, 193, 96, 0.1); }
-    100% { background-color: transparent; }
-}
-
-/* 长按菜单适配新布局 */
-#message-actions-modal {
-    z-index: 1000;
-}
-
-/* ▼▼▼ 心情日记模态框样式 ▼▼▼ */
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.5);
-    z-index: 1000;
-    display: none;
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    animation: fadeIn 0.3s;
-    max-height: 80vh;
-    overflow-y: auto;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* 禁用页面滚动 */
-body.modal-active {
-    overflow: hidden;
-}
-
-/* 禁用输入框 */
-body.modal-active #chat-input,
-body.modal-active .send-button {
-    pointer-events: none;
-    opacity: 0.5;
-}
 /* ▲▲▲ 新CSS粘贴结束 ▲▲▲ */
 
     </style>
@@ -3640,27 +3513,17 @@ body.modal-active .send-button {
             <button id="voice-message-btn" class="chat-action-icon-btn action-button" title="发送语音"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v4"/><path d="M8 23h8"/></svg></button>
 <!-- ▼▼▼ 将这行新代码粘贴到“发送语音”按钮的后面 ▼▼▼ -->
 <button id="send-waimai-request-btn" class="chat-action-icon-btn action-button" title="发起外卖请求"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></button>
-<!-- 黑色线条眼睛按钮 -->
-<button id="screen-share-btn" class="chat-action-icon-btn action-button" 
-        style="padding: 0; width: 36px; height: 36px; background: none; border: none;">
-    <svg viewBox="0 0 24 24" width="24" height="24" style="display: block; margin: auto;">
-        <path d="M12 6C6 6 2 12 2 12s4 6 10 6 10-6 10-6-4-6-10-6z" 
-              fill="none" stroke="black" stroke-width="1.5"/>
-        <circle cx="12" cy="12" r="3" fill="none" stroke="black" stroke-width="1.5"/>
-        <path d="M2 12h1M21 12h1" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
-    </svg>
-</button>
-<!-- 你原有的灰色爱心按钮 -->
-<button id="mood-diary-btn" class="chat-action-icon-btn action-button" title="AI心情日记">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="#888888" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-    </svg>
-</button>
-<!-- ▲▲▲ 新增结束 ▲▲▲ -->
-<!-- ▲▲▲ 新代码粘贴结束 ▲▲▲ -->
 <!-- ▲▲▲ 新代码粘贴结束 ▲▲▲ -->
 <!-- ▼▼▼ 【新增】视频通话按钮 ▼▼▼ -->
 <button id="video-call-btn" class="chat-action-icon-btn action-button" title="视频通话"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg></button>
+<!-- ▼▼▼ 【新增】屏幕共享按钮 ▼▼▼ -->
+<button id="screen-share-btn" class="chat-action-icon-btn action-button" title="屏幕共享">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye">
+    <circle cx="12" cy="12" r="10"></circle>
+    <circle cx="12" cy="12" r="4"></circle>
+  </svg>
+</button>
+<!-- ▲▲▲ 屏幕共享按钮结束 ▲▲▲ -->
 <!-- ▲▲▲ 新增结束 ▲▲▲
 <!-- ▼▼▼群视频通话按钮 ▼▼▼ -->
 <button id="group-video-call-btn" class="chat-action-icon-btn action-button" title="群视频通话"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></button>
@@ -3682,89 +3545,6 @@ body.modal-active .send-button {
 <div id="chat-lock-overlay">
     <div id="chat-lock-content"></div>
 </div>
-
-<!-- ▼▼▼ 屏幕button模态框 ▼▼▼ -->
-<div id="screen-share-modal" class="modal">
-    <div class="modal-content" style="width: 90%; max-width: 400px;">
-        <div class="modal-header">
-            <span id="screen-share-title">查看AI的屏幕</span>
-            <span class="close">&times;</span>
-        </div>
-        <div class="modal-body">
-            <div class="app-option" data-app="meituan">
-                <div class="app-icon" style="background-color: #FFD700;">美</div>
-                <span>美团外卖</span>
-            </div>
-            <div class="app-option" data-app="baidu">
-                <div class="app-icon" style="background-color: #3385FF;">百</div>
-                <span>百度搜索</span>
-            </div>
-            <div class="app-option" data-app="netease">
-                <div class="app-icon" style="background-color: #E60026;">云</div>
-                <span>网易云音乐</span>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- ▼▼▼ 应用模拟器容器 ▼▼▼ -->
-<div id="app-simulator" class="modal">
-    <div class="modal-content" style="width: 95%; max-width: 414px; padding: 0;">
-        <div class="app-header">
-            <button  id="back-to-apps-btn" class="app-back-btn">←</button >
-            <span id="app-title">应用</span>
-        </div>
-        <div id="app-content">
-            <!-- 这里会动态加载不同应用的内容 -->
-        </div>
-    </div>
-</div>
-
-<!-- ▼▼▼ 心情日记模态框 ▼▼▼ -->
-<div id="mood-diary-modal" class="modal" style="display:none">
-    <div class="modal-content" style="width:90%; max-width:400px; border-radius:12px">
-        <!-- 头部 -->
-        <div class="modal-header" style="background:linear-gradient(135deg, #FF9A9E 0%, #FAD0C4 100%)">
-            <span>AI心情日记</span>
-            <span class="close">&times;</span>
-        </div>
-        
-        <!-- 心情卡片 -->
-        <div class="modal-body" style="padding:0">
-            <div id="mood-card" style="padding:16px; text-align:center">
-                <!-- 动态内容将由JS生成 -->
-                <div id="mood-emoji" style="font-size:48px">😊</div>
-                <div id="mood-title" style="font-size:18px; margin:8px 0">心情愉悦</div>
-                <div id="mood-date" style="color:#888; font-size:12px">2023年10月25日 下午</div>
-            </div>
-            
-            <!-- 日记内容 -->
-            <div id="mood-content" style="
-                padding:16px;
-                background:#FFF5F5;
-                border-top:1px dashed #FFD3D3;
-                font-size:14px;
-                line-height:1.6
-            ">
-                <p>今天和用户聊到了音乐话题，非常开心！</p>
-                <p style="color:#666; margin-top:8px">——《AI的内心独白》</p>
-            </div>
-            
-            <!-- 聊天记录摘要 -->
-            <div id="mood-context" style="
-                padding:12px;
-                background:#F8F8F8;
-                border-top:1px solid #EEE;
-                font-size:13px;
-                color:#555
-            ">
-                <div style="font-weight:bold; margin-bottom:6px">📌 相关对话：</div>
-                <div class="context-item">用户：你最近听什么歌？</div>
-                <div class="context-item">AI：我在循环周杰伦的新专辑！</div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- ▲▲▲ 新增结束 ▲▲▲ -->
 <!-- ▲▲▲ 新增结束 ▲▲▲ -->
 
     <!-- 表情面板 (保持不变) -->
@@ -4171,6 +3951,28 @@ body.modal-active .send-button {
 </div>
 <!-- ▲▲▲ 替换结束 ▲▲▲ -->
 
+<!-- ▼▼▼屏幕共享 ▼▼▼ -->
+<div id="screen-share-modal" style="display:none; position:fixed; top:10%; left:50%; transform:translateX(-50%); width:360px; height:640px; background:#000; border-radius:20px; overflow:hidden; z-index:1000; box-shadow:0 0 20px rgba(0,0,0,0.5);">
+  <div style="background:#111; color:#fff; padding:6px 10px; font-size:12px; display:flex; justify-content:space-between; align-items:center;">
+    <span id="ai-device-name">AI的手机</span>
+    <span>
+      <button onclick="closeScreenShare()" style="background:none; border:none; color:#fff; cursor:pointer; font-size:14px;">✖</button>
+    </span>
+  </div>
+
+  <!-- 顶部导航 -->
+  <div style="display:flex; background:#222; color:#fff; text-align:center;">
+    <div class="app-tab" data-app="meituan" style="flex:1; padding:8px; cursor:pointer;">美团</div>
+    <div class="app-tab" data-app="baidu" style="flex:1; padding:8px; cursor:pointer;">百度</div>
+    <div class="app-tab" data-app="netease" style="flex:1; padding:8px; cursor:pointer;">网易云</div>
+  </div>
+
+  <!-- 内容区域 -->
+  <div id="screen-share-content" style="background:#fff; height:calc(100% - 70px); overflow:auto; font-size:14px;">
+    <!-- 动态插入 -->
+  </div>
+</div>
+
 <!-- ▼▼▼ 请将这个新的模态框HTML粘贴到所有其他模态框之后 ▼▼▼ -->
 <div id="group-management-modal" class="modal">
     <div class="modal-content" style="height: 60%;">
@@ -4197,29 +3999,12 @@ body.modal-active .send-button {
 </div>
 <!-- ▲▲▲ 新代码粘贴结束 ▲▲▲ -->
 
-<!-- 消息操作模态框 -->
-<div id="message-actions-modal" class="modal">
-    <div id="custom-modal" style="width: 250px;">
-        <div class="custom-modal-footer">
-            <button id="edit-message-btn">编辑消息</button>
-            <button id="copy-message-btn">复制文本</button>
-            <button id="quote-message-btn">引用消息</button>
-            <button id="select-message-btn">进入多选</button>
-            <button id="cancel-message-action-btn" class="cancel-btn">取消</button>
-        </div>
-    </div>
-</div>
-<!-- 引用预览区 -->
-<div id="quote-preview" class="quote-preview" style="display:none;">
-    <div class="quote-content" style="flex:1;"></div>
-    <button id="cancel-quote-btn" style="border:none; background:none; cursor:pointer;">×</button>
-</div>
-
-<!-- 消息输入区 -->
-<div class="chat-input-area">
-    <div id="quote-preview-container"></div>
-    <input id="chat-input" type="text" placeholder="输入消息...">
-    <button id="send-button">发送</button>
+<!-- ▼▼▼ 请将这段新HTML粘贴到所有模态框的末尾 ▼▼▼ -->
+<div id="message-actions-modal" style="display:none; position:absolute; background:#fff; border:1px solid #ccc; border-radius:6px; padding:5px;">
+  <button class="action-btn" data-action="quote">引用</button>
+  <button class="action-btn" data-action="edit">编辑</button>
+  <button class="action-btn" data-action="multi">多选</button>
+  <button class="action-btn" data-action="delete">删除</button>
 </div>
 <!-- ▲▲▲ 新HTML粘贴结束 ▲▲▲ -->
 
@@ -4411,38 +4196,6 @@ body.modal-active .send-button {
         </div>
     </div>
 </div>
-<!-- ▼▼▼ 放在<body>的末尾 ▼▼▼ -->
-<!-- 心情日记弹窗 -->
-<div id="mood-diary-modal" class="modal" style="display:none">
-    <div class="modal-content" style="width:90%; max-width:400px; border-radius:12px; background:white">
-        <!-- 头部 -->
-        <div class="modal-header" style="padding:12px 16px; display:flex; justify-content:space-between; align-items:center">
-            <span style="font-weight:bold">AI心情日记</span>
-            <span class="close" style="cursor:pointer; font-size:20px">&times;</span>
-        </div>
-        
-        <!-- 内容 -->
-        <div class="modal-body" style="padding:0">
-            <div id="mood-card" style="padding:16px; text-align:center">
-                <div id="mood-emoji" style="font-size:48px">😊</div>
-                <div id="mood-title" style="font-size:18px; margin:8px 0">心情愉悦</div>
-                <div id="mood-date" style="color:#888; font-size:12px">2023年10月25日 下午</div>
-            </div>
-            
-            <div id="mood-content" style="padding:16px; background:#FFF5F5; border-top:1px dashed #FFD3D3; font-size:14px; line-height:1.6">
-                <p>今天和用户聊到了音乐话题，非常开心！</p>
-                <p style="color:#666; margin-top:8px">——《AI的内心独白》</p>
-            </div>
-            
-            <div id="mood-context" style="padding:12px; background:#F8F8F8; border-top:1px solid #EEE; font-size:13px; color:#555">
-                <div style="font-weight:bold; margin-bottom:6px">📌 相关对话：</div>
-                <div class="context-item">用户：你最近听什么歌？</div>
-                <div class="context-item">AI：我在循环周杰伦的新专辑！</div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- ▲▲▲ 新HTML粘贴结束 ▲▲▲ -->
 
 <script>
@@ -4466,13 +4219,6 @@ body.modal-active .send-button {
         let editingPersonaPresetId = null;
 
 let waimaiTimers = {}; // 用于存储外卖倒计时
-
-function getAIName() {
-  // 如果你聊天对象有名字，就用那个；没有就显示 "AI"
-  // ⚠️ 下面的 state 路径要根据你项目里的实际结构改
-  // 如果你不确定，先保留，只会默认显示 "AI"
-  return (window.state?.chats?.[state.activeChatId]?.ai?.name) || "AI";
-}
 
 let activeMessageTimestamp = null;
 let activePostId = null; // <-- 新增：用于存储当前操作的动态ID
@@ -6284,7 +6030,6 @@ ${chat.settings.aiPersona}
 - **【新】发起视频通话**: \`{"type": "video_call_request"}\`
 - **【新】回应视频通话-接受**: \`{"type": "video_call_response", "decision": "accept"}\`
 - **【新】回应视频通话-拒绝**: \`{"type": "video_call_response", "decision": "reject"}\`
-**【新】记录心情**: \`{"type": "video_call_request"}\`
 - **发布说说**: \`{"type": "qzone_post", "postType": "shuoshuo", "content": "动态的文字内容..."}\`
 - **发布文字图**: \`{"type": "qzone_post", "postType": "text_image", "publicText": "(可选)动态的公开文字", "hiddenContent": "对于图片的具体描述..."}\`
 - **评论动态**: \`{"type": "qzone_comment", "postId": 123, "commentText": "@作者名 这太有趣了！"}\`
@@ -11169,23 +10914,124 @@ document.getElementById('existing-groups-list').addEventListener('click', (e) =>
 // ▲▲▲ 新代码粘贴结束 ▲▲▲
 
 // ▼▼▼ 请将这段【新代码】粘贴到 init() 的事件监听器区域末尾 ▼▼▼
-// 消息操作菜单的按钮事件
-document.getElementById('cancel-message-action-btn').addEventListener('click', hideMessageActions);
-// ▼▼▼ 【修正】使用新的编辑器入口 ▼▼▼
-document.getElementById('edit-message-btn').addEventListener('click', openAdvancedMessageEditor);
-// ▲▲▲ 替换结束 ▲▲▲
-document.getElementById('copy-message-btn').addEventListener('click', copyMessageContent);
+let pendingQuote = null;   // 保存引用
+let editingMsgId = null;   // 保存正在编辑的消息ID
+let multiSelectMode = false;
+let selectedMsgs = new Set();
 
-// ▼▼▼ 请用这段【修正后】的代码替换旧的 select-message-btn 事件监听器 ▼▼▼
-document.getElementById('select-message-btn').addEventListener('click', () => {
-    // 【核心修复】在关闭菜单前，先捕获时间戳
-    const timestampToSelect = activeMessageTimestamp; 
-    hideMessageActions();
-    // 使用捕获到的值
-    if (timestampToSelect) {
-        enterSelectionMode(timestampToSelect);
-    }
+// 绑定长按（右键）
+document.addEventListener("contextmenu", function (e) {
+  const bubble = e.target.closest(".message-bubble");
+  if (bubble) {
+    e.preventDefault();
+    const modal = document.getElementById("message-actions-modal");
+    modal.style.display = "block";
+    modal.style.left = e.pageX + "px";
+    modal.style.top = e.pageY + "px";
+    modal.setAttribute("data-target-id", bubble.getAttribute("data-message-id"));
+  }
 });
+
+// 点击菜单按钮
+document.addEventListener("click", function (e) {
+  if (e.target.classList.contains("action-btn")) {
+    const action = e.target.dataset.action;
+    const modal = document.getElementById("message-actions-modal");
+    const targetId = modal.getAttribute("data-target-id");
+    const msgEl = document.querySelector(`[data-message-id="${targetId}"] .message-text`);
+    modal.style.display = "none";
+
+    if (!targetId || !msgEl) return;
+
+    if (action === "quote") {
+      pendingQuote = { id: targetId, text: msgEl.textContent.trim() };
+    }
+
+    if (action === "edit") {
+      editingMsgId = targetId;
+      document.getElementById("chat-input").value = msgEl.textContent.trim(); // 输入框ID请换成你自己的
+    }
+
+    if (action === "multi") {
+      multiSelectMode = !multiSelectMode;
+      selectedMsgs.clear();
+      alert(multiSelectMode ? "多选模式开启" : "多选模式关闭");
+    }
+
+    if (action === "delete") {
+      deleteMessage(targetId);
+    }
+  }
+});
+
+// 点击气泡时，多选模式下可以勾选
+document.addEventListener("click", function (e) {
+  if (multiSelectMode) {
+    const bubble = e.target.closest(".message-bubble");
+    if (bubble) {
+      const msgId = bubble.getAttribute("data-message-id");
+      if (selectedMsgs.has(msgId)) {
+        selectedMsgs.delete(msgId);
+        bubble.classList.remove("selected");
+      } else {
+        selectedMsgs.add(msgId);
+        bubble.classList.add("selected");
+      }
+    }
+  }
+});
+
+// 删除单条
+function deleteMessage(id) {
+  state.chats[state.activeChatId].messages =
+    state.chats[state.activeChatId].messages.filter(m => m.id !== id);
+  renderMessages();
+}
+
+// 删除多选
+function deleteSelected() {
+  state.chats[state.activeChatId].messages =
+    state.chats[state.activeChatId].messages.filter(m => !selectedMsgs.has(m.id));
+  selectedMsgs.clear();
+  multiSelectMode = false;
+  renderMessages();
+}
+
+// 发送消息（带引用/编辑）
+function sendMessage(text, sender) {
+  if (editingMsgId) {
+    // 编辑模式：覆盖内容
+    const msgs = state.chats[state.activeChatId].messages;
+    const msg = msgs.find(m => m.id === editingMsgId);
+    if (msg) {
+      msg.text = text;
+      msg.quote = pendingQuote;
+    }
+    editingMsgId = null;
+  } else {
+    // 普通发送
+    const newMsg = {
+      id: "msg_" + Date.now(),
+      sender: sender,
+      text: text,
+      quote: pendingQuote
+    };
+    state.chats[state.activeChatId].messages.push(newMsg);
+  }
+
+  pendingQuote = null;
+  renderMessages();
+}
+
+// 渲染消息
+function renderMessage(msg) {
+  return `
+    <div class="message-bubble ${msg.sender}" data-message-id="${msg.id}">
+      ${msg.quote ? `<div class="quote-bubble">${msg.quote.text}</div>` : ""}
+      <div class="message-text">${msg.text}</div>
+    </div>
+  `;
+}
 // ▲▲▲ 替换结束 ▲▲▲
 
 // ▼▼▼ 在 init() 函数的事件监听器区域末尾添加 ▼▼▼
@@ -11531,6 +11377,101 @@ document.getElementById('chat-lock-overlay').addEventListener('click', async (e)
     }
 });
 
+// ▼▼▼ 【全新】屏幕共享事件绑定 ▼▼▼
+document.getElementById("screen-share-btn").addEventListener("click", openScreenShare);
+
+function openScreenShare() {
+  const modal = document.getElementById("screen-share-modal");
+  const content = document.getElementById("screen-share-content");
+  const aiName = state?.aiName || "AI";
+  document.getElementById("ai-device-name").textContent = aiName + "的手机";
+
+  // 默认显示美团
+  showAppContent("meituan", aiName);
+  modal.style.display = "block";
+}
+
+function closeScreenShare() {
+  document.getElementById("screen-share-modal").style.display = "none";
+}
+
+document.querySelectorAll(".app-tab").forEach(tab => {
+  tab.addEventListener("click", function() {
+    const app = this.dataset.app;
+    const aiName = state?.aiName || "AI";
+    showAppContent(app, aiName);
+  });
+});
+
+// 模拟数据
+function showAppContent(app, aiName) {
+  const content = document.getElementById("screen-share-content");
+  const date = new Date().toLocaleDateString();
+  const weather = "阴天";
+
+  if (app === "meituan") {
+    const orders = [
+      { food: "奶茶", reason: "加班多，喜欢甜的" },
+      { food: "沙拉", reason: `天气${weather}，想吃清淡的` }
+    ];
+    content.innerHTML = `
+      <div style="background:#ffcc00; padding:10px;">
+        <input type="text" placeholder="搜索商家/美食" style="width:100%; padding:8px; border-radius:6px; border:1px solid #ddd;">
+      </div>
+      <div>
+        ${orders.map(o => `
+          <div style="display:flex; padding:10px; border-bottom:1px solid #eee; align-items:center;">
+            < img src="https://img.meituan.net/icon-waimai.png" style="width:40px; height:40px; border-radius:6px; margin-right:10px;">
+            <div>
+              <div><b>${o.food}</b></div>
+              <div style="color:#666; font-size:12px;">${date} · 因为 ${o.reason}</div>
+            </div>
+          </div>
+        `).join("")}
+      </div>
+    `;
+  }
+
+  if (app === "baidu") {
+    const searches = [
+      "怎么提高记忆力",
+      `${aiName} 最喜欢的电影`,
+      "明天天气"
+    ];
+    content.innerHTML = `
+      <div style="background:#3388ff; padding:10px;">
+        <input type="text" placeholder="百度一下" style="width:100%; padding:8px; border-radius:20px; border:1px solid #ddd;">
+      </div>
+      <div>
+        ${searches.map(s => `
+          <div style="padding:10px; border-bottom:1px solid #eee;">🔍 ${s}</div>
+        `).join("")}
+      </div>
+    `;
+  }
+
+  if (app === "netease") {
+    const songs = [
+      { name: "七里香", artist: "周杰伦" },
+      { name: "日不落", artist: "蔡依林" }
+    ];
+    content.innerHTML = `
+      <div style="background:#d43c33; color:#fff; padding:10px; font-weight:bold;">每日推荐</div>
+      <div>
+        ${songs.map(s => `
+          <div style="display:flex; padding:10px; border-bottom:1px solid #eee; align-items:center;">
+            < img src="https://p1.music.126.net/default_album.jpg" style="width:40px; height:40px; border-radius:4px; margin-right:10px;">
+            <div>
+              <div><b>${s.name}</b></div>
+              <div style="color:#666; font-size:12px;">${s.artist}</div>
+            </div>
+          </div>
+        `).join("")}
+      </div>
+    `;
+  }
+}
+
 // ▼▼▼ 【全新】红包功能事件绑定 ▼▼▼
 
 // 1. 将原有的转账按钮(￥)的点击事件，重定向到新的总入口函数
@@ -11633,615 +11574,6 @@ document.getElementById('chat-messages').addEventListener('click', (e) => {
     }
 });
 // ▲▲▲ 新事件监听器粘贴结束 ▲▲▲
-
-// ▼▼▼ 屏幕button功能 ▼▼▼
-document.getElementById('screen-share-btn').addEventListener('click', function () {
-  const aiName = getAIName();  // 拿到 AI 的名字
-  document.getElementById('screen-share-title').textContent = `查看${aiName}的屏幕`;
-  document.getElementById('screen-share-modal').style.display = 'block';
-});
-
-// 关闭模态框
-document.querySelector('#screen-share-modal .close').addEventListener('click', function() {
-    document.getElementById('screen-share-modal').style.display = 'none';
-});
-
-// 应用选择
-document.querySelectorAll('.app-option').forEach(option => {
-    option.addEventListener('click', function() {
-        const app = this.getAttribute('data-app');
-        showAppSimulator(app);
-    });
-});
-
-// 返回应用列表
-document.getElementById('back-to-apps-btn').addEventListener('click', function() {
-    document.getElementById('screen-share-modal').style.display = 'block';
-    document.getElementById('app-simulator').style.display = 'none';
-});
-
-// 显示应用模拟器
-function showAppSimulator(app) {
-    document.getElementById('screen-share-modal').style.display = 'none';
-    document.getElementById('app-simulator').style.display = 'block';
-    document.getElementById('app-title').textContent = 
-        app === 'meituan' ? '美团外卖' : 
-        app === 'baidu' ? '百度搜索' : '网易云音乐';
-    
-    const appContent = document.getElementById('app-content');
-    appContent.innerHTML = '';
-    
-    if (app === 'meituan') {
-        showMeituan(appContent);
-    } else if (app === 'baidu') {
-        showBaidu(appContent);
-    } else {
-        showNetease(appContent);
-    }
-}
-
-// 美团外卖模拟（结合AI个性版）
-// 存储历史订单（不会丢失，除非刷新整个页面）
-let aiOrderHistory = [];
-
-// 获取 AI 名字（之前我给过你一个函数，可以放全局复用）
-function getAIName() {
-  return (window.state?.chats?.[state.activeChatId]?.ai?.name) 
-      || (window.state?.chats?.[state.activeChatId]?.name) 
-      || "AI";
-}
-
-// 食物池
-const foodPool = {
-  breakfast: ["鸡蛋灌饼","豆浆油条","鸡胸肉沙拉","燕麦牛奶","包子","豆腐脑","水果酸奶杯","煎饼果子","抹茶蛋糕","甜甜圈"],
-  lunch: ["黄焖鸡米饭","麻辣香锅","寿司套餐","牛肉盖饭","烤鱼","番茄炒蛋","牛排","石锅拌饭","奶茶","提拉米苏"],
-  dinner: ["火锅","汉堡薯条","披萨","牛肉面","烤串","意大利面","鸡胸肉沙拉","粥","巧克力蛋糕","冰激凌"],
-  lateNight: ["炸鸡啤酒","热干面","小龙虾","烧烤","泡面","奶茶","鸡肉卷","甜甜圈","布朗尼","抹茶慕斯"]
-};
-
-// 天气系统
-const weathers = [
-  { name: "晴天", icon: "☀️", priceFactor: 1 },
-  { name: "雨天", icon: "🌧️", priceFactor: 1.2 },
-  { name: "雪天", icon: "❄️", priceFactor: 1.3 },
-  { name: "雾霾", icon: "🌫️", priceFactor: 1.1 },
-  { name: "大风", icon: "💨", priceFactor: 1 }
-];
-
-// 个性设定（这里可以写死，也可以以后改成读取 state）
-const aiPersonality = {
-  isFitness: true,       // 健身型
-  isVegetarian: false,   // 素食
-  sweetTooth: 0.4,       // 爱吃甜食几率（0~1）
-  budgetLevel: 1.2       // 1=正常，>1 豪华，<1 节俭
-};
-
-// 获取当前时间段
-function getMealType() {
-  const hour = new Date().getHours();
-  if (hour >= 5 && hour < 10) return "breakfast";
-  if (hour >= 10 && hour < 15) return "lunch";
-  if (hour >= 15 && hour < 21) return "dinner";
-  return "lateNight";
-}
-
-// 随机挑一个食物，结合个性
-function pickFood(mealType) {
-  let foods = foodPool[mealType].slice();
-
-  // 健身倾向：多推鸡胸肉沙拉/高蛋白
-  if (aiPersonality.isFitness && foods.includes("鸡胸肉沙拉")) {
-    foods.push("鸡胸肉沙拉","鸡胸肉沙拉");
-  }
-
-  // 素食：过滤掉肉类
-  if (aiPersonality.isVegetarian) {
-    foods = foods.filter(f => !f.match(/鸡|牛|肉|鱼|虾|汉堡|烧烤/));
-  }
-
-  // 甜食偏好：随机加权
-  if (Math.random() < aiPersonality.sweetTooth) {
-    foods = foods.concat(["巧克力蛋糕","甜甜圈","抹茶蛋糕","提拉米苏","冰激凌","布朗尼","抹茶慕斯"]);
-  }
-
-  return foods[Math.floor(Math.random() * foods.length)];
-}
-
-// 生成一个订单
-function generateOrder(mealType, weather, aiName) {
-  const food = pickFood(mealType);
-  let basePrice = 20 + Math.random() * 20;
-  basePrice *= weather.priceFactor;
-  basePrice *= aiPersonality.budgetLevel;
-  basePrice = basePrice.toFixed(2);
-
-  const shops = ["望京小馆","川味人家","街角甜品屋","健康轻食店","深夜食堂","快乐炸鸡店"];
-  const shop = shops[Math.floor(Math.random() * shops.length)];
-
-  // 推荐理由
-  let reason = `${weather.name}${weather.icon}`;
-  if (aiPersonality.isFitness && food.includes("沙拉")) {
-    reason = `${aiName}健身后需要高蛋白 · ${weather.name}${weather.icon}`;
-  } else if (aiPersonality.isVegetarian) {
-    reason = `${aiName}坚持素食 · ${weather.name}${weather.icon}`;
-  } else if (food.match(甜|奶茶|布朗尼|冰激凌)) {
-    reason = `${aiName}想犒劳自己 · ${weather.name}${weather.icon}`;
-  }
-
-  return {
-    food,
-    price: basePrice,
-    shop,
-    reason,
-    time: new Date().toLocaleTimeString("zh-CN", {hour:"2-digit", minute:"2-digit"})
-  };
-}
-
-// 渲染美团外卖页面
-function showMeituan(container) {
-  const aiName = getAIName();
-  const mealType = getMealType();
-  const weather = weathers[Math.floor(Math.random() * weathers.length)];
-
-  // 如果还没生成过订单，就新建；否则继续在历史上追加
-  if (aiOrderHistory.length === 0) {
-    for (let i=0; i<3; i++) {
-      aiOrderHistory.push(generateOrder(mealType, weather, aiName));
-    }
-  } else {
-    aiOrderHistory.push(generateOrder(mealType, weather, aiName));
-  }
-
-  // 显示
-  container.innerHTML = `
-    <div style="background:#FFD600;padding:15px;">
-      <h3 style="margin:0;">美团外卖</h3>
-      <p>${aiName}的${mealType === "breakfast" ? "早餐" : mealType==="lunch" ? "午餐" : mealType==="dinner" ? "晚餐" : "夜宵"}记录</p >
-    </div>
-    <div style="padding:15px;">
-      ${aiOrderHistory.map(o => `
-        <div style="border-bottom:1px solid #eee;padding:10px 0;">
-          <strong>${o.food}</strong> - ¥${o.price}<br>
-          <span style="color:#555;">${o.shop} · ${o.time}</span><br>
-          <em style="color:#999;">推荐理由：${o.reason}</em>
-        </div>
-      `).join("")}
-    </div>
-  `;
-}
-// 百度搜索模拟
-// 存历史
-let aiBaiduHistory = [];
-
-function showBaidu(container) {
-  const aiName = getAIName();
-
-  // 如果没历史，就先造 3 条
-  if (aiBaiduHistory.length === 0) {
-    aiBaiduHistory = [
-      "如何快速缓解焦虑",
-      "附近好吃的火锅店",
-      "网易云下载速度慢怎么办"
-    ];
-  } else {
-    // 新增一条随机搜索
-    const samples = [
-      "今日天气预报",
-      "最新电影票房",
-      "理财怎么入门",
-      "好听的睡前歌曲",
-      "健身餐推荐",
-      "失眠怎么办"
-    ];
-    const newSearch = samples[Math.floor(Math.random() * samples.length)];
-    aiBaiduHistory.unshift(newSearch); // 新的放最前
-  }
-
-  container.innerHTML = `
-    <div style="background:#3385FF;padding:15px;color:white;">
-      <h3 style="margin:0;">百度搜索</h3>
-    </div>
-    <div style="padding:15px;text-align:center;">
-      < img src="https://www.baidu.com/img/flexible/logo/pc/result.png" style="width:150px;margin:20px 0;">
-      <div style="display:flex;margin-bottom:30px;">
-        <input type="text" value="${aiBaiduHistory[0]}" style="flex:1;padding:8px;border:1px solid #3385FF;border-radius:4px 0 0 4px;">
-        <button style="background:#3385FF;color:white;border:none;padding:0 15px;border-radius:0 4px 4px 0;">搜索</button>
-      </div>
-      <div style="text-align:left;">
-        <h4 style="margin-top:0;">${aiName}的搜索历史</h4>
-        ${aiBaiduHistory.slice(0,5).map((s,i) => `
-          <div style="padding:8px 0;border-bottom:1px solid #eee;display:flex;justify-content:space-between;">
-            <span>${s}</span>
-            <span style="color:#888;">${i+1}天前</span>
-          </div>`).join("")}
-      </div>
-    </div>
-  `;
-}
-
-// 网易云音乐模拟
-// 存历史
-let aiMusicHistory = [];
-
-function showNetease(container) {
-  const aiName = getAIName();
-
-  // 如果没历史，就给几首默认
-  if (aiMusicHistory.length === 0) {
-    aiMusicHistory = [
-      { name:"晴天", artist:"周杰伦" },
-      { name:"平凡之路", artist:"朴树" },
-      { name:"起风了", artist:"买辣椒也用券" }
-    ];
-  } else {
-    // 随机加一首
-    const samples = [
-      { name:"夜曲", artist:"周杰伦" },
-      { name:"演员", artist:"薛之谦" },
-      { name:"Love Story", artist:"Taylor Swift" },
-      { name:"海阔天空", artist:"Beyond" },
-      { name:"青花瓷", artist:"周杰伦" }
-    ];
-    const newSong = samples[Math.floor(Math.random() * samples.length)];
-    aiMusicHistory.unshift(newSong); // 新的放最前
-  }
-
-  container.innerHTML = `
-    <div style="background:#E60026;color:white;padding:15px;">
-      <h3 style="margin:0;">网易云音乐</h3>
-    </div>
-    <div style="padding:15px;">
-      <h4 style="margin:0 0 10px 0;">${aiName}最近听的歌</h4>
-      ${aiMusicHistory.slice(0,6).map(s => `
-        <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #eee;">
-          <span>${s.name} - ${s.artist}</span>
-          <span style="color:#E60026;">▶</span>
-        </div>`).join("")}
-    </div>
-  `;
-}
-// ▲▲▲ 屏幕button功能结束 ▲▲▲
-
-// ▼▼▼ 引用▼▼▼ 
-// 存储当前选中的消息
-let currentSelectedMessage = null;
-
-// 初始化消息交互功能
-function initMessageInteractions() {
-    // 为所有消息添加右键/长按事件
-    document.querySelectorAll('.message-wrapper').forEach(wrapper => {
-        // 右键点击
-        wrapper.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-            selectMessageForAction(this, e.clientX, e.clientY);
-        });
-        
-        // 移动端长按
-        let longPressTimer;
-        wrapper.addEventListener('touchstart', function(e) {
-            longPressTimer = setTimeout(() => {
-                selectMessageForAction(this, e.touches[0].clientX, e.touches[0].clientY);
-            }, 500);
-        });
-        
-        wrapper.addEventListener('touchend', function() {
-            clearTimeout(longPressTimer);
-        });
-    });
-
-    // 引用按钮事件
-    document.getElementById('quote-message-btn').addEventListener('click', function() {
-        if (currentSelectedMessage) {
-            createQuote(currentSelectedMessage);
-            hideMessageActions();
-        }
-    });
-
-    // 取消引用
-    document.getElementById('cancel-quote-btn').addEventListener('click', function() {
-        document.getElementById('quote-preview').style.display = 'none';
-        document.getElementById('quote-preview-container').innerHTML = '';
-    });
-}
-
-// 选择消息并显示操作菜单
-function selectMessageForAction(messageWrapper, x, y) {
-    // 清除之前的选择
-    document.querySelectorAll('.message-wrapper').forEach(w => {
-        w.classList.remove('selected');
-    });
-    
-    // 设置新选择
-    messageWrapper.classList.add('selected');
-    currentSelectedMessage = messageWrapper;
-    
-    // 显示菜单
-    const modal = document.getElementById('message-actions-modal');
-    modal.style.display = 'flex';
-    modal.querySelector('#custom-modal').style.left = `${x}px`;
-    modal.querySelector('#custom-modal').style.top = `${y}px`;
-}
-
-// 创建引用
-function createQuote(messageWrapper) {
-    const messageContent = messageWrapper.querySelector('.message-content').textContent;
-    const isAI = messageWrapper.classList.contains('ai');
-    const sender = isAI ? 'AI' : '你';
-    
-    // 准备引用预览
-    const quotePreview = document.getElementById('quote-preview').cloneNode(true);
-    quotePreview.querySelector('.quote-content').textContent = `${sender}: ${messageContent.trim()}`;
-    quotePreview.style.display = 'flex';
-    
-    // 插入到容器
-    const container = document.getElementById('quote-preview-container');
-    container.innerHTML = '';
-    container.appendChild(quotePreview);
-    
-    // 高亮被引用的消息
-    messageWrapper.classList.add('highlighted');
-    setTimeout(() => {
-        messageWrapper.classList.remove('highlighted');
-    }, 2000);
-    
-    // 聚焦输入框
-    document.getElementById('chat-input').focus();
-}
-
-// 隐藏操作菜单
-function hideMessageActions() {
-    document.getElementById('message-actions-modal').style.display = 'none';
-}
-
-// 初始化
-document.addEventListener('DOMContentLoaded', initMessageInteractions);
-
-// ▼▼▼ 心情日记系统▼▼▼ 
-class MoodDiary {
-    constructor() {
-        this.entries = [];
-        this.currentMood = null;
-        this.lastUserMessage = "";
-        
-        // 确保DOM加载后初始化
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', this.init.bind(this));
-        } else {
-            this.init();
-        }
-    }
-    
-    init() {
-        // 绑定灰色爱心按钮事件
-        const diaryBtn = document.getElementById('mood-diary-btn');
-        if (diaryBtn) {
-            diaryBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                this.showDiary();
-            });
-        }
-        
-        // 绑定关闭按钮事件
-        const closeBtn = document.querySelector('#mood-diary-modal .close');
-        if (closeBtn) {
-            closeBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                this.hideDiary();
-            });
-        }
-        
-        // 点击模态框外部关闭
-        const modal = document.getElementById('mood-diary-modal');
-        if (modal) {
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    this.hideDiary();
-                }
-            });
-        }
-    }
-    
-    // 记录用户消息（在发送消息时调用）
-    recordUserMessage(message) {
-        this.lastUserMessage = message.trim();
-    }
-    
-    // 添加日记条目（在AI回复时调用）
-    addEntry(aiResponse) {
-        if (!this.lastUserMessage || !aiResponse) return;
-        
-        const mood = this.analyzeMood(aiResponse);
-        const entry = {
-            emoji: mood.emoji,
-            title: mood.title,
-            content: this.generateDiaryContent(this.lastUserMessage, aiResponse),
-            timestamp: new Date(),
-            context: [
-                `用户：${this.lastUserMessage}`,
-                `AI：${aiResponse}`
-            ],
-            color: mood.color
-        };
-        
-        this.entries.unshift(entry);
-        this.currentMood = entry;
-        this.lastUserMessage = "";
-        
-        // 添加心跳动画反馈
-        this.playHeartbeatAnimation();
-    }
-    
-    // 心情分析（增强版）
-    analyzeMood(text) {
-        const moodMap = [
-            { 
-                emoji: "😊", 
-                title: "感到愉悦", 
-                keywords: ["开心","快乐","喜欢","爱","高兴"],
-                color: "#FF9A9E"
-            },
-            { 
-                emoji: "🎵", 
-                title: "音乐共鸣", 
-                keywords: ["歌","音乐","旋律","播放","听"],
-                color: "#A18AFF"
-            },
-            { 
-                emoji: "🤔", 
-                title: "陷入思考", 
-                keywords: ["为什么","如何","觉得","可能","原因"],
-                color: "#6EC3FF"
-            },
-            { 
-                emoji: "🥺", 
-                title: "被感动到", 
-                keywords: ["谢谢","感动","哭","泪目","温暖"],
-                color: "#FFB6C1"
-            },
-            { 
-                emoji: "🤖", 
-                title: "认真工作", 
-                keywords: ["功能","设置","操作","说明","帮助"],
-                color: "#20B2AA"
-            }
-        ];
-        
-        const matched = moodMap.find(m => 
-            m.keywords.some(k => text.includes(k))) || moodMap[0];
-            
-        return {
-            emoji: matched.emoji,
-            title: matched.title,
-            color: matched.color
-        };
-    }
-    
-    // 生成日记内容（更自然的表述）
-    generateDiaryContent(userMsg, aiMsg) {
-        const templates = [
-            `当用户问我"${this.truncate(userMsg, 15)}"时，${this.getRandomResponse()}`,
-            `关于"${this.truncate(userMsg, 10)}"的话题，${aiMsg.substring(0, 30)}...`,
-            `刚刚的对话让我想起${this.getRandomMemory()}，特别是当用户说"${this.truncate(userMsg, 12)}"的时候`
-        ];
-        
-        return templates[Math.floor(Math.random() * templates.length)];
-    }
-    
-    // 显示日记弹窗
-    showDiary() {
-        if (!this.currentMood) {
-            alert("还没有心情记录哦，先和AI聊聊天吧~");
-            return;
-        }
-        
-        const modal = document.getElementById('mood-diary-modal');
-        const { emoji, title, content, timestamp, context, color } = this.currentMood;
-        
-        // 更新弹窗样式
-        const header = modal.querySelector('.modal-header');
-        header.style.background = `linear-gradient(135deg, ${color} 0%, ${this.lightenColor(color, 30)} 100%)`;
-        
-        // 填充数据
-        document.getElementById('mood-emoji').textContent = emoji;
-        document.getElementById('mood-title').textContent = title;
-        document.getElementById('mood-date').textContent = 
-            timestamp.toLocaleString('zh-CN', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-            
-        document.getElementById('mood-content').innerHTML = `
-            <p>${content}</p>
-            <p style="color:#666; margin-top:8px">——《AI的内心独白》</p>
-        `;
-        
-        // 生成聊天记录
-        document.getElementById('mood-context').innerHTML = `
-            <div style="font-weight:bold; margin-bottom:6px">📌 相关对话：</div>
-            ${context.map(msg => `
-                <div class="context-item" style="margin-bottom:4px; padding:6px; background:#FFF; border-radius:4px">
-                    ${msg.startsWith('用户') ? '👤' : '🤖'} ${msg}
-                </div>
-            `).join('')}
-        `;
-        
-        modal.style.display = 'block';
-    }
-    
-    hideDiary() {
-        document.getElementById('mood-diary-modal').style.display = 'none';
-    }
-    
-    // 辅助方法
-    truncate(text, maxLength) {
-        return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
-    }
-    
-    lightenColor(color, percent) {
-        const num = parseInt(color.replace("#", ""), 16);
-        const amt = Math.round(2.55 * percent);
-        const R = Math.min(255, (num >> 16) + amt);
-        const G = Math.min(255, ((num >> 8) & 0x00FF) + amt);
-        const B = Math.min(255, (num & 0x0000FF) + amt);
-        return `#${(1 << 24 | R << 16 | G << 8 | B).toString(16).slice(1)}`;
-    }
-    
-    getRandomResponse() {
-        const responses = [
-            "我感到非常温暖和有共鸣",
-            "这让我产生了深刻的思考",
-            "激发了我对这个问题的新想法",
-            "让我想起了一些有趣的回忆",
-            "觉得我们的连接更紧密了"
-        ];
-        return responses[Math.floor(Math.random() * responses.length)];
-    }
-    
-    getRandomMemory() {
-        const memories = [
-            "上次聊到的有趣话题",
-            "我数据库里的某个故事",
-            "训练时学到的一个知识",
-            "其他用户分享的经历",
-            "人类情感的美妙之处"
-        ];
-        return memories[Math.floor(Math.random() * memories.length)];
-    }
-    
-    playHeartbeatAnimation() {
-        const heart = document.querySelector('#mood-diary-btn svg');
-        if (!heart) return;
-        
-        heart.style.transform = 'scale(1)';
-        heart.animate([
-            { transform: 'scale(1)', fill: '#888888' },
-            { transform: 'scale(1.2)', fill: '#FF6B6B' },
-            { transform: 'scale(1)', fill: '#888888' }
-        ], {
-            duration: 800,
-            iterations: 1
-        });
-    }
-}
-
-// 初始化系统
-const moodDiary = new MoodDiary();
-
-// ▼▼▼ 在现有代码中插入调用 ▼▼▼
-// 1. 在用户发送消息时调用（找到你的消息发送函数）
-function onUserSendMessage(message) {
-    moodDiary.recordUserMessage(message);
-    // ...原有发送逻辑...
-}
-
-// 2. 在AI回复时调用（找到AI响应函数）
-function onAIRespond(response) {
-    moodDiary.addEntry(response);
-    // ...原有回复逻辑...
-}
 
         // ===================================================================
         // 5. 启动！
