@@ -352,41 +352,58 @@ body {
 }
 /* ▲▲▲ 替换结束 ▲▲▲ */
 
-    /* 阴影效果 */
-    box-shadow: 
-        0 2px 4px rgba(0, 0, 0, 0.08), /* 外阴影 */
-        inset 0 0 12px rgba(255, 255, 255, 0.6); /* 内发光 */
-    /* 确保文字颜色不被覆盖 */
-    isolation: isolate; /* 防止伪元素影响文字 */
-
-
-/* 透亮渐变层（通过伪元素实现） */
-.message-bubble .content::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: inherit; /* 继承父元素的圆角 */
-    background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.4) 0%,
-        rgba(255, 255, 255, 0.2) 100%
-    );
-    z-index: -1; /* 置于背景色之上，文字之下 */
-}
-
-/* 用户气泡（右侧） */
-.message-bubble.user .content {
-    border-radius: 8px 2px 8px 8px; /* 保留原有圆角 */
-}
-
-/* AI气泡（左侧） */
+/* === 现代化气泡（平滑渐变+自然透亮）=== */
+.message-bubble.user .content,
 .message-bubble.ai .content {
-    border-radius: 2px 8px 8px 8px; /* 保留原有圆角 */
+  position: relative;
+  border-radius: 16px;
+  margin: 6px 0;
+  overflow: hidden;
+  transition: all 0.2s ease;
 }
-      
+
+/* 默认气泡颜色（会被主题覆盖） */
+.message-bubble.user .content {
+  background: var(--user-bubble-bg, linear-gradient(135deg, #f0f7ff 0%, #e0f0ff 100%));
+  color: var(--user-bubble-text, #585858);
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1),
+              0 1px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 8px 2px 8px 8px;
+}
+
+.message-bubble.ai .content {
+  background: var(--ai-bubble-bg, linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%));
+  color: var(--ai-bubble-text, #585858);
+  box-shadow: -2px 2px 8px rgba(0, 0, 0, 0.1),
+               0 1px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 2px 8px 8px 8px;
+}
+
+/* 主题颜色定义 - 现在会覆盖默认值 */
+#chat-messages[data-theme="pink_blue"] {
+  --user-bubble-bg: #fff0f6;
+  --user-bubble-text: #432531;
+  --ai-bubble-bg: #eff7ff;
+  --ai-bubble-text: #263a4e;
+}
+
+#chat-messages[data-theme="blue_white"] {
+  --user-bubble-bg: #eff7ff;
+  --user-bubble-text: #263a4e;
+  --ai-bubble-bg: #f8f9fa;
+  --ai-bubble-text: #383d41;
+}
+
+/* 继续其他主题的定义... */
+
+/* 小尾巴颜色修复 */
+.message-bubble.user::after {
+  background: var(--user-bubble-bg, linear-gradient(135deg, #f0f7ff 0%, #e0f0ff 100%));
+}
+.message-bubble.ai::after {
+  background: var(--ai-bubble-bg, linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%));
+}
+
         #chat-messages[data-theme="pink_blue"] .message-bubble.user .content { background-color: #fff0f6; color: #432531; }
         #chat-messages[data-theme="pink_blue"] .message-bubble.ai .content { background-color: #eff7ff; color: #263a4e; }
         #chat-messages[data-theme="blue_white"] .message-bubble.user .content { background-color: #eff7ff; color: #263a4e; }
