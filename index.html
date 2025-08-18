@@ -346,15 +346,15 @@ body {
 .message-bubble .content {
     position: relative;
     font-size: var(--chat-font-size, 16px);
-    padding: 8px 12px;
+    padding: 6px 10px;
     line-height: 1.3;
     word-break: break-word; /* 核心修正: 强制长单词或URL换行，防止撑破气泡 */
 }
 /* ▲▲▲ 替换结束 ▲▲▲ */
 
         /* === 气泡主题样式 === */
-        .message-bubble.user .content { background-color: rgba(255, 255, 255, 0.5); color: #585858; border-radius: 8px 2px 8px 8px; }
-        .message-bubble.ai .content { background-color: rgba(255, 255, 255, 0.5); color: #585858; border-radius: 2px 8px 8px 8px; }
+        .message-bubble.user .content { background-color: rgba(255, 255, 255, 0.5); color: #585858; border-radius: 10px 4px 10px 10px; }
+        .message-bubble.ai .content { background-color: rgba(255, 255, 255, 0.5); color: #585858; border-radius: 4px 10px 10px 10px; }
       
 .message-bubble::after {
     content: "";
@@ -5199,7 +5199,15 @@ async function renderChatList() {
         chatListEl.innerHTML = '<p style="text-align:center; color: #8a8a8a; margin-top: 50px;">点击右上角 "+" 或群组图标添加聊天</p>';
         return;
     }
-
+    
+function renderMessage(message) {
+    // ... 原有的渲染逻辑
+    
+    if (message.quote) {
+        const quoteElement = createQuoteElement(message.quote);
+        messageElement.appendChild(quoteElement);
+    } 
+}
     // --- 【核心修正开始】---
 
     // 3. 为每个分组找到其内部最新的消息时间戳
@@ -5790,6 +5798,25 @@ function openChat(chatId) {
     document.getElementById('send-poll-btn').style.display = chat.isGroup ? 'flex' : 'none';
 }
 // ▲▲▲ 替换结束 ▲▲▲
+
+async function sendMessage() {
+    // ... 原有的发送逻辑
+    
+    const message = {
+        content: messageContent,
+        timestamp: Date.now(),
+        sender: 'user',
+        // 其他消息属性...
+    };
+    
+    // 处理引用
+    const messageWithQuote = processMessageWithQuote(message);
+    
+    // 使用messageWithQuote而不是message
+    addMessageToChat(state.activeChatId, messageWithQuote);
+    
+    // ... 剩余的发送逻辑
+}
 
 async function triggerAiResponse() {
     if (!state.activeChatId) return;
