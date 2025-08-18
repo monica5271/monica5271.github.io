@@ -342,109 +342,56 @@ body {
         .message-bubble.user .voice-duration { color: #3e6224; }
 
 /* ▼▼▼ 用这块代码替换掉你原来的 .message-bubble .content 样式 ▼▼▼ */
-/* 通用内容区样式，为时间戳和字体大小做准备 */
+/* 通用内容区基础样式 */
 .message-bubble .content {
     position: relative;
     font-size: var(--chat-font-size, 16px);
     padding: 8px 12px;
     line-height: 1.5;
-    word-break: break-word; /* 核心修正: 强制长单词或URL换行，防止撑破气泡 */
+    word-break: break-word;
+    margin: 4px 0; /* 缩小气泡上下间距 */
+    background: linear-gradient(
+        135deg, 
+        rgba(255,255,255,0.85) 0%,
+        rgba(255,255,255,0.78) 100%
+    );
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    border: 1px solid rgba(255,255,255,0.3);
+    box-shadow: 
+        0 1px 2px rgba(0,0,0,0.05),
+        inset 0 0 10px rgba(255,255,255,0.2);
+}
+
+/* 用户气泡特定样式 */
+.message-bubble.user .content {
+    color: #585858;
+    border-radius: 8px 2px 8px 8px;
+    /* 保持原有主题色但增加透亮效果 */
+    background: linear-gradient(
+        135deg, 
+        rgba(255,255,255,0.9) 0%,
+        rgba(255,255,255,0.82) 100%
+    );
+}
+
+/* AI气泡特定样式 */
+.message-bubble.ai .content {
+    color: #585858;
+    border-radius: 2px 8px 8px 8px;
+    /* 保持原有主题色但增加透亮效果 */
+    background: linear-gradient(
+        135deg, 
+        rgba(255,255,255,0.85) 0%,
+        rgba(255,255,255,0.75) 100%
+    );
+}
+
+/* 移除原有伪元素装饰 */
+.message-bubble::after {
+    content: none;
 }
 /* ▲▲▲ 替换结束 ▲▲▲ */
-
-/* ▼▼▼ 现代化气泡样式（渐变+透亮+阴影+紧凑）▼▼▼ */
-.message-bubble .content {
-    position: relative;
-    font-size: var(--chat-font-size, 15px); /* 稍微减小字体大小 */
-    padding: 6px 12px; /* 减少上下padding */
-    line-height: 1.4; /* 紧凑的行高 */
-    word-break: break-word;
-    backdrop-filter: blur(4px); /* 添加毛玻璃效果 */
-    border: 0.5px solid rgba(255,255,255,0.2); /* 细腻的边框 */
-}
-
-/* 气泡容器基础样式 */
-.message-bubble.user .content,
-.message-bubble.ai .content {
-    position: relative;
-    margin: 4px 0; /* 减少上下间距 */
-    overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* 更顺滑的动画 */
-    box-sizing: border-box;
-}
-
-/* 用户气泡样式 */
-.message-bubble.user .content {
-    background: var(--user-bubble-bg, linear-gradient(135deg, rgba(240,247,255,0.9) 0%, rgba(224,240,255,0.9) 100%));
-    color: var(--user-bubble-text, #585858);
-    border-radius: 12px 4px 12px 12px; /* 更圆润的圆角 */
-    box-shadow: 
-        2px 2px 6px rgba(0, 0, 0, 0.08),
-        0 1px 2px rgba(0, 0, 0, 0.05),
-        inset 0 0 0 1px rgba(255,255,255,0.3); /* 内发光效果 */
-}
-
-/* AI气泡样式 */
-.message-bubble.ai .content {
-    background: var(--ai-bubble-bg, linear-gradient(135deg, rgba(248,249,250,0.9) 0%, rgba(233,236,239,0.9) 100%));
-    color: var(--ai-bubble-text, #585858);
-    border-radius: 4px 12px 12px 12px; /* 更圆润的圆角 */
-    box-shadow: 
-        -2px 2px 6px rgba(0, 0, 0, 0.08),
-        0 1px 2px rgba(0, 0, 0, 0.05),
-        inset 0 0 0 1px rgba(255,255,255,0.3); /* 内发光效果 */
-}
-
-/* 主题颜色定义 - 添加透明度 */
-#chat-messages[data-theme="pink_blue"] {
-    --user-bubble-bg: rgba(255,240,246,0.9);
-    --user-bubble-text: #432531;
-    --ai-bubble-bg: rgba(239,247,255,0.9);
-    --ai-bubble-text: #263a4e;
-}
-
-#chat-messages[data-theme="blue_white"] {
-    --user-bubble-bg: rgba(239,247,255,0.9);
-    --user-bubble-text: #263a4e;
-    --ai-bubble-bg: rgba(248,249,250,0.9);
-    --ai-bubble-text: #383d41;
-}
-
-/* 其他主题保持相同修改方式... */
-
-/* 小尾巴样式优化 */
-.message-bubble.user::after,
-.message-bubble.ai::after {
-    content: "";
-    position: absolute;
-    width: 12px;
-    height: 12px;
-    background: inherit;
-    backdrop-filter: blur(2px);
-    z-index: -1; /* 放在内容后面 */
-    opacity: 0.8;
-}
-
-.message-bubble.user::after {
-    right: -5px;
-    bottom: 0;
-    clip-path: polygon(100% 0, 0 0, 100% 100%);
-}
-
-.message-bubble.ai::after {
-    left: -5px;
-    bottom: 0;
-    clip-path: polygon(0 0, 0 100%, 100% 0);
-}
-
-/* 悬停效果增强 */
-.message-bubble.user .content:hover,
-.message-bubble.ai .content:hover {
-    transform: translateY(-1px);
-    box-shadow: 
-        2px 4px 8px rgba(0, 0, 0, 0.12),
-        0 2px 4px rgba(0, 0, 0, 0.08);
-}
 
         #chat-messages[data-theme="pink_blue"] .message-bubble.user .content { background-color: #fff0f6; color: #432531; }
         #chat-messages[data-theme="pink_blue"] .message-bubble.ai .content { background-color: #eff7ff; color: #263a4e; }
@@ -3237,6 +3184,32 @@ body {
     flex-shrink: 0;
 }
 
+/* 引用消息样式 */
+/* ▼▼▼ 追加到你的CSS中 ▼▼▼ */
+/* 引用消息样式（适配.message-wrapper布局） */
+.message-quote {
+    display: block;
+    margin: 6px 0 0 0;
+    padding: 5px 8px;
+    background: rgba(0, 0, 0, 0.03);
+    border-left: 2px solid #07C160;
+    border-radius: 0 4px 4px 0;
+    font-size: 12px;
+    line-height: 1.4;
+    color: #555;
+}
+
+/* AI消息引用特殊样式 */
+.message-wrapper.ai .message-quote {
+    border-left-color: #9477FF; /* 紫色边框 */
+    background: rgba(148, 119, 255, 0.05);
+}
+
+/* 用户消息引用特殊样式 */
+.message-wrapper.user .message-quote {
+    border-left-color: #07C160; /* 绿色边框 */
+    background: rgba(7, 193, 96, 0.05);
+}
 /* ▲▲▲ 新CSS粘贴结束 ▲▲▲ */
 
     </style>
@@ -4022,6 +3995,7 @@ body {
             <!-- 新的操作按钮 -->
             <button id="edit-message-btn">编辑消息</button>
             <button id="copy-message-btn">复制文本</button>
+            <button id="quote-message-btn">引用</button>
             <button id="select-message-btn">进入多选</button>
             <!-- 取消按钮 -->
             <button id="cancel-message-action-btn" style="margin-top: 8px; border-radius: 8px; background-color: #f0f0f0;">取消</button>
@@ -4239,6 +4213,8 @@ body {
         let editingFrameForMember = false;
         let editingWorldBookId = null;
         let editingPersonaPresetId = null;
+        let quotedMessage = null;
+        let quotedMessageForAI = null; 
 
 let waimaiTimers = {}; // 用于存储外卖倒计时
 
@@ -7559,6 +7535,48 @@ function hideMessageActions() {
     activeMessageTimestamp = null;
 }
 
+// ▼▼▼ 引用相关功能 ▼▼▼
+// ▼▼▼ 在JS文件末尾添加这些全新函数 ▼▼▼
+/**
+ * 设置引用消息（全新函数）
+ */
+function setQuoteMessage() {
+    if (!activeMessageTimestamp) return;
+    
+    const chat = state.chats[state.activeChatId];
+    const message = chat.history.find(m => m.timestamp === activeMessageTimestamp);
+    if (!message) return;
+    
+    quotedMessage = {
+        timestamp: message.timestamp,
+        content: typeof message.content === 'string' ? message.content : JSON.stringify(message.content),
+        sender: message.sender,
+        type: message.type || 'text'
+    };
+    
+    hideMessageActions();
+    alert('已设置引用，下次发送消息时将自动引用'); // 简单反馈
+}
+
+/**
+ * 创建引用显示元素（全新函数）
+ */
+function createQuoteElement(quoteData) {
+    const quoteEl = document.createElement('div');
+    quoteEl.className = 'message-quote';
+    quoteEl.innerHTML = `
+        <div style="color:#07C160;font-size:12px">
+            ${quoteData.sender === 'user' ? '你引用' : '引用你的消息'}
+        </div>
+        <div style="font-size:12px;opacity:0.8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
+            ${quoteData.type === 'voice_message' ? '[语音]' : 
+              quoteData.type === 'image' ? '[图片]' : 
+              quoteData.content.length > 20 ? quoteData.content.substring(0,20)+'...' : quoteData.content}
+        </div>
+    `;
+    return quoteEl;
+}
+
 // ▼▼▼ 请用这个【带格式助手的终极版】替换旧的 openMessageEditor 函数 ▼▼▼
 async function openMessageEditor() {
     if (!activeMessageTimestamp) return;
@@ -10091,6 +10109,8 @@ document.getElementById('selection-delete-btn').addEventListener('click', async 
         renderChatList();
     }
 });
+// ▼▼▼ 添加引用按钮事件监听 ▼▼▼
+document.getElementById('quote-message-btn').addEventListener('click', setQuoteMessage);
 // ▲▲▲ 替换结束 ▲▲▲
 
 // 为聊天设置里的“更换头像框”按钮添加点击事件
@@ -10960,6 +10980,8 @@ document.getElementById('select-message-btn').addEventListener('click', () => {
 // 动态操作菜单的按钮事件
 document.getElementById('edit-post-btn').addEventListener('click', openPostEditor);
 document.getElementById('copy-post-btn').addEventListener('click', copyPostContent);
+// 引用按钮点击事件
+document.getElementById('quote-message-btn').addEventListener('click', setQuoteMessage);
 document.getElementById('cancel-post-action-btn').addEventListener('click', hidePostActions);
 
 // ▲▲▲ 添加结束 ▲▲▲
@@ -11397,6 +11419,44 @@ document.getElementById('chat-messages').addEventListener('click', (e) => {
     // 如果是已结束的投票，点击卡片任何地方都可以查看结果
     if (pollCard.classList.contains('closed')) {
         showPollResults(timestamp);
+    }
+});
+
+// ▼▼▼ 在文件末尾添加这段劫持代码 ▼▼▼
+/* ========== 引用功能Hook（适配.message-wrapper样式）========== */
+const originalSendMessage = window.sendMessage || function(){};
+window.sendMessage = function() {
+    const msg = originalSendMessage.apply(this, arguments);
+    if (quotedMessage) {
+        msg.quote = quotedMessage;
+        quotedMessage = null;
+    }
+    return msg;
+};
+
+// 增强版DOM监听（适配你的.message-wrapper结构）
+document.addEventListener('DOMNodeInserted', (e) => {
+    const messageWrapper = e.target.closest('.message-wrapper');
+    if (messageWrapper) {
+        // 防重复处理
+        if (messageWrapper.dataset.quoteProcessed) return;
+        messageWrapper.dataset.quoteProcessed = true;
+        
+        // 获取消息数据（根据你的实际数据存储方式调整）
+        const msgData = JSON.parse(messageWrapper.dataset.msg || 
+                                 messageWrapper.querySelector('[data-msg]')?.dataset.msg || '{}');
+        
+        if (msgData.quote) {
+            // 找到气泡容器（适配你的.message-bubble结构）
+            const bubble = messageWrapper.querySelector('.message-bubble');
+            if (bubble && !bubble.querySelector('.message-quote')) {
+                // 创建引用元素并插入到气泡底部
+                bubble.appendChild(createQuoteElement(msgData.quote));
+                
+                // 调整wrapper最小高度（防止引用内容挤压）
+                messageWrapper.style.minHeight = `calc(${bubble.offsetHeight}px + 8px)`;
+            }
+        }
     }
 });
 // ▲▲▲ 新事件监听器粘贴结束 ▲▲▲
