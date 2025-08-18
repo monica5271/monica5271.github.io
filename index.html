@@ -3191,6 +3191,22 @@ body {
     flex-shrink: 0;
 }
 
+/* ▼▼▼ 屏幕共享样式 ▼▼▼ */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+}
+.modal .close {
+  cursor: pointer;
+  font-size: 24px;
+  float: right;
+}
+/* ▲▲▲ 插入结束 ▲▲▲ */
 /* ▲▲▲ 新CSS粘贴结束 ▲▲▲ */
 
     </style>
@@ -11383,16 +11399,16 @@ document.getElementById("screen-share-btn").addEventListener("click", openScreen
 function openScreenShare() {
   const modal = document.getElementById("screen-share-modal");
   const content = document.getElementById("screen-share-content");
-  const aiName = state?.aiName || "AI";
+
+  const aiName = state?.aiName || "AI";  // 读取你设定的 AI 名字
   document.getElementById("ai-device-name").textContent = aiName + "的手机";
 
-  // 默认显示美团
   showAppContent("meituan", aiName);
   modal.style.display = "block";
 }
 
 function closeScreenShare() {
-  document.getElementById("screen-share-modal").style.display = "none";
+  document.getElementById("screen-share-modal").style.display = "none !important";
 }
 
 document.querySelectorAll(".app-tab").forEach(tab => {
@@ -11403,17 +11419,80 @@ document.querySelectorAll(".app-tab").forEach(tab => {
   });
 });
 
-// 模拟数据
+// ------------------ 数据生成逻辑 ------------------
+function extractKeywords(messages) {
+  const text = messages.map(m => m.text).join(" ");
+  const foods = ["奶茶","火锅","沙拉","烧烤","披萨","霸王茶姬"];
+  const songs = ["七里香","日不落","演员","稻香","告白气球","孤勇者"];
+  const searches = ["天气","电影","记忆力","音乐推荐"];
+
+  return {
+    mentionedFoods: foods.filter(f => text.includes(f)),
+    mentionedSongs: songs.filter(s => text.includes(s)),
+    mentionedSearch: searches.filter(s => text.includes(s))
+  };
+}
+
+function generateOrders(aiName, weather, messages) {
+  const { mentionedFoods } = extractKeywords(messages);
+  let orders = [];
+
+  mentionedFoods.forEach(f => {
+    orders.push({ food: f, reason: `因为刚刚聊到${f}` });
+  });
+
+  if (weather.includes("冷")) {
+    orders.push({ food: "火锅", reason: "天气冷，想吃点热的" });
+  } else if (weather.includes("热")) {
+    orders.push({ food: "冰可乐", reason: "天气热，想喝冷饮" });
+  }
+
+  if (orders.length === 0) {
+    orders.push({ food: "沙拉", reason: `${aiName} 最近想清淡饮食` });
+  }
+
+  return orders;
+}
+
+function generateSongs(aiName, messages) {
+  const { mentionedSongs } = extractKeywords(messages);
+  let songs = [];
+
+  mentionedSongs.forEach(s => {
+    songs.push({ name: s, artist: "聊天提到过" });
+  });
+
+  if (songs.length === 0) {
+    songs.push({ name: "七里香", artist: "周杰伦" });
+  }
+
+  return songs;
+}
+
+function generateSearches(aiName, messages) {
+  const { mentionedSearch } = extractKeywords(messages);
+  let searches = [];
+
+  mentionedSearch.forEach(s => {
+    searches.push(`${aiName} 搜索了「${s}」`);
+  });
+
+  if (searches.length === 0) {
+    searches.push(`${aiName} 搜索了「明天天气」`);
+  }
+
+  return searches;
+}
+
+// ------------------ UI 渲染 ------------------
 function showAppContent(app, aiName) {
   const content = document.getElementById("screen-share-content");
   const date = new Date().toLocaleDateString();
-  const weather = "阴天";
+  const weather = "阴天";  // 你可以接入真实 API
+  const messages = state?.chats?.[state.activeChatId]?.messages || [];
 
   if (app === "meituan") {
-    const orders = [
-      { food: "奶茶", reason: "加班多，喜欢甜的" },
-      { food: "沙拉", reason: `天气${weather}，想吃清淡的` }
-    ];
+    const orders = generateOrders(aiName, weather, messages);
     content.innerHTML = `
       <div style="background:#ffcc00; padding:10px;">
         <input type="text" placeholder="搜索商家/美食" style="width:100%; padding:8px; border-radius:6px; border:1px solid #ddd;">
@@ -11421,10 +11500,10 @@ function showAppContent(app, aiName) {
       <div>
         ${orders.map(o => `
           <div style="display:flex; padding:10px; border-bottom:1px solid #eee; align-items:center;">
-            < img src="https://img.meituan.net/icon-waimai.png" style="width:40px; height:40px; border-radius:6px; margin-right:10px;">
+            <img src="https://img.icons8.com/emoji/48/hamburger-emoji.png" style="width:40px; height:40px; border-radius:6px; margin-right:10px;">
             <div>
               <div><b>${o.food}</b></div>
-              <div style="color:#666; font-size:12px;">${date} · 因为 ${o.reason}</div>
+              <div style="color:#666; font-size:12px;">${date} · ${o.reason}</div>
             </div>
           </div>
         `).join("")}
@@ -11433,11 +11512,7 @@ function showAppContent(app, aiName) {
   }
 
   if (app === "baidu") {
-    const searches = [
-      "怎么提高记忆力",
-      `${aiName} 最喜欢的电影`,
-      "明天天气"
-    ];
+    const searches = generateSearches(aiName, messages);
     content.innerHTML = `
       <div style="background:#3388ff; padding:10px;">
         <input type="text" placeholder="百度一下" style="width:100%; padding:8px; border-radius:20px; border:1px solid #ddd;">
@@ -11451,16 +11526,13 @@ function showAppContent(app, aiName) {
   }
 
   if (app === "netease") {
-    const songs = [
-      { name: "七里香", artist: "周杰伦" },
-      { name: "日不落", artist: "蔡依林" }
-    ];
+    const songs = generateSongs(aiName, messages);
     content.innerHTML = `
-      <div style="background:#d43c33; color:#fff; padding:10px; font-weight:bold;">每日推荐</div>
+      <div style="background:#d43c33; color:#fff; padding:10px; font-weight:bold;">播放记录</div>
       <div>
         ${songs.map(s => `
           <div style="display:flex; padding:10px; border-bottom:1px solid #eee; align-items:center;">
-            < img src="https://p1.music.126.net/default_album.jpg" style="width:40px; height:40px; border-radius:4px; margin-right:10px;">
+            <img src="https://img.icons8.com/emoji/48/musical-note.png" style="width:40px; height:40px; border-radius:4px; margin-right:10px;">
             <div>
               <div><b>${s.name}</b></div>
               <div style="color:#666; font-size:12px;">${s.artist}</div>
